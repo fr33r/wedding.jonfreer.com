@@ -1,0 +1,111 @@
+html{ width: 100%; height: 100%;}
+body{ margin: 0; font-size: 16px; width: 100%; height: 100%;}
+
+/*
+	General styles for the top navigation bar.
+*/
+nav#top-nav{
+
+	/* DIMENSIONS */
+	width: 100%;
+	height: 150px;
+
+	background-color: rgba(255,255,255,0.9);
+
+	/* DISPLAY */
+	display: block;
+
+	/* FONT */
+	font-family: 'Pinyon Script';
+	
+	/* POSITION */
+	position: fixed;
+	top: 0;
+
+	/* TRANSITION */
+	-webkit-transition: background-color 0.3s ease;
+	transition: background-color 0.3s ease;
+}
+
+nav#top-nav:hover{
+
+	/* BACKGROUND */
+	background-color: rgba(255,255,255,0.7);
+}
+
+nav#top-nav ul{
+
+	/* DIMENSIONS */
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+
+	/* LIST STYLE */
+	list-style-type: none;
+
+	/* TEXT */
+	text-align: center;
+	font-family: 'Quicksand-Regular';
+	font-size: 2em;
+	color: black;
+}
+
+nav#top-nav li{
+
+	/* DISPLAY */
+	display: inline;
+
+	/* DIMENSIONS */
+	padding: 20px;
+
+	/* TEXT */
+	line-height: 150px;
+	vertical-align: middle;
+
+	/* TRANSITIONS */
+	-webkit-transition: color 0.2s ease, font-size 0.3s ease;
+	transition: color 0.2s ease;
+}
+
+nav#top-nav li:hover{
+
+	/* TEXT */
+	color: #888;
+
+	/* CURSOR */
+	cursor: pointer;
+}
+
+nav#top-nav li#top-nav-img{
+
+	/* TEXT */
+	font-family: 'Pinyon Script';
+	font-size: 3.0em;
+	padding: 0 40px;
+
+	/* TRANSITIONS */
+	-webkit-transition: none;
+	transition: none;
+}
+
+nav#top-nav li#top-nav-img:hover{
+
+	/* TEXT */
+	color: #000;
+
+	/* CURSOR */
+	cursor: auto;
+}
+
+div.section{
+
+	/* DIMENSIONS */
+	width: 100%;
+	height: 105%;
+
+	/* BACKGROUND */
+	background-image: url('../img/IMG_0069.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+}

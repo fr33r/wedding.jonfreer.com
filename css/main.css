@@ -1,0 +1,11 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Pinyon+Script');
+
+/* Local Fonts */
+@import url('global-font.css');
+
+/* Global Styles */
+@import url('global.css');
+
+/* Global Color Styles */
+@import url('global-color.css');
