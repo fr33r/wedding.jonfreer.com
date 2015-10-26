@@ -1,9 +1,0 @@
-@font-face {
-    font-family: Quicksand-Light;
-    src: url('../font/quicksand/Quicksand-Light.otf');
-}
-
-@font-face {
-    font-family: Quicksand-Regular;
-    src: url('../font/quicksand/Quicksand-Regular.otf');
-}

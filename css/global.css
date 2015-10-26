@@ -102,10 +102,102 @@ div.section{
 
 	/* DIMENSIONS */
 	width: 100%;
-	height: 105%;
+	text-align: center;
 
+}
+
+div.section:nth-child(even){
+	background-color: #EEE;
+}
+
+div#top-section{
 	/* BACKGROUND */
 	background-image: url('../img/IMG_0069.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
+
+		/* DIMENSIONS */
+	width: 100%;
+	height: 105%;
+}
+
+/****
+	Start grid related experimentation...
+****/
+
+.one-column{
+	width: 10%;
+}
+
+.two-column{
+	width: 20%;
+}
+
+.three-column{
+	width: 30%;
+}
+
+.four-column{
+	width: 40%;
+}
+
+.five-column{
+	width: 50%;
+}
+
+.six-column{
+	width: 60%;
+}
+
+.seven-column{
+	width: 70%;
+}
+
+.eight-column{
+	width: 80%;
+}
+
+.nine-column{
+	width: 90%;
+}
+
+.ten-column{
+	width: 100%;
+}
+
+/****
+	End grid related experimentation...
+****/
+
+h1.section-header{
+
+	/* FONT */
+	font-family: 'Quicksand-Light';
+	font-size: 1.5em;
+	margin: 0;
+	text-align: center;
+	padding: 10px;
+
+}
+
+hr.section-header-bar{
+
+	width: 100px;
+	height:1px;
+
+	background-color: black;
+	outline: none;
+	border: none;
+}
+
+p{
+	text-align: justify;
+	font-family: 'Quicksand-Light';
+	margin: auto;
+	padding: 10px;
+}
+
+img.section-icon{
+	width: 64px;
+	height: 64px;
 }
