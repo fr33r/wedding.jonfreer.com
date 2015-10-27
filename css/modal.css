@@ -1,0 +1,150 @@
+div.modal-container{
+
+	/* DIMENSIONS */
+	width: 100%;
+	height: 100%;
+
+	/* BACKGROUND */
+	background-color: white;
+
+	/* TEXT */
+	font-family: 'QuickSand-Light';
+	font-size: 1.25em;
+	color: black;
+
+	/* POSITION */
+	position: fixed;
+
+	/* Z */
+	z-index: 100;
+
+	/* DISPLAY */
+	display: none;
+}
+
+div.modal-container > span.modal-close-button-container{
+
+	/* POSITION */
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	/* DISPLAY */
+	display: inline-block;
+
+	/* DIMENSIONS */
+	width: 1em;
+	height: 1em;
+
+	/* TEXT */
+	font-size: 2.5em;
+	line-height: 1em;
+	text-align: center;
+}
+
+div.modal-container > span.modal-close-button-container:hover{
+
+	/* TEXT */
+	color: #555;
+
+	/* CURSOR */
+	cursor: pointer;
+}
+
+div.modal-container > div.modal-content{
+
+	/* DIMENSIONS */
+	width: 100%;
+	height: 100%;
+
+	/* TEXT */
+	text-align: center;
+}
+
+div.modal-container > div.modal-content p{
+
+	/* TEXT */
+	text-align: center;
+}
+
+div.modal-container > div.modal-content h1{
+
+	/* DIMENSIONS */
+	margin-top: 0;
+}
+
+div.modal-container > div.modal-content input[type='text']{
+
+	/* DISPLAY */
+	display: block;
+
+	/* DIMENSION */
+	width: 290px;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	padding: 5px;
+
+	/* BORDER */
+	border-top: none;
+	border-left: none;
+	border-right: none;
+
+	/* OUTLINE */
+	outline: none;
+
+	/* TEXT */
+	font-size: 1em;
+	font-family: 'QuickSand-Light';
+}
+
+div.modal-container > div.modal-content input[type='submit']{
+
+	/* TURN OFF WEBKIT */
+	-webkit-appearance: none;
+
+	/* DIMENSIONS */
+	width: 200px;
+	padding:10px;
+
+	/* TEXT */
+	font-size: 1em;
+	font-family: 'QuickSand-Light';
+
+	/* OUTLINE */
+	outline: none;
+	border: 1px solid black;
+
+	/* BACKGROUND */
+	background-color: white;
+
+	/* TRANSITION */
+	-webkit-transition: background-color 0.3s ease, color 0.2s ease;
+	transition: background-color 0.3s ease, color 0.4s ease;
+
+}
+
+div.modal-container > div.modal-content input[type='submit']:hover{
+
+	/* CURSOR */
+	cursor: pointer;
+
+	/* COLOR */
+	color: white;
+
+	/* BACKGROUND */
+	background-color: black;
+
+
+}
+
+div.modal-container > div.modal-content > form{
+
+	/* POSITION */
+	position: relative;
+	top: 50%;
+
+	/* TRANSITION */
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}

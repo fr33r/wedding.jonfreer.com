@@ -9,3 +9,6 @@
 
 /* Global Color Styles */
 @import url('global-color.css');
+
+/* Modal Styles */
+@import url('modal.css');
