@@ -17,9 +17,6 @@
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/main.css" type="text/css"/>
 
-		<!-- JS -->
-		<script type="text/javascript" src="js/main.js"></script>
-
 	</head>
 	<body>
 
@@ -29,7 +26,7 @@
 				<li>our story</li>
 				<li>wedding</li>
 				<li id = "top-nav-img">J&E</li>
-				<li>RSVP</li>
+				<li id = "rsvp">RSVP</li>
 				<li>registry</li>
 			</ul>
 		</nav>
@@ -37,7 +34,7 @@
 		<!-- Modal -->
 		<div class = "modal-container">
 			<span class = "modal-close-button-container">&times;</span>
-			<div class = "modal-content">
+			<div id = "rsvp-modal-content" class = "modal-content">
 				<form method="POST">
 					<h1>join us</h1>
 					<p>let us know that you can make it.</p>
@@ -46,9 +43,13 @@
 					<input type="text" name="first-name" placeholder="first name" />
 					<input type="text" name="last-name" placeholder="last name" />
 
-					<!-- Guest info when applicable -->
-					<input type="text" name="guest-first-name" placeholder="guest first name" />
-					<input type="text" name="guest-last-name" placeholder="guest last name" />
+					<div id = "guest-info">
+
+						<!-- Guest info when applicable -->
+						<input type="text" name="guest-first-name" placeholder="guest first name" />
+						<input type="text" name="guest-last-name" placeholder="guest last name" />
+
+					</div>
 
 					<!-- Submit -->
 					<input type="submit" name="rsvp-submit" value="i'll be there" />
@@ -126,5 +127,10 @@
 			JF
 		</footer>
 
+		<script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/modalModule.js"></script>
+		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

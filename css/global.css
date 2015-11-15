@@ -23,8 +23,8 @@ nav#top-nav{
 	top: 0;
 
 	/* TRANSITION */
-	-webkit-transition: background-color 0.3s ease;
-	transition: background-color 0.3s ease;
+	-webkit-transition: background-color 0.3s ease, font-size 0.3s ease, height 0.3s ease;
+	transition: background-color 0.3s ease, font-size 0.3s ease, height 0.3s ease;
 }
 
 nav#top-nav:hover{
@@ -60,11 +60,10 @@ nav#top-nav li{
 	padding: 20px;
 
 	/* TEXT */
-	line-height: 150px;
-	vertical-align: middle;
+	line-height: 100%;
 
 	/* TRANSITIONS */
-	-webkit-transition: color 0.2s ease, font-size 0.3s ease;
+	-webkit-transition: color 0.2s ease;
 	transition: color 0.2s ease;
 }
 
@@ -96,6 +95,27 @@ nav#top-nav li#top-nav-img:hover{
 
 	/* CURSOR */
 	cursor: auto;
+}
+
+nav#top-nav.shrunk{
+
+	/* DIMENSIONS */
+	height: 100px;
+
+	/* TEXT */
+	font-size: 1em;
+}
+
+nav#top-nav.shrunk li#top-nav-img{
+
+	/* TEXT */
+	font-family: 'Pinyon Script';
+	font-size: 2.5em;
+	padding: 0 40px;
+
+	/* TRANSITIONS */
+	-webkit-transition: none;
+	transition: none;
 }
 
 div.section{
