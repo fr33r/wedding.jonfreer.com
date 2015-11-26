@@ -125,6 +125,8 @@ div.section{
 	text-align: center;
 
 	font-size: 1.25em;
+	padding-top: 20px;
+	padding-bottom: 20px;
 
 }
 
@@ -203,7 +205,7 @@ h1.section-header{
 
 	/* DIMENSIONS */
 	margin: 0;
-	padding: 10px;
+	padding-bottom: 10px;
 
 }
 
@@ -221,6 +223,9 @@ hr.section-header-bar{
 
 	/* BORDER */
 	border: none;
+
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
 
 p{
@@ -238,6 +243,20 @@ img.section-icon{
 	/* DIMENSIONS */
 	width: 64px;
 	height: 64px;
+
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+img.section-icon:hover{
+
+	-webkit-transform: translateY(-5px);
+	transform: translateY(-5px);
+}
+
+img.section-icon:hover + hr.section-header-bar{
+
+	width: 75px;
 }
 
 div.section#proposal-section{

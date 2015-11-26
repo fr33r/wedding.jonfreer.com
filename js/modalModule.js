@@ -15,7 +15,7 @@ var modalModule = (function(utility){
 	var internalSettings = {
 		showClass: 				"show-modal",				//class used to show the modal view; one time.
 		showContentClass: 		"show-content", 
-		modalContentID: 		"rsvp-modal-content",		//the ID of the modal content to show/hide.
+		modalContentID: 		"rsvp-modal-content-code",		//the ID of the modal content to show/hide.
 		modalContentClass: 		"modal-content",			//class used to identify an element as a particular section of modal content; one time.
 		modalContainerClass: 	"modal-container"			//class used to identify the single element representing the container for all possible modal content; one time.
 	};
@@ -52,7 +52,7 @@ var modalModule = (function(utility){
 		//set the current modal content to the first found modal content by default.
 		currentModalContent = allModalContent[0];
 
-		var desiredContent = modalContainer.getElementById(internalSettings.modalContentID);
+		var desiredContent = window.document.getElementById(internalSettings.modalContentID);
 
 		if(desiredContent === undefined && desiredContent === null){
 			throw new ModalContentNotFoundException("The modal content with id='" + internalSettings.modalContentID + "' could not be found.");

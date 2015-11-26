@@ -55,6 +55,22 @@
 					<input type="submit" name="rsvp-submit" value="i'll be there" />
 				</form>
 			</div>
+
+			<div id = "rsvp-modal-error" class = "modal-content">
+				<form method="POST">
+					<h1>oops...</h1>
+					<p>there was an issue when attempting to submit your RSVP.</p>
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-content-code" class = "modal-content">
+				<form method="POST">
+					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
+					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+				</form>
+				<a id="what-code-link" href="#whatcode">what code?</a>
+			</div>
 		</div>
 
 		<!-- Big photo -->

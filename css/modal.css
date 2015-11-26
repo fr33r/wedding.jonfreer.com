@@ -167,6 +167,13 @@ div.modal-container > div.modal-content input[type='submit']{
 
 }
 
+div.modal-container > div.modal-content input[type='submit'].inline{
+
+	/* DISPLAY */
+	display: inline-block;
+
+}
+
 div.modal-container > div.modal-content input[type='submit']:hover{
 
 	/* CURSOR */
@@ -179,6 +186,23 @@ div.modal-container > div.modal-content input[type='submit']:hover{
 	background-color: black;
 
 
+}
+
+div.modal-container > div#rsvp-modal-error{
+
+	/* COLOR */
+	color: red;
+}
+
+div.modal-container > div.modal-content > div.centered{
+
+	/* POSITION */
+	position: relative;
+	top: 50%;
+
+	/* TRANSITION */
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 div.modal-container > div.modal-content > form{
@@ -204,4 +228,21 @@ div#guest-info.show-guest-info{
 	/* DISPLAY */
 	display: block;
 
+}
+
+input#rsvp-code-input{
+	width: 50%;
+	font-size: 5em;
+	margin: 30px auto;
+}
+
+a#what-code-link{
+
+	/* TURN OFF WEBKIT */
+	-webkit-appearance: none;
+	position:absolute;
+	bottom: 10px;
+	right:10px;
+	text-decoration: none;
+	color: black;
 }
