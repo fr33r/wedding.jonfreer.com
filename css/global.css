@@ -283,3 +283,107 @@ footer{
 	/* DIMENSIONS */
 	padding: 10px;
 }
+
+/************************** ACCOMODATIONS **************************/
+
+nav#side-nav{
+
+	/*POSITION*/
+	position: fixed;
+	right: 0;
+	top: 0;
+
+	/*DIMENSIONS*/
+	width: 30%;
+	height: 100%;
+
+	/*STACKING*/
+	z-index: 100;
+
+	/*TRANSITION*/
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+
+	/*TRANSFORMATION*/
+	-webkit-transform: translateX(0%);
+	transform: translateX(0%);
+
+	/* COLORING */
+	background-color: #EEE;
+}
+
+nav#side-nav ul{
+
+	/*DIMENSIONS*/
+	padding: 0;
+	margin: 0;
+
+	/*LIST*/
+	list-style: none;
+
+	/*POSITION*/
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+
+	/*FONT*/
+	font-family: 'Quicksand-Light';
+	font-size: 2em;
+}
+
+nav#side-nav ul li{
+
+	/*DIMENSIONS*/
+	padding: 20px 0 20px 30px;
+
+	/*TRANSITION*/
+	-webkit-transition: padding 0.3s ease, color 0.3s ease;
+	transition: padding 0.3s ease, color 0.3s ease;
+}
+
+nav#side-nav ul li:hover{
+	
+	/*DIMENSIONS*/
+	padding: 20px 0 20px 35px;
+
+	/*CURSOR*/
+	cursor: pointer;
+}
+
+nav#side-nav ul li a{
+
+	/*TEXT*/
+	text-decoration: none;
+
+	/*TRANSITION*/
+	-webkit-transition: padding 0.3s ease, color 0.3s ease;
+	transition: padding 0.3s ease, color 0.3s ease;
+
+	/*COLOR*/
+	color: #000;
+}
+
+nav#side-nav ul li:hover a{
+	
+	/*COLOR*/
+	color: #999;
+}
+
+div#page-header{
+
+	/*TEXT*/
+	text-align: center;
+	font-size: 1.5em;
+	font-family: 'Quicksand-Regular';
+
+	/*DIMENSIONS*/
+	height: 20%;
+}
+
+div#map{
+
+	/*DIMENSIONS*/
+	width: 100%;
+	height: 80%;
+}

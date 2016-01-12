@@ -246,3 +246,29 @@ a#what-code-link{
 	text-decoration: none;
 	color: black;
 }
+
+select.meal-selection{
+	-webkit-appearance: none;
+	display: block;
+	margin: 25px auto;
+	width: 295px;
+	padding: 5px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	outline: none;
+	border-bottom: 1px solid #EEE;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	font-size: 1em;
+	font-family: 'QuickSand-Light';
+	color:#AAA;
+
+	/* TRANSITION */
+	-webkit-transition: border-bottom-color 0.3s linear;
+	transition: border-bottom-color 0.3s linear;
+}
+
+select.meal-selection:hover{
+	border-bottom: 1px solid #000;
+}
