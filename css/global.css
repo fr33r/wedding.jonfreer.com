@@ -294,7 +294,7 @@ nav#side-nav{
 	top: 0;
 
 	/*DIMENSIONS*/
-	width: 30%;
+	width: 20%;
 	height: 100%;
 
 	/*STACKING*/
@@ -335,7 +335,7 @@ nav#side-nav ul{
 nav#side-nav ul li{
 
 	/*DIMENSIONS*/
-	padding: 20px 0 20px 30px;
+	padding: 30px 0 30px 30px;
 
 	/*TRANSITION*/
 	-webkit-transition: padding 0.3s ease, color 0.3s ease;
@@ -345,7 +345,7 @@ nav#side-nav ul li{
 nav#side-nav ul li:hover{
 	
 	/*DIMENSIONS*/
-	padding: 20px 0 20px 35px;
+	padding: 30px 0 30px 35px;
 
 	/*CURSOR*/
 	cursor: pointer;
@@ -370,6 +370,89 @@ nav#side-nav ul li:hover a{
 	color: #999;
 }
 
+div#side-nav-button{
+
+	position: fixed;
+	top: 10px;
+	right: 20px;
+
+	z-index: 101;
+
+	width: 40px;
+	height: 55px;
+
+}
+
+div#side-nav-button:hover{
+
+	/*CURSOR*/
+	cursor: pointer;
+
+}
+
+div#side-nav-button:hover .stack{
+
+	/*COLOR*/
+	background-color: #999;
+
+}
+
+div#side-nav-button .stack{
+
+	position: absolute;
+	z-index: 102;
+	top: 50%;
+
+	/*DIMENSIONS*/
+	width: 100%;
+	height: 10%;
+
+	/*COLOR*/
+	background-color: black;
+
+	/*TRANSITION*/
+	-webkit-transition: top 0.2s ease, background-color 0.25s ease;
+	transition: margin 0.2s top, background-color 0.25s ease;
+
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+
+}
+
+div#side-nav-button .stack:first-child{
+
+	/*POSITION*/
+	top: 25%;
+
+	-webkit-transform: none;
+	transform: none;
+
+}
+
+div#side-nav-button .stack:last-child{
+
+	/*POSITION*/
+	top: 65%;
+
+	-webkit-transform: none;
+	transform: none;
+
+}
+
+div#side-nav-button:hover div.stack:first-child{
+
+	/*POSITION*/
+	top: 20%;
+
+}
+
+div#side-nav-button:hover div.stack:last-child{
+
+	/*POSITION*/
+	top: 70%;
+
+}
+
 div#page-header{
 
 	/*TEXT*/
@@ -377,13 +460,60 @@ div#page-header{
 	font-size: 1.5em;
 	font-family: 'Quicksand-Regular';
 
-	/*DIMENSIONS*/
-	height: 20%;
+	position: relative;
 }
 
 div#map{
 
 	/*DIMENSIONS*/
 	width: 100%;
-	height: 80%;
+	height: 50%;
+}
+
+div.hotel-button{
+	float:left;
+	text-align: center;
+	width: 50%;
+	height: 100%;
+	font-family: 'Quicksand-Regular';
+	position: relative;
+}
+
+div.hotel-button:hover{
+	cursor: pointer;
+
+	background-color: #EEE;
+
+	/*TRANSITION*/
+	-webkit-transition: background-color 0.25s ease;
+	transition: background-color 0.25s ease;
+}
+
+div.hotel-button h3{
+	margin: 5px 0;
+	text-align: left;
+	font-family: 'Quicksand-Light';
+}
+
+div.vert-horiz-centered{
+
+	position:relative;
+	top: 50%;
+
+	display: block;
+	margin: 0 auto;
+	width: 60%;
+
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+div.half-section{
+	width: 100%;
+	height: 50%;
+}
+
+div.quarter-section{
+	width: 100%;
+	height: 25%;
 }
