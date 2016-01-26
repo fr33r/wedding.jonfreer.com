@@ -22,9 +22,73 @@
 	</head>
 	<body>
 
-		<!-- Top Bar -->
-		<div>
+		<!-- Modal -->
+		<div class = "modal-container">
+			<span class = "modal-close-button-container">&times;</span>
+			<div id = "rsvp-modal-content" class = "modal-content">
+				<form method="POST">
+					<h1>join us</h1>
+					<p>let us know that you can make it.</p>
 
+					<!-- Invitee info -->
+					<input type="text" name="first-name" placeholder="first name" />
+					<input type="text" name="last-name" placeholder="last name" />
+
+					<div id = "guest-info">
+
+						<!-- Guest info when applicable -->
+						<input type="text" name="guest-first-name" placeholder="guest first name" />
+						<input type="text" name="guest-last-name" placeholder="guest last name" />
+
+					</div>
+
+					<!-- Submit -->
+					<input type="submit" name="rsvp-submit" value="i'll be there" />
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-error" class = "modal-content">
+				<form method="POST">
+					<h1>oops...</h1>
+					<p>there was an issue when attempting to submit your RSVP.</p>
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-content-code" class = "modal-content">
+				<form method="POST">
+					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
+					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+				</form>
+				<a id="what-code-link" href="#whatcode">what code?</a>
+			</div>
+
+			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
+				<form method="POST">
+					
+					<h1>jon freer</h1>
+					<img class = "section-icon" src = "img/clothing2.svg"/>
+					<h3>groom</h3>
+
+					<div id = "guest-info" class="show-guest-info">
+
+						<!-- Guest info when applicable -->
+						<input type="text" name="guest-first-name" placeholder="guest first name" />
+						<input type="text" name="guest-last-name" placeholder="guest last name" />
+
+					</div>
+
+					<select class="meal-selection">
+						<option value="select a food option">select a food option</option>
+						<option value="chicken">chicken</option>
+						<option value="vegetarian">vegetarian</option>
+						<option value="steak">steak</option>
+					</select>
+
+					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+				</form>
+			</div>
 		</div>
 
 		<div id="side-nav-button">
@@ -38,8 +102,10 @@
 			<ul>
 				<li><a href="index.html">our story</a></li>
 				<li><a href="#">wedding details</a></li>
-				<li><a href="#">accommadations</a></li>
-				<li><a href="#">rsvp</a></li>
+				<li><a href="#">wedding party</a></li>
+				<li><a href="accommodations.html">accommodations</a></li>
+				<li><a href="#">things to do</a></li>
+				<li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
 				<li><a href="#">registry</a></li>
 			</ul>
 		</nav>
@@ -57,29 +123,36 @@
 
 		<div class="half-section">
 			<!-- Hotel Buttons -->
-			<div class="hotel-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
-					<h2>The Cincinnatian Hotel</h2>
-					<h3>601 Vine Street, Cincinnati, OH 45202</h3>
-					<h3>(513) 381-3000</h3>
-					<h3>1.1 miles from the transept</h3>
-				</div>		
-			</div>
-			<div class="hotel-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
-					<h2>The Westin Cincinnati</h2>
-					<h3>21 E. 5th Street, Cincinnati, OH 45202</h3>
-					<h3>(513) 621-7700</h3>
-					<h3>1.0 miles from the transept</h3>
+			<a href="http://www.cincinnatianhotel.com/reservations.aspx" class="hotel-link">
+				<div class="hotel-button">
+					<div class="vert-horiz-centered">			
+						<img src="img/icon/marker-64.png" class="hotel-icon"/>
+						<h2>The Cincinnatian Hotel</h2>
+						<h3>601 Vine Street, Cincinnati, OH 45202</h3>
+						<h3>(513) 381-3000</h3>
+						<h3>1.1 miles from the transept</h3>
+					</div>		
 				</div>
-			</div>
+			</a>
+			<a href="https://www.starwoodmeeting.com/Book/PaasFreerWeddingRoomBlock" class="hotel-link">
+				<div class="hotel-button">
+					<div class="vert-horiz-centered">
+						<img src="img/icon/marker-64.png" class="hotel-icon"/>
+						<h2>The Westin Cincinnati</h2>
+						<h3>21 E. 5th Street, Cincinnati, OH 45202</h3>
+						<h3>(513) 621-7700</h3>
+						<h3>1.0 miles from the transept</h3>		
+					</div>
+				</div>
+			</a>
 		</div>
 
 		<script type="text/javascript" src="js/global.js"></script>
-		<script type="text/javascript" src="js/google-maps.js"></script>
 		<script type="text/javascript" src="js/accommodations.js"></script>
-
+		<script type="text/javascript" src="js/navigationModule.js"></script>
+		<script type="text/javascript" src="js/modalModule.js"></script>
+		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/google-maps.js"></script>
+		
 	</body>
 </html>

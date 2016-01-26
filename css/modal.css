@@ -14,9 +14,10 @@ div.modal-container{
 
 	/* POSITION */
 	position: fixed;
+	top: 0;
 
 	/* Z */
-	z-index: 100;
+	z-index: 200;
 
 	/* OPACITY AND VISIBILITY */
 	opacity: 0;
