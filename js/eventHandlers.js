@@ -4,7 +4,18 @@ function setUpRsvpLinkEventHandler(){
 	rsvpLink.addEventListener("click", function(e){
 		e.preventDefault();
 		modalModule.configure({
-			modalContentID: "rsvp-modal-content-code-detail"
+			modalContentID: "rsvp-modal-content-code"
+		});
+		modalModule.show();
+	});
+}
+
+function setUpRegistryLinkEventHandler(){
+	var registryLink = window.document.getElementById("side-nav-link-registry");
+	registryLink.addEventListener("click", function(e){
+		e.preventDefault();
+		modalModule.configure({
+			modalContentID: "registry-modal-content"
 		});
 		modalModule.show();
 	});
@@ -19,5 +30,6 @@ function setUpSideNavEventHandlers(){
 
 function setUpEventHandlers(){
 	setUpRsvpLinkEventHandler();
+	setUpRegistryLinkEventHandler();
 	setUpSideNavEventHandlers();
 }

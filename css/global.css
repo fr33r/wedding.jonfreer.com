@@ -139,13 +139,13 @@ div.section:nth-child(even){
 div#top-section{
 
 	/* BACKGROUND */
-	background-image: url('../img/IMG_0069.jpg');
+	background-image: url('../img/engagement_photo.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 
 	/* DIMENSIONS */
 	width: 100%;
-	height: 105%;
+	height: 80%;
 }
 
 /****
@@ -529,4 +529,42 @@ div.quarter-section{
 a.hotel-link{
 	text-decoration: none;
 	color: black;
+}
+
+a.registry-link{
+	width: 50%;
+	height: 50%;
+	display: block;
+	float: left;
+
+	/*TRANSITION*/
+	-webkit-transition: background-color 0.25s ease;
+	transition: background-color 0.25s ease;
+}
+
+a.registry-link:hover{
+	background-color: #EEE;
+}
+
+a.registry-link img{
+	width: 50%;
+
+	position: relative;
+	top: 50%;
+
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+#top-section h1{
+
+	position: relative;
+	top: 50%;
+	font-size: 3.5em;
+	margin: 0;
+
+	font-family: 'Pinyon Script';
+
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }

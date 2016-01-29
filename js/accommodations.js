@@ -4,4 +4,5 @@ window.onload = function(){
 	initializeMap();
 	setUpSideNavEventHandlers();
 	setUpRsvpLinkEventHandler();
+	setUpRegistryLinkEventHandler();
 }
