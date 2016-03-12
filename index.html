@@ -20,17 +20,6 @@
 	</head>
 	<body>
 
-		<!-- Navigation Bar 
-		<nav id = "top-nav">
-			<ul>
-				<li>our story</li>
-				<li>wedding</li>
-				<li id = "top-nav-img">J&E</li>
-				<li id = "rsvp">RSVP</li>
-				<li>registry</li>
-			</ul>
-		</nav> -->
-
 		<div id="side-nav-button">
 			<div class="stack"></div>
 			<div class="stack"></div>
@@ -41,12 +30,12 @@
 		<nav id="side-nav">
 			<ul>
 				<li><a href="index.html">our story</a></li>
-				<li><a href="#">wedding details</a></li>
-				<li><a href="#">wedding party</a></li>
+				<li><a href="notFinished.html">wedding details</a></li>
+				<li><a href="notFinished.html">wedding party</a></li>
 				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="#">things to do</a></li>
-				<li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
-				<li><a id="side-nav-link-registry" href="#">registry</a></li>
+				<li><a href="notFinished.html">things to do</a></li>
+				<li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
+				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
 			</ul>
 		</nav>
 
@@ -83,10 +72,10 @@
 			</div>
 
 			<div id = "rsvp-modal-content-code" class = "modal-content">
-				<form method="POST">
+				<form id="form-enter-code" method="POST">
 					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
+					<span id="rsvp-modal-content-code-error-message" >the code you have entered is invalid.</span>
 				</form>
 				<a id="what-code-link" href="#whatcode">what code?</a>
 			</div>
@@ -105,14 +94,14 @@
 						<input type="text" name="guest-last-name" placeholder="guest last name" />
 
 					</div>
-
+					<!--
 					<select class="meal-selection">
 						<option value="select a food option">select a food option</option>
 						<option value="chicken">chicken</option>
 						<option value="vegetarian">vegetarian</option>
 						<option value="steak">steak</option>
 					</select>
-
+					-->
 					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
 					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
 				</form>

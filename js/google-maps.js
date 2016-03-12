@@ -1,10 +1,9 @@
 function initializeMap(){
     var googleMap = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 39.1031971,     
-            lng: -84.5064881
+            lat: 39.106,  lng: -84.5187659
         },
-        zoom: 16,
+        zoom: 15,
         scrollwheel: false,
         mapTypeControl: false,
         zoomControl: false,
@@ -189,6 +188,24 @@ function initializeMap(){
 
     });
 
+    //create the marker for the Transept.
+    var theTranseptMarker = new google.maps.Marker({
+        position: { lat: 39.1079041,  lng: -84.5187659 },
+        map: googleMap,
+        title: "The Transept",
+        animation: google.maps.Animation.DROP,
+        icon: 'img/icon/red-marker-64.png'
+    });
+
+    //create the marker for the Millenium.
+    var theMilleniumMarker = new google.maps.Marker({
+        position: { lat: 39.1016336,  lng: -84.5159766 },
+        map: googleMap,
+        title: "The Millenium Hotel",
+        animation: google.maps.Animation.DROP,
+        icon: 'img/icon/marker-64.png'
+    });
+
     //create the marker for The Westin Cincinnati.
     var theWestinMarker = new google.maps.Marker({
         position: { lat: 39.1009303,  lng: -84.5124668 },
@@ -208,6 +225,10 @@ function initializeMap(){
     });
 
     //create the info window that shows when clicking on the marker.
+    var theTranseptInfoWindow = new google.maps.InfoWindow({
+        content: "The Transept"
+    });
+
     var theWestinInfoWindow = new google.maps.InfoWindow({
         content: "The Westin Cincinnati"
     });
@@ -216,12 +237,24 @@ function initializeMap(){
         content: "The Cincinnatian Hotel"
     });
 
+    var theMilleniumInfoWindow = new google.maps.InfoWindow({
+        content: "Millennium Hotel Cincinnati"
+    });
+
     theWestinMarker.addListener('click', function() {
         theWestinInfoWindow.open(googleMap, theWestinMarker);
     });
 
     theCincinnatianMarker.addListener('click', function() {
         theCincinnatianInfoWindow.open(googleMap, theCincinnatianMarker);
+    });
+
+    theTranseptMarker.addListener('click', function() {
+        theTranseptInfoWindow.open(googleMap, theTranseptMarker);
+    });
+
+    theMilleniumMarker.addListener('click', function() {
+        theMilleniumInfoWindow.open(googleMap, theMilleniumMarker);
     });
 
 }

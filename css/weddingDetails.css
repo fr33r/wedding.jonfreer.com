@@ -1,0 +1,10 @@
+div.photo-banner{
+	height: 50%;
+	overflow: hidden;
+}
+
+div.photo-banner img{
+	position: relative;
+	top: -25%;
+	width: 100%;
+}

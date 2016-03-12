@@ -481,10 +481,17 @@ div#map{
 div.hotel-button{
 	float:left;
 	text-align: center;
-	width: 50%;
+	width: calc(100%/3);
 	height: 100%;
 	font-family: 'Quicksand-Regular';
 	position: relative;
+}
+div.hotel-button#transept-hotel-button{
+	width: 100%;
+}
+
+div.hotel-button#transept-hotel-button div.vert-horiz-centered{
+	width: 20%;
 }
 
 div.hotel-button:hover{
@@ -501,6 +508,7 @@ div.hotel-button h3{
 	margin: 5px 0;
 	text-align: left;
 	font-family: 'Quicksand-Light';
+	font-size: 1em;
 }
 
 div.vert-horiz-centered{

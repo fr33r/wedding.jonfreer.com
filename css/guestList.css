@@ -1,0 +1,53 @@
+body, html{
+	margin: 0;
+	padding: 0;
+	font-size: 16px;
+	font-family: Quicksand-Regular;
+}
+
+h2{
+	text-align: center;
+	font-size: 2em;
+	padding: 1em;
+}
+
+table{
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table thead{
+	font-size: 20px;
+	text-align: center;
+}
+
+table tbody tr:nth-child(odd){
+	background-color: #EEE
+}
+
+table tr{
+	border-bottom: 1px solid black;
+}
+
+table tbody tr:hover{
+	background-color: #DDD;
+	cursor: pointer;
+}
+
+table tr td{
+	font-family: Quicksand-Regular;
+	text-align: center;
+	height: 3em;
+}
+
+table#not-coming td{
+	width: calc(100%/4);
+}
+
+table#coming td{
+	width: calc(100%/4);
+}
+
+table#no-rsvp td{
+	width: calc(100%/2);
+}

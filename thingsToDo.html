@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cheers to the Freer: Things To Do</title>
+		<link rel="stylesheet" type="text/css" href="css/global-font.css">
+		<link rel="stylesheet" href="css/main.css" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="css/weddingDetails.css">
+	</head>
+	<body>
+
+		<div id="side-nav-button">
+			<div class="stack"></div>
+			<div class="stack"></div>
+			<div class="stack"></div>
+		</div>
+
+		<!-- Side Nav -->
+		<nav id="side-nav">
+			<ul>
+				<li><a href="index.html">our story</a></li>
+				<li><a href="notFinished.html">wedding details</a></li>
+				<li><a href="notFinished.html">wedding party</a></li>
+				<li><a href="accommodations.html">accommodations</a></li>
+				<li><a href="notFinished.html">things to do</a></li>
+				<li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
+				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
+			</ul>
+		</nav>
+
+		<!-- Page Header -->
+		<div id = "page-header" class ="quarter-section">
+			<div class="vert-horiz-centered">
+				<h1>things to do</h1>
+				<hr class = "section-header-bar"/>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class = "modal-container">
+			<span class = "modal-close-button-container">&times;</span>
+			<div id = "rsvp-modal-content" class = "modal-content">
+				<form method="POST">
+					<h1>join us</h1>
+					<p>let us know that you can make it.</p>
+
+					<!-- Invitee info -->
+					<input type="text" name="first-name" placeholder="first name" />
+					<input type="text" name="last-name" placeholder="last name" />
+
+					<div id = "guest-info">
+
+						<!-- Guest info when applicable -->
+						<input type="text" name="guest-first-name" placeholder="guest first name" />
+						<input type="text" name="guest-last-name" placeholder="guest last name" />
+
+					</div>
+
+					<!-- Submit -->
+					<input type="submit" name="rsvp-submit" value="i'll be there" />
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-error" class = "modal-content">
+				<form method="POST">
+					<h1>oops...</h1>
+					<p>there was an issue when attempting to submit your RSVP.</p>
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-content-code" class = "modal-content">
+				<form method="POST">
+					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
+					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+				</form>
+				<a id="what-code-link" href="#whatcode">what code?</a>
+			</div>
+
+			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
+				<form method="POST">
+					
+					<h1>jon freer</h1>
+					<img class = "section-icon" src = "img/clothing2.svg"/>
+					<h3>groom</h3>
+
+					<div id = "guest-info" class="show-guest-info">
+
+						<!-- Guest info when applicable -->
+						<input type="text" name="guest-first-name" placeholder="guest first name" />
+						<input type="text" name="guest-last-name" placeholder="guest last name" />
+
+					</div>
+
+					<select class="meal-selection">
+						<option value="select a food option">select a food option</option>
+						<option value="chicken">chicken</option>
+						<option value="vegetarian">vegetarian</option>
+						<option value="steak">steak</option>
+					</select>
+
+					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+				</form>
+			</div>
+
+			<div id = "registry-modal-content" class = "modal-content">
+				<a href="#" class="registry-link">
+					<img src="img/pottery-barn-logo.png"/>
+				</a>
+				<a href="#" class="registry-link">
+					<img src="img/crate-and-barrel-logo.png"/>
+				</a>
+				<a href="#" class="registry-link">
+					<img src="img/target-logo.png" />
+				</a>
+				<a href="#" class="registry-link">
+					<img src="img/apple-logo.png" />
+				</a>
+			</div>
+		</div>
+
+		<!-- Google Maps -->
+		<div id="map"></div>
+
+		<!-- Buttons -->
+		<a href="http://www.rhinegeist.com/home" class="tile-link">
+			<div class="tile-button">
+				<div class="vert-horiz-centered">			
+					<img src="img/icon/marker-64.png" class="tile-icon"/>
+					<h2>Rhinegeist</h2>
+					<h3>Brewery</h3>
+				</div>		
+			</div>
+		</a>
+		<a href="http://www.madtreebrewing.com/home.html" class="hotel-link">
+			<div class="hotel-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<h2>Mad Tree</h2>
+					<h3>Brewery</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="" class="hotel-link">
+			<div class="hotel-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<h2>Cincinnati Reds vs. Some Other Team</h2>
+					<h3>Sporting Event</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="" class="hotel-link">
+			<div class="hotel-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<h2>Oktoberfest</h2>
+					<h3>Festival</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="" class="hotel-link">
+			<div class="hotel-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<h2>City Flea</h2>
+					<h3>Thrifting</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="http://thetransept.com" class="hotel-link">
+			<div id="transept-hotel-button" class="hotel-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/red-marker-64.png" class="hotel-icon"/>
+					<h2>The Transept</h2>
+					<h3>1205 Elm St<br />Cincinnati, OH 45202</h3>
+					<h3>(513) 667-5822</h3>	
+				</div>
+			</div>
+		</a>
+
+		<script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/navigationModule.js"></script>
+		<script type="text/javascript" src="js/modalModule.js"></script>
+		<script type="text/javascript" src="js/eventHandlers.js"></script>
+	</body>
+</html>

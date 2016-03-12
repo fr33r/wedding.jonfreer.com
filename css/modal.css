@@ -128,6 +128,22 @@ div.modal-container > div.modal-content input[type='text']{
 	transition: border-bottom-color 0.3s linear;
 }
 
+div.modal-container > div.modal-content input[type='text'].error{
+	/* BORDER */
+	border-bottom-color: #FF0000;
+	color: #FF0000;
+}
+
+div.modal-container > div.modal-content input[type='text'].error:hover{
+	/* BORDER */
+	border-bottom-color: #FF0000;
+}
+
+div.modal-container > div.modal-content input[type='text'].error:focus{
+	/* BORDER */
+	border-bottom-color: #FF0000;
+}
+
 div.modal-container > div.modal-content input[type='text']:hover{
 
 	/* BORDER */
@@ -150,6 +166,7 @@ div.modal-container > div.modal-content input[type='submit']{
 	/* DIMENSIONS */
 	width: 200px;
 	padding:10px;
+	margin-bottom: 40px;
 
 	/* TEXT */
 	font-size: 1em;
@@ -272,4 +289,18 @@ select.meal-selection{
 
 select.meal-selection:hover{
 	border-bottom: 1px solid #000;
+}
+
+span#rsvp-modal-content-code-error-message{
+	opacity: 0;
+	color: #FF0000;
+	display: block;
+
+	/* TRANSITION */
+	-webkit-transition: opacity 0.3s linear;
+	transition: opacity 0.3s linear;
+}
+
+span#rsvp-modal-content-code-error-message.show{
+	opacity: 1;
 }
