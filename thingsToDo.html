@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Cheers to the Freer: Things To Do</title>
+		<title>Cheers to the Freers: Things To Do</title>
 		<link rel="stylesheet" type="text/css" href="css/global-font.css">
 		<link rel="stylesheet" href="css/main.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/weddingDetails.css">
+		<link rel="stylesheet" type="text/css" href="css/thingsToDo.css">
+
+		<!-- Google Maps API -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqtQrvs-yWts5LGJ5Jz9SEidA26ITn2FE"></script>	
 	</head>
 	<body>
 
@@ -21,8 +24,8 @@
 				<li><a href="notFinished.html">wedding details</a></li>
 				<li><a href="notFinished.html">wedding party</a></li>
 				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="notFinished.html">things to do</a></li>
-				<li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
+				<li><a href="#">things to do</a></li>
+				<li><a href="" id="side-nav-link-rsvp">rsvp</a></li>
 				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
 			</ul>
 		</nav>
@@ -67,17 +70,24 @@
 				</form>
 			</div>
 
-			<div id = "rsvp-modal-content-code" class = "modal-content">
+			<div id = "rsvp-modal-success" class = "modal-content">
 				<form method="POST">
+					<h1>we got it</h1>
+					<p>thanks for submitting our rsvp!</p>
+				</form>
+			</div>
+
+			<div id = "rsvp-modal-content-code" class = "modal-content">
+				<form id="form-enter-code" method="POST">
 					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
+					<span id="rsvp-modal-content-code-error-message" >the code you have entered is invalid.</span>
 				</form>
 				<a id="what-code-link" href="#whatcode">what code?</a>
 			</div>
 
 			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
-				<form method="POST">
+				<form id="form-rsvp-detail" method="POST">
 					
 					<h1>jon freer</h1>
 					<img class = "section-icon" src = "img/clothing2.svg"/>
@@ -90,16 +100,18 @@
 						<input type="text" name="guest-last-name" placeholder="guest last name" />
 
 					</div>
-
+					<!--
 					<select class="meal-selection">
 						<option value="select a food option">select a food option</option>
 						<option value="chicken">chicken</option>
 						<option value="vegetarian">vegetarian</option>
 						<option value="steak">steak</option>
 					</select>
-
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					-->
+					<textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+					<input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					<input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
 				</form>
 			</div>
 
@@ -126,55 +138,90 @@
 		<a href="http://www.rhinegeist.com/home" class="tile-link">
 			<div class="tile-button">
 				<div class="vert-horiz-centered">			
-					<img src="img/icon/marker-64.png" class="tile-icon"/>
+					<img src="img/icon/marker-64.png"/>
 					<h2>Rhinegeist</h2>
 					<h3>Brewery</h3>
 				</div>		
 			</div>
 		</a>
-		<a href="http://www.madtreebrewing.com/home.html" class="hotel-link">
-			<div class="hotel-button">
+		<a href="http://www.madtreebrewing.com/home.html" class="tile-link">
+			<div class="tile-button">
 				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<img src="img/icon/marker-64.png"/>
 					<h2>Mad Tree</h2>
 					<h3>Brewery</h3>		
 				</div>
 			</div>
 		</a>
-		<a href="" class="hotel-link">
-			<div class="hotel-button">
+		<a href="http://cincinnati.reds.mlb.com/schedule/?c_id=cin#y=2016&m=9&calendar=DEFAULT" class="hotel-link">
+			<div class="tile-button">
 				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
-					<h2>Cincinnati Reds vs. Some Other Team</h2>
+					<img src="img/icon/marker-64.png"/>
+					<h2>Cincinnati Reds vs. Pittsburg Pirates</h2>
 					<h3>Sporting Event</h3>		
 				</div>
 			</div>
 		</a>
-		<a href="" class="hotel-link">
-			<div class="hotel-button">
+		<a href="http://www.oktoberfestzinzinnati.com" class="tile-link">
+			<div class="tile-button">
 				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
+					<img src="img/icon/marker-64.png"/>
 					<h2>Oktoberfest</h2>
 					<h3>Festival</h3>		
 				</div>
 			</div>
 		</a>
-		<a href="" class="hotel-link">
-			<div class="hotel-button">
+		<a href="http://www.thecityflea.com" class="tile-link">
+			<div class="tile-button">
 				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" class="hotel-icon"/>
-					<h2>City Flea</h2>
+					<img src="img/icon/marker-64.png" />
+					<h2>The City Flea</h2>
 					<h3>Thrifting</h3>		
 				</div>
 			</div>
 		</a>
-		<a href="http://thetransept.com" class="hotel-link">
-			<div id="transept-hotel-button" class="hotel-button">
+		<a href="http://www.skylinechili.com" class="tile-link">
+			<div class="tile-button">
 				<div class="vert-horiz-centered">
-					<img src="img/icon/red-marker-64.png" class="hotel-icon"/>
+					<img src="img/icon/marker-64.png" />
+					<h2>Skyline Chili</h2>
+					<h3>Food</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="http://www.graeters.com" class="tile-link">
+			<div class="tile-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" />
+					<h2>Graeter's Ice Cream</h2>
+					<h3>Food</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="https://www.caesars.com/horseshoe-cincinnati" class="tile-link">
+			<div class="tile-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" />
+					<h2>Horseshoe Casino</h2>
+					<h3>Gambling</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="http://www.moerleinlagerhouse.com" class="tile-link">
+			<div class="tile-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/marker-64.png" />
+					<h2>Moerlein Lager House</h2>
+					<h3>Food</h3>		
+				</div>
+			</div>
+		</a>
+		<a href="http://thetransept.com" class="tile-link">
+			<div id="transept-tile-button" class="tile-button">
+				<div class="vert-horiz-centered">
+					<img src="img/icon/red-marker-64.png"/>
 					<h2>The Transept</h2>
-					<h3>1205 Elm St<br />Cincinnati, OH 45202</h3>
-					<h3>(513) 667-5822</h3>	
+					<h3>Wedding Venue</h3>
 				</div>
 			</div>
 		</a>
@@ -184,5 +231,7 @@
 		<script type="text/javascript" src="js/navigationModule.js"></script>
 		<script type="text/javascript" src="js/modalModule.js"></script>
 		<script type="text/javascript" src="js/eventHandlers.js"></script>
+		<script type="text/javascript" src="js/google-maps-things-to-do.js"></script>
+		<script type="text/javascript" src="js/thingsToDo.js"></script>
 	</body>
 </html>

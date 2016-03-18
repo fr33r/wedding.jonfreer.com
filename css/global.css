@@ -1,5 +1,5 @@
 html{ width: 100%; height: 100%;}
-body{ margin: 0; font-size: 16px; width: 100%; height: 100%;}
+body{ margin: 0; font-size: 16px; width: 100%; height: 100%; font-family: 'Quicksand-Regular';}
 
 /*
 	General styles for the top navigation bar.
@@ -16,7 +16,7 @@ nav#top-nav{
 	display: block;
 
 	/* FONT */
-	font-family: 'Pinyon Script';
+	font-family: 'Quicksand-Regular';
 	
 	/* POSITION */
 	position: fixed;
@@ -79,7 +79,7 @@ nav#top-nav li:hover{
 nav#top-nav li#top-nav-img{
 
 	/* TEXT */
-	font-family: 'Pinyon Script';
+	font-family: 'Quicksand-Regular';
 	font-size: 3.0em;
 	padding: 0 40px;
 
@@ -109,7 +109,7 @@ nav#top-nav.shrunk{
 nav#top-nav.shrunk li#top-nav-img{
 
 	/* TEXT */
-	font-family: 'Pinyon Script';
+	font-family: 'Quicksand-Regular';
 	font-size: 2.5em;
 	padding: 0 40px;
 
@@ -568,11 +568,19 @@ a.registry-link img{
 
 	position: relative;
 	top: 50%;
-	font-size: 3.5em;
+	font-size: 5em;
 	margin: 0;
 
-	font-family: 'Pinyon Script';
+	font-family: 'Quicksand-Light';;
 
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
+}
+
+#top-section h1 span{
+
+	font-family: 'Quicksand-Light';
+	margin-left: 10px;
+	margin-right: 10px;
+	vertical-align: 25%;
 }

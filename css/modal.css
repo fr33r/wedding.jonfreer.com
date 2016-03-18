@@ -234,6 +234,44 @@ div.modal-container > div.modal-content > form{
 	transform: translateY(-50%);
 }
 
+div.modal-container > div.modal-content textarea{
+
+	/* DISPLAY */
+	display: block;
+
+	/* DIMENSION */
+	width: 290px;
+	height: 4em;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	padding: 5px;
+
+	/* BORDER */
+	border-color: #999;
+	border-width: 1px;
+
+	/* OUTLINE */
+	outline: none;
+
+	/* TEXT */
+	font-size: 1em;
+	font-family: 'QuickSand-Light';
+
+	/*RESIZE*/
+	resize: none;
+
+	/* TRANSITION */
+	-webkit-transition: border-color 0.3s linear;
+	transition: border-color 0.3s linear;
+}
+
+div.modal-container > div.modal-content textarea:focus{
+
+	/* BORDER */
+	border-color: #000;
+}
+
 div#guest-info{
 
 	/* DISPLAY */

@@ -3,7 +3,7 @@
 	<head>
 
 		<!-- Title -->
-		<title>Cheers to the Freers</title>
+		<title>Cheers to the Freers: Our Story</title>
 
 		<!-- Metadata -->
 		<meta charset="UTF-8"/>
@@ -33,8 +33,8 @@
 				<li><a href="notFinished.html">wedding details</a></li>
 				<li><a href="notFinished.html">wedding party</a></li>
 				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="notFinished.html">things to do</a></li>
-				<li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
+				<li><a href="thingsToDo.html">things to do</a></li>
+				<li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
 				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
 			</ul>
 		</nav>
@@ -71,6 +71,13 @@
 				</form>
 			</div>
 
+			<div id = "rsvp-modal-success" class = "modal-content">
+				<form method="POST">
+					<h1>we got it</h1>
+					<p>thanks for submitting our rsvp!</p>
+				</form>
+			</div>
+
 			<div id = "rsvp-modal-content-code" class = "modal-content">
 				<form id="form-enter-code" method="POST">
 					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
@@ -81,7 +88,7 @@
 			</div>
 
 			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
-				<form method="POST">
+				<form id="form-rsvp-detail" method="POST">
 					
 					<h1>jon freer</h1>
 					<img class = "section-icon" src = "img/clothing2.svg"/>
@@ -102,8 +109,10 @@
 						<option value="steak">steak</option>
 					</select>
 					-->
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					<textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+					<input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+					<input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+					<input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
 				</form>
 			</div>
 
@@ -125,7 +134,7 @@
 
 		<!-- Big photo -->
 		<div id="top-section" class = "section">
-			<h1>J&E</h1>
+			<h1>09<span>.</span>17<span>.</span>2016</h1>
 		</div>
 
 		<div class = "section">

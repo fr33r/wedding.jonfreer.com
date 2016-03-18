@@ -1,0 +1,34 @@
+div.tile-button{
+	float:left;
+	text-align: center;
+	width: calc(100%/3);
+	height: 50%;
+	font-family: 'Quicksand-Regular';
+	position: relative;
+}
+
+div.tile-button:hover{
+	cursor: pointer;
+
+	background-color: #EEE;
+
+	/*TRANSITION*/
+	-webkit-transition: background-color 0.25s ease;
+	transition: background-color 0.25s ease;
+}
+
+div.tile-button h3{
+	margin: 5px 0;
+	text-align: center;
+	font-family: 'Quicksand-Light';
+	font-size: 1em;
+}
+
+div.tile-button#transept-tile-button{
+	width: 100%;
+}
+
+a.tile-link{
+	text-decoration: none;
+	color: black;
+}
