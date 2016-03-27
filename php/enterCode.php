@@ -5,9 +5,10 @@
 		public $first_name 			= "";
 		public $last_name  			= "";
 		public $guest_description	= "";
+		public $has_plus_one = false;
 		public $has_reservation		= false;
 	}
-	
+
 	//grab the code that the user entered.
 	$codeEntered = $_POST["rsvp-code"];
 
@@ -28,6 +29,7 @@
 					FIRST_NAME,
 					LAST_NAME,
 					GUEST_DESCRIPTION,
+					HAS_PLUS_ONE,
 					IS_ATTENDING
 				FROM
 					jonfreer_wedding.GUEST AS G
@@ -48,6 +50,9 @@
 			$currentGuest->first_name = $row["FIRST_NAME"];
 			$currentGuest->last_name = $row["LAST_NAME"];
 			$currentGuest->guest_description = $row["GUEST_DESCRIPTION"];
+			if($row["HAS_PLUS_ONE"] == 1){
+				$currentGuest->has_plus_one = true;
+			}
 			if($row["IS_ATTENDING"] == 1){
 				$currentGuest->has_reservation = true;
 			}

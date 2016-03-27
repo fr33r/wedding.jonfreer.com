@@ -16,7 +16,7 @@ var ajaxModule = (function(){
       }else{
         Console.error("The settings object provided to the ajax module is undefined or null.");
       }
-    }
+    },
 
     //performs a HTTP POST.
     post: function(uri, data, successCallback, errorCallback){
@@ -39,16 +39,16 @@ var ajaxModule = (function(){
       }
 
       internalXHR.open("POST", uri);
-      internalXHR.setRequestHeader(internalSettings.contentType);
+      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
 
       if(internalSettings.contentType === "application/json"){
-        Console.info("Sending HTTP POST request to: " + uri);
+        console.log("Sending HTTP POST request to: " + uri);
         internalXHR.send(JSON.stringify(data));
-        Console.info(JSON.stringify(data));
-      }else if(internalSettings === "application/x-www-form-urlencoded"){
-        Console.info("Sending HTTP POST request to: " + uri);
+        console.log(JSON.stringify(data));
+      }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
+        console.log("Sending HTTP POST request to: " + uri);
         internalXHR.send(data);
-        Console.info(data);
+        console.log(data);
       }
     },
 
@@ -66,7 +66,7 @@ var ajaxModule = (function(){
       }
 
       internalXHR.open("GET", uri);
-      Console.info("Sending HTTP GET request to: " + uri);
+      console.log("Sending HTTP GET request to: " + uri);
       internalXHR.send(JSON.stringify(data));
     },
 
@@ -84,12 +84,12 @@ var ajaxModule = (function(){
       }
 
       internalXHR.open("PUT", uri);
-      internalXHR.setRequestHeader(internalSettings.contentType);
+      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
 
       if(internalSettings.contentType === "application/json"){
-        Console.info("Sending HTTP PUT request to: " + uri);
+        console.log("Sending HTTP PUT request to: " + uri);
         internalXHR.send(JSON.stringify(data));
-        Console.info(JSON.stringify(data));
+        console.log(JSON.stringify(data));
       }
     },
 
@@ -107,12 +107,12 @@ var ajaxModule = (function(){
       }
 
       internalXHR.open("DELETE", uri);
-      internalXHR.setRequestHeader(internalSettings.contentType);
+      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
 
       if(internalSettings.contentType === "application/json"){
-        Console.info("Sending HTTP DELETE request to: " + uri);
+        console.log("Sending HTTP DELETE request to: " + uri);
         internalXHR.send(JSON.stringify(data));
-        Console.info(JSON.stringify(data));
+        console.log(JSON.stringify(data));
       }
     }
 

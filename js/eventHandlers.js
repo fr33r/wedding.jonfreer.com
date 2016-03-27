@@ -48,13 +48,13 @@ function setUpRsvpSubmitButtonHandler(){
 			//load up the page that shows all users that match that code.
 			var contentDetail = window.document.getElementById("rsvp-modal-content-code-detail");
 			var nameHeader = contentDetail.getElementsByTagName("h1")[0];
-			//nameHeader.innerText = firstMatchingGuest.first_name + " " + firstMatchingGuest.last_name;
+			nameHeader.innerText = firstMatchingGuest.first_name + " " + firstMatchingGuest.last_name;
 			var descriptionHeader = contentDetail.getElementsByTagName("h3")[0];
 			descriptionHeader.innerText = firstMatchingGuest.guest_description;
 			var hiddenGuestIdInput = window.document.getElementById("guest-id");
 			hiddenGuestIdInput.value = firstMatchingGuest.guest_id;
 
-			if(!firstMatchingGuest.has_reservation){
+			if(!firstMatchingGuest.has_plus_one){
 				var guestSection = window.document.getElementById("guest-info");
 				guestSection.style.display = "none";
 			}
