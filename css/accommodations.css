@@ -1,13 +1,27 @@
-div.tile-button{
+div#map{
+
+	/*DIMENSIONS*/
+	width: 100%;
+	height: 50%;
+}
+
+div.hotel-button{
 	float:left;
 	text-align: center;
 	width: calc(100%/3);
-	height: 50%;
+	height: 100%;
 	font-family: 'Quicksand-Regular';
 	position: relative;
 }
+div.hotel-button#transept-hotel-button{
+	width: 100%;
+}
 
-div.tile-button:hover{
+div.hotel-button#transept-hotel-button div.vert-horiz-centered{
+	width: 20%;
+}
+
+div.hotel-button:hover{
 	cursor: pointer;
 
 	background-color: #EEE;
@@ -17,25 +31,14 @@ div.tile-button:hover{
 	transition: background-color 0.25s ease;
 }
 
-div.tile-button h3{
+div.hotel-button h3{
 	margin: 5px 0;
-	text-align: center;
+	text-align: left;
 	font-family: 'Quicksand-Light';
 	font-size: 1em;
 }
 
-div.tile-button#transept-tile-button{
-	width: 100%;
-}
-
-a.tile-link{
+a.hotel-link{
 	text-decoration: none;
 	color: black;
-}
-
-div#map{
-
-	/*DIMENSIONS*/
-	width: 100%;
-	height: 50%;
 }

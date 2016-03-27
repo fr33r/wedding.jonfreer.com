@@ -9,3 +9,9 @@
     font-family: Quicksand-Regular;
     src: url('../font/quicksand/Quicksand-Regular.otf');
 }
+
+/* Downloaded from http://www.fontsquirrel.com/fonts/quicksand */
+@font-face {
+    font-family: Quicksand-Bold;
+    src: url('../font/quicksand/Quicksand-Bold.otf');
+}

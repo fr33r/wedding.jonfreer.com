@@ -1,123 +1,6 @@
 html{ width: 100%; height: 100%;}
 body{ margin: 0; font-size: 16px; width: 100%; height: 100%; font-family: 'Quicksand-Regular';}
 
-/*
-	General styles for the top navigation bar.
-*/
-nav#top-nav{
-
-	/* DIMENSIONS */
-	width: 100%;
-	height: 150px;
-
-	background-color: rgba(255,255,255,0.9);
-
-	/* DISPLAY */
-	display: block;
-
-	/* FONT */
-	font-family: 'Quicksand-Regular';
-	
-	/* POSITION */
-	position: fixed;
-	top: 0;
-
-	/* TRANSITION */
-	-webkit-transition: background-color 0.3s ease, font-size 0.3s ease, height 0.3s ease;
-	transition: background-color 0.3s ease, font-size 0.3s ease, height 0.3s ease;
-}
-
-nav#top-nav:hover{
-
-	/* BACKGROUND */
-	background-color: rgba(255,255,255,0.7);
-}
-
-nav#top-nav ul{
-
-	/* DIMENSIONS */
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-
-	/* LIST STYLE */
-	list-style-type: none;
-
-	/* TEXT */
-	text-align: center;
-	font-family: 'Quicksand-Regular';
-	font-size: 2em;
-	color: black;
-}
-
-nav#top-nav li{
-
-	/* DISPLAY */
-	display: inline;
-
-	/* DIMENSIONS */
-	padding: 20px;
-
-	/* TEXT */
-	line-height: 100%;
-
-	/* TRANSITIONS */
-	-webkit-transition: color 0.2s ease;
-	transition: color 0.2s ease;
-}
-
-nav#top-nav li:hover{
-
-	/* TEXT */
-	color: #888;
-
-	/* CURSOR */
-	cursor: pointer;
-}
-
-nav#top-nav li#top-nav-img{
-
-	/* TEXT */
-	font-family: 'Quicksand-Regular';
-	font-size: 3.0em;
-	padding: 0 40px;
-
-	/* TRANSITIONS */
-	-webkit-transition: none;
-	transition: none;
-}
-
-nav#top-nav li#top-nav-img:hover{
-
-	/* TEXT */
-	color: #000;
-
-	/* CURSOR */
-	cursor: auto;
-}
-
-nav#top-nav.shrunk{
-
-	/* DIMENSIONS */
-	height: 100px;
-
-	/* TEXT */
-	font-size: 1em;
-}
-
-nav#top-nav.shrunk li#top-nav-img{
-
-	/* TEXT */
-	font-family: 'Quicksand-Regular';
-	font-size: 2.5em;
-	padding: 0 40px;
-
-	/* TRANSITIONS */
-	-webkit-transition: none;
-	transition: none;
-}
-
 div.section{
 
 	/* DIMENSIONS */
@@ -129,6 +12,11 @@ div.section{
 	padding-bottom: 20px;
 
 }
+div.section:nth-child(odd){
+
+	/* BACKGROUND */
+	background-color: #FFF;
+}
 
 div.section:nth-child(even){
 
@@ -138,63 +26,20 @@ div.section:nth-child(even){
 
 div#top-section{
 
-	/* BACKGROUND */
+	/* BACKGROUND
 	background-image: url('../img/engagement_photo.jpg');
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: cover;*/
+	background-color: rgba(0, 0, 0, 0.0);
 
 	/* DIMENSIONS */
 	width: 100%;
 	height: 80%;
 }
 
-/****
-	Start grid related experimentation...
-****/
-
-.one-column{
-	width: 10%;
-}
-
-.two-column{
-	width: 20%;
-}
-
-.three-column{
-	width: 30%;
-}
-
-.four-column{
-	width: 40%;
-}
-
-.five-column{
-	width: 50%;
-}
-
 .six-column{
 	width: 60%;
 }
-
-.seven-column{
-	width: 70%;
-}
-
-.eight-column{
-	width: 80%;
-}
-
-.nine-column{
-	width: 90%;
-}
-
-.ten-column{
-	width: 100%;
-}
-
-/****
-	End grid related experimentation...
-****/
 
 h1.section-header{
 
@@ -282,9 +127,9 @@ footer{
 
 	/* DIMENSIONS */
 	padding: 10px;
-}
 
-/************************** ACCOMODATIONS **************************/
+	background-color: #FFF;
+}
 
 nav#side-nav{
 
@@ -309,7 +154,7 @@ nav#side-nav{
 	transform: translateX(100%);
 
 	/* COLORING */
-	background-color: #EEE;
+	background-color: #FFF;
 }
 
 nav#side-nav.show-side-nav{
@@ -328,6 +173,7 @@ nav#side-nav ul{
 
 	/*LIST*/
 	list-style: none;
+	text-align: center;
 
 	/*POSITION*/
 	position: relative;
@@ -336,14 +182,15 @@ nav#side-nav ul{
 	transform: translateY(-50%);
 
 	/*FONT*/
-	font-family: 'Quicksand-Light';
-	font-size: 1.5em;
+	font-family: 'Quicksand-Regular';
+	font-size: 2.0em;
 }
 
 nav#side-nav ul li{
 
-	/*DIMENSIONS*/
-	padding: 15px 0 15px 30px;
+	/*DIMENSIONS
+	padding: 15px 0 15px 30px;*/
+	padding: 20px 0 20px 0;
 
 	/*TRANSITION*/
 	-webkit-transition: padding 0.3s ease, color 0.3s ease;
@@ -351,8 +198,8 @@ nav#side-nav ul li{
 }
 
 nav#side-nav ul li:hover{
-	
-	/*DIMENSIONS*/
+
+	/*DIMENSIONS
 	padding: 15px 0 15px 35px;
 
 	/*CURSOR*/
@@ -373,7 +220,7 @@ nav#side-nav ul li a{
 }
 
 nav#side-nav ul li:hover a{
-	
+
 	/*COLOR*/
 	color: #999;
 }
@@ -471,46 +318,6 @@ div#page-header{
 	position: relative;
 }
 
-div#map{
-
-	/*DIMENSIONS*/
-	width: 100%;
-	height: 50%;
-}
-
-div.hotel-button{
-	float:left;
-	text-align: center;
-	width: calc(100%/3);
-	height: 100%;
-	font-family: 'Quicksand-Regular';
-	position: relative;
-}
-div.hotel-button#transept-hotel-button{
-	width: 100%;
-}
-
-div.hotel-button#transept-hotel-button div.vert-horiz-centered{
-	width: 20%;
-}
-
-div.hotel-button:hover{
-	cursor: pointer;
-
-	background-color: #EEE;
-
-	/*TRANSITION*/
-	-webkit-transition: background-color 0.25s ease;
-	transition: background-color 0.25s ease;
-}
-
-div.hotel-button h3{
-	margin: 5px 0;
-	text-align: left;
-	font-family: 'Quicksand-Light';
-	font-size: 1em;
-}
-
 div.vert-horiz-centered{
 
 	position:relative;
@@ -532,11 +339,6 @@ div.half-section{
 div.quarter-section{
 	width: 100%;
 	height: 25%;
-}
-
-a.hotel-link{
-	text-decoration: none;
-	color: black;
 }
 
 a.registry-link{
@@ -571,7 +373,7 @@ a.registry-link img{
 	font-size: 5em;
 	margin: 0;
 
-	font-family: 'Quicksand-Light';;
+	font-family: 'Quicksand-Light';
 
 	-webkit-transform: translateY(-50%);
 	transform: translateY(-50%);
