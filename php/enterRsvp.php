@@ -1,9 +1,14 @@
 <?php
 
+	/*
+		Represents the response that is to be
+		sent back to the client.
+	*/
 	class Response{
 		public $code 						= 0;
 		public $codeDescription	= "";
 		public $message					= "";
+		public $data						= [];
 	}
 
 	//grab the code that the user entered.
@@ -11,8 +16,8 @@
 	$guestDietaryRestrictions = $_POST["guestDietaryRestrictions"];
 	$isAttending = $_POST["isAttending"];
 
-	$serverName 	= "localhost";
-	//$serverName 	= "jonfreer.com";
+	//$serverName 	= "localhost";
+	$serverName 	= "jonfreer.com";
 	$username			= "jonfreer";
 	$password			= "__Goalie31__";
 	$databaseName	= "jonfreer_wedding";
@@ -23,7 +28,7 @@
 
 		$error_response = new Response();
 		$error_response->code 						= 1;
-		$error_response->codeDescription 	= "ERROR";
+		$error_response->codeDescription 	= "DATABASE CONNECTION ERROR";
 		$error_response->message 					= "there was an issue connecting to the database.";
 
 		echo(json_encode($error_response, JSON_PRETTY_PRINT));

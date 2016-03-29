@@ -25,6 +25,7 @@ var ajaxModule = (function(){
       if(typeof successCallback === "function"){
         internalXHR.addEventListener("load", function(){
           if(internalSettings.accept === "application/json"){
+            console.log("HTTP Response\nBody:\n" + internalXHR.responseText);
             successCallback(JSON.parse(internalXHR.responseText));
           }
         });
@@ -33,6 +34,7 @@ var ajaxModule = (function(){
       if(typeof errorCallback === "function"){
         internalXHR.addEventListener("error", function(){
           if(internalSettings.accept === "application/json"){
+            console.log("HTTP Response\nBody:\n" + internalXHR.responseText);
             errorCallback(JSON.parse(internalXHR.responseText));
           }
         });
@@ -42,13 +44,11 @@ var ajaxModule = (function(){
       internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
 
       if(internalSettings.contentType === "application/json"){
-        console.log("Sending HTTP POST request to: " + uri);
         internalXHR.send(JSON.stringify(data));
-        console.log(JSON.stringify(data));
+        console.log("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + JSON.stringify(data));
       }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
-        console.log("Sending HTTP POST request to: " + uri);
         internalXHR.send(data);
-        console.log(data);
+        console.log("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + data);
       }
     },
 

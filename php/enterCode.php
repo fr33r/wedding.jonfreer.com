@@ -1,5 +1,9 @@
 <?php
 
+	/*
+		Represents an invited guest that may
+		or may not come to the wedding.
+	*/
 	class Guest{
 		public $guest_id 			= -1;
 		public $first_name 			= "";
@@ -9,19 +13,37 @@
 		public $has_reservation		= false;
 	}
 
+	/*
+		Represents the response that is to be
+		sent back to the client.
+	*/
+	class Response{
+		public $code 						= 0;
+		public $codeDescription	= "";
+		public $message					= "";
+		public $data						= [];
+	}
+
 	//grab the code that the user entered.
 	$codeEntered = $_POST["rsvp-code"];
 
-	$serverName 	= "localhost";
-	//$serverName 	= "jonfreer.com";
-	$username		= "jonfreer";
-	$password		= "__Goalie31__";
+	//$serverName 	= "localhost";
+	$serverName 	= "jonfreer.com";
+	$username			= "jonfreer";
+	$password			= "__Goalie31__";
 	$databaseName	= "jonfreer_wedding";
 
 	$connection = new mysqli($serverName, $username, $password, $databaseName);
 
 	if($connection->connect_error){
-		echo("There was an issue connecting to the database.");
+
+		//create error response object.
+		$error_response = new Response();
+		$error_response->code 						= 1;
+		$error_response->codeDescription 	= "DATABASE CONNECTION ERROR";
+		$error_response->message 					= "there was an issue connecting to the database.";
+
+		echo(json_encode($error_response, JSON_PRETTY_PRINT));
 	}
 
 	$sql	= "	SELECT
@@ -60,8 +82,18 @@
 		}
 	}
 
+	//create the success response object.
+	$success_response = new Response();
+	$success_response->code 							= 0;
+	$success_response->codeDescription 		= "SUCCESS";
+	$success_response->message 						= "there were " . $result->num_rows .
+																					" guests found with code " . $codeEntered . ".";
+	$success_response->data 							=	$guestsWithMatchingInviteCode;
+
+	//close the database connection. maybe can do this earlier? need the $result object.
 	$connection->close();
 
-	echo(json_encode($guestsWithMatchingInviteCode, JSON_PRETTY_PRINT));
+	//send it off.
+	echo(json_encode($success_response, JSON_PRETTY_PRINT));
 
 ?>
