@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cheers to the Freers: Guest Management</title>
+    <link rel="stylesheet" type="text/css" href="css/global-font.css">
+		<link rel="stylesheet" href="css/main.css" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="css/guestList.css">
+    <style>
+
+      form{
+        width: 50%;
+        margin: auto;
+        /*border: 1px solid black;*/
+        padding: 2%;
+      }
+
+      form input[type='text']{
+        /* DISPLAY */
+      	display: block;
+
+      	/* DIMENSION
+      	width: 290px;*/
+        width: 98%;
+      	margin: auto;
+      	margin-top: 40px;
+      	margin-bottom: 40px;
+      	/*padding: 5px;*/
+        padding: 1%;
+
+      	/* BORDER */
+      	border-top: none;
+      	border-left: none;
+      	border-right: none;
+      	border-bottom-color: #999;
+      	border-width: 1px;
+
+      	/* OUTLINE */
+      	outline: none;
+
+      	/* TEXT */
+      	font-size: 1em;
+      	font-family: 'QuickSand-Light';
+
+      	/* TRANSITION */
+      	-webkit-transition: border-bottom-color 0.3s linear;
+      	transition: border-bottom-color 0.3s linear;
+      }
+
+      form input[type='text']:hover, form input[type='text']:focus{
+
+        /* BORDER */
+      	border-bottom-color: #000;
+      }
+
+      form textarea{
+        /* DISPLAY */
+        display: block;
+
+        /* DIMENSION
+        width: 290px;*/
+        width: 98%;
+        height: 4em;
+        margin: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        /*padding: 5px;*/
+        padding: 1%;
+
+        /* BORDER */
+        border-color: #999;
+        border-width: 1px;
+
+        /* OUTLINE */
+        outline: none;
+
+        /* TEXT */
+        font-size: 1em;
+        font-family: 'QuickSand-Light';
+
+        /*RESIZE*/
+        resize: none;
+
+        /* TRANSITION */
+        -webkit-transition: border-color 0.3s linear;
+        transition: border-color 0.3s linear;
+      }
+
+      form input[type='submit']{
+        /* TURN OFF WEBKIT */
+      	-webkit-appearance: none;
+
+      	/* DIMENSIONS */
+      	width: 200px;
+      	padding:10px;
+      	margin: auto;
+
+      	/* TEXT */
+      	font-size: 1em;
+      	font-family: 'QuickSand-Light';
+
+      	/* OUTLINE */
+      	outline: none;
+      	border: 1px solid black;
+
+      	/* BACKGROUND */
+      	background-color: white;
+
+        /*DISPLAY*/
+        display: block;
+
+      	/* TRANSITION */
+      	-webkit-transition: background-color 0.3s ease, color 0.2s ease;
+      	transition: background-color 0.3s ease, color 0.4s ease;
+
+        clear: both;
+      }
+
+      form input[type='submit']:hover{
+
+        /* CURSOR */
+      	cursor: pointer;
+
+      	/* COLOR */
+      	color: white;
+
+      	/* BACKGROUND */
+      	background-color: black;
+
+      }
+
+      form .float-right{
+        float: right;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <!-- Page Header -->
+		<div id = "page-header" class ="quarter-section">
+			<div class="vert-horiz-centered">
+				<h1>guest management</h1>
+				<hr class = "section-header-bar"/>
+			</div>
+		</div>
+
+    <!-- Guest Management Form -->
+    <div id = "guest-info-form">
+      <form method="" action ="">
+        <input type="text" name="guest-first-name" placeholder="guest first name" autocomplete="off"/>
+        <input type="text" name="guest-last-name" placeholder="guest last name" autocomplete="off"/>
+        <input type="text" name="guest-description" placeholder="guest description" autocomplete="off"/>
+        <input type="text" name="guest-address-line-1" placeholder="address line 1" autocomplete="off"/>
+        <input type="text" name="guest-address-line-2" placeholder="address line 2" autocomplete="off"/>
+        <input type="text" name="guest-address-state" placeholder="state" autocomplete="off"/>
+        <input type="text" name="guest-address-country" placeholder="country" autocomplete="off"/>
+        <input type="text" name="guest-address-zip-code" placeholder="postal code" autocomplete="off"/>
+        <label for="guest-has-plus-one">plus one?</label>
+        <input type="checkbox" name="guest-has-plus-one" autocomplete="off" class="float-right">
+        <textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+        <label for="guest-is-attending">status</label>
+        <select class="float-right">
+          <option>haven't heard yet.</option>
+          <option>can't make it.</option>
+          <option>coming.</option>
+        </select>
+        <!--<input type="checkbox" name="guest-is-attending" class="float-right"/>-->
+        <input id="guest-info-save-button" type="submit" name="guest-info-save-button" value="save"/>
+      </form>
+    </div>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="js/global.js"></script>
+    <script type="text/javascript" src="js/guestManagement.js"></script>
+    <script type="text/javascript" src="js/ajaxModule.js"></script>
+
+  </body>
+</html>

@@ -2,7 +2,150 @@ var ajaxModule = (function(){
 
   var internalSettings = {
     contentType: "application/json",
-    accept: "application/json"
+    accept: "application/json",
+    logging: true
+  };
+
+  var internalLog = function(message){
+    if(internalSettings.logging === true){
+      console.log(message);
+    }
+  };
+
+  var internalConfigure = function(settings){
+    if(settings !== undefined && settings !== null){
+      //overwrite.
+      internalSettings.contentType = settings.contentType;
+      internalSettings.accept = settings.accept;
+      internalSettings.logging = settings.logging;
+    }else{
+      console.error("The settings object provided to the ajax module is undefined or null.");
+    }
+  };
+
+  var internalGet = function(uri, successCallback, errorCallback){
+    var internalXHR = new XMLHttpRequest();
+
+    if(typeof successCallback === "function"){
+      internalXHR.addEventListener("load", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          successCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    if(typeof errorCallback === "function"){
+      internalXHR.addEventListener("error", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          errorCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    internalXHR.open("GET", uri);
+    internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tGET\n");
+    internalXHR.send();
+  };
+
+  var internalPost = function(uri, data, successCallback, errorCallback){
+    var internalXHR = new XMLHttpRequest();
+
+    if(typeof successCallback === "function"){
+      internalXHR.addEventListener("load", function(){
+        if(internalXHR.getResponseHeader("Content-Type") === "application/json"){
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          successCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    if(typeof errorCallback === "function"){
+      internalXHR.addEventListener("error", function(){
+        if(internalXHR.getResponseHeader("Content-Type") === "application/json"){
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          errorCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    internalXHR.open("POST", uri);
+    internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
+
+    if(internalSettings.contentType === "application/json"){
+      internalXHR.send(JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + JSON.stringify(data));
+    }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
+      internalXHR.send(data);
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + data);
+    }
+  };
+
+  var internalDelete = function(uri, data, successCallback, errorCallback){
+    var internalXHR = new XMLHttpRequest();
+
+    if(typeof successCallback === "function"){
+      internalXHR.addEventListener("load", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          successCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    if(typeof errorCallback === "function"){
+      internalXHR.addEventListener("error", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          errorCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    internalXHR.open("DELETE", uri);
+    internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
+
+    if(internalSettings.contentType === "application/json"){
+      internalXHR.send(JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + JSON.stringify(data));
+    }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
+      internalXHR.send(data);
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + data);
+    }
+  };
+
+  var internalPut = function(uri, data, successCallback, errorCallback){
+    var internalXHR = new XMLHttpRequest();
+
+    if(typeof successCallback === "function"){
+      internalXHR.addEventListener("load", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          successCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    if(typeof errorCallback === "function"){
+      internalXHR.addEventListener("error", function(){
+        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
+          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+          errorCallback(JSON.parse(internalXHR.responseText));
+        }
+      });
+    }
+
+    internalXHR.open("PUT", uri);
+    internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
+
+    if(internalSettings.contentType === "application/json"){
+      internalXHR.send(JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + JSON.stringify(data));
+    }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
+      internalXHR.send(data);
+      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + data);
+    }
   };
 
   return {
@@ -10,110 +153,27 @@ var ajaxModule = (function(){
     //configures the ajax module according to the
     //settings object provided.
     configure:  function(settings){
-      if(settings !== undefined && settings !== null){
-        //overwrite.
-        internalSettings.contentType = settings.contentType;
-      }else{
-        Console.error("The settings object provided to the ajax module is undefined or null.");
-      }
+      internalConfigure(settings);
     },
 
     //performs a HTTP POST.
     post: function(uri, data, successCallback, errorCallback){
-      var internalXHR = new XMLHttpRequest();
-
-      if(typeof successCallback === "function"){
-        internalXHR.addEventListener("load", function(){
-          if(internalSettings.accept === "application/json"){
-            console.log("HTTP Response\nBody:\n" + internalXHR.responseText);
-            successCallback(JSON.parse(internalXHR.responseText));
-          }
-        });
-      }
-
-      if(typeof errorCallback === "function"){
-        internalXHR.addEventListener("error", function(){
-          if(internalSettings.accept === "application/json"){
-            console.log("HTTP Response\nBody:\n" + internalXHR.responseText);
-            errorCallback(JSON.parse(internalXHR.responseText));
-          }
-        });
-      }
-
-      internalXHR.open("POST", uri);
-      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
-
-      if(internalSettings.contentType === "application/json"){
-        internalXHR.send(JSON.stringify(data));
-        console.log("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + JSON.stringify(data));
-      }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
-        internalXHR.send(data);
-        console.log("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + data);
-      }
+      internalPost(uri, data, successCallback, errorCallback);
     },
 
     //performs a HTTP GET.
     get:  function(uri, successCallback, errorCallback){
-
-      var internalXHR = new XMLHttpRequest();
-
-      if(typeof successCallback === "function"){
-        internalXHR.addEventListener("load", successCallback);
-      }
-
-      if(typeof errorCallback === "function"){
-        internalXHR.addEventListener("error", errorCallback);
-      }
-
-      internalXHR.open("GET", uri);
-      console.log("Sending HTTP GET request to: " + uri);
-      internalXHR.send(JSON.stringify(data));
+      internalGet(uri, successCallback, errorCallback);
     },
 
     //performs a HTTP PUT.
     put: function(uri, data, successCallback, errorCallback){
-
-      var internalXHR = new XMLHttpRequest();
-
-      if(typeof successCallback === "function"){
-        internalXHR.addEventListener("load", successCallback);
-      }
-
-      if(typeof errorCallback === "function"){
-        internalXHR.addEventListener("error", errorCallback);
-      }
-
-      internalXHR.open("PUT", uri);
-      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
-
-      if(internalSettings.contentType === "application/json"){
-        console.log("Sending HTTP PUT request to: " + uri);
-        internalXHR.send(JSON.stringify(data));
-        console.log(JSON.stringify(data));
-      }
+      internalPut(uri, data, successCallback, errorCallback);
     },
 
     //performs a HTTP DELETE.
     delete: function(uri, data, successCallback, errorCallback){
-
-      var internalXHR = new XMLHttpRequest();
-
-      if(typeof successCallback === "function"){
-        internalXHR.addEventListener("load", successCallback);
-      }
-
-      if(typeof errorCallback === "function"){
-        internalXHR.addEventListener("error", errorCallback);
-      }
-
-      internalXHR.open("DELETE", uri);
-      internalXHR.setRequestHeader("Content-Type", internalSettings.contentType);
-
-      if(internalSettings.contentType === "application/json"){
-        console.log("Sending HTTP DELETE request to: " + uri);
-        internalXHR.send(JSON.stringify(data));
-        console.log(JSON.stringify(data));
-      }
+      internalDelete(uri, data, successCallback, errorCallback);
     }
 
   };
