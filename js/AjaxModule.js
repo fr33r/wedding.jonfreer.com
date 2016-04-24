@@ -54,8 +54,8 @@ var ajaxModule = (function(){
 
     if(typeof successCallback === "function"){
       internalXHR.addEventListener("load", function(){
+        internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
         if(internalXHR.getResponseHeader("Content-Type") === "application/json"){
-          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
           successCallback(JSON.parse(internalXHR.responseText));
         }
       });
