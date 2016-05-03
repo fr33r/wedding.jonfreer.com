@@ -15,9 +15,15 @@ var ajaxModule = (function(){
   var internalConfigure = function(settings){
     if(settings !== undefined && settings !== null){
       //overwrite.
-      internalSettings.contentType = settings.contentType;
-      internalSettings.accept = settings.accept;
-      internalSettings.logging = settings.logging;
+      internalSettings.contentType =
+        settings.contentType !== undefined && settings.contentType !== null
+          ? settings.contentType : internalSettings.contentType;
+      internalSettings.accept =
+        settings.accept !== undefined && settings.accept !== null
+          ? settings.accept : internalSettings.accept;
+      internalSettings.logging =
+        settings.logging !== undefined && settings.logging !== null
+          ? settings.logging : internalSettings.logging;
     }else{
       console.error("The settings object provided to the ajax module is undefined or null.");
     }

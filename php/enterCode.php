@@ -93,6 +93,8 @@
 	//close the database connection. maybe can do this earlier? need the $result object.
 	$connection->close();
 
+	header("Content-Type: application/json");
+
 	//send it off.
 	echo(json_encode($success_response, JSON_PRETTY_PRINT));
 

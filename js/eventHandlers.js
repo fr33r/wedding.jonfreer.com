@@ -34,7 +34,7 @@ function setUpRsvpSubmitButtonHandler(){
 		e.preventDefault();
 		ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
 		ajaxModule.post(
-			"php/enterCode.php",
+			"php/enterCode2.php",
 			"rsvp-code=" + window.document.getElementById("rsvp-code-input").value,
 			showRsvpDetail,
 			submitRsvpErrorHandler
@@ -61,7 +61,7 @@ function setUpCanMakeItButtonHandlerRevised(){
 	canMakeItButton.addEventListener("click", function(e){
 		ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
 		ajaxModule.post(
-			"php/enterRsvp.php",
+			"php/enterRsvp2.php",
 			"guestId=" + window.document.getElementById("guest-id").value +
 			"&guestDietaryRestrictions=" + window.document.getElementById("guest-dietary-restrictions").value +
 			"&isAttending=1",
@@ -89,7 +89,7 @@ function setUpCannotMakeItButtonHandlerRevised(){
 	cannotMakeIt.addEventListener("click", function(e){
 		ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
 		ajaxModule.post(
-			"php/enterRsvp.php",
+			"php/enterRsvp2.php",
 			"guestId=" + window.document.getElementById("guest-id").value +
 			"&guestDietaryRestrictions=" + window.document.getElementById("guest-dietary-restrictions").value +
 			"&isAttending=0",
