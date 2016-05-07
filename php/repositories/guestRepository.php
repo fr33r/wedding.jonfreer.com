@@ -15,6 +15,8 @@
     */
     public function GetGuestByName($first_name, $last_name){
 
+      echo("Guest Repository : GetGuestByName : first name = " . $first_name . ", last name = " . $last_name . "\n");
+
       $sql	=   "SELECT
                   G.GUEST_ID,
                   G.FIRST_NAME,
@@ -52,6 +54,7 @@
     			$currentGuest->guest_id = $row["GUEST_ID"];
     			$currentGuest->first_name = $row["FIRST_NAME"];
     			$currentGuest->last_name = $row["LAST_NAME"];
+          $currentGuest->invite_code = $row["INVITE_CODE"];
     			$currentGuest->description = $row["GUEST_DESCRIPTION"];
           $currentGuest->dietary_restrictions = $row["GUEST_DIETARY_RESTRICTIONS"];
 
@@ -119,6 +122,7 @@
     			$currentGuest->guest_id = $row["GUEST_ID"];
     			$currentGuest->first_name = $row["FIRST_NAME"];
     			$currentGuest->last_name = $row["LAST_NAME"];
+          $currentGuest->invite_code = $row["INVITE_CODE"];
     			$currentGuest->description = $row["GUEST_DESCRIPTION"];
           $currentGuest->dietary_restrictions = $row["GUEST_DIETARY_RESTRICTIONS"];
 
@@ -149,20 +153,29 @@
     */
     public function InsertGuest($guest){
 
+      echo("GuestRepository : InsertGuest : guest = ");
+      var_dump($guest);
+
       $sql	=   "CALL jonfreer_wedding.INSERT_GUEST
     				      (" .
-                      "'" . $guest->firstName . "'," .
-                      "'" . $guest->lastName . "'," .
-                      "'" . $guest->description . "'," .
-                            $guest->hasPlusOne . "," .
-                      "'" . $guest->address->line1 . "'," .
-                      "'" . $guest->address->line2 . "'," .
-                      "'" . $guest->address->state . "'," .
-                      "'" . $guest->address->country . "'," .
-                      "'" . $guest->address->zipCode .
+                      "'" . $guest->firstName         . "'," .
+                      "'" . $guest->lastName          . "'," .
+                      "'" . $guest->description       . "'," .
+                            $guest->hasPlusOne        . "," .
+                      "'" . $guest->inviteCode        . "'," . 
+                      "'" . $guest->address->line1    . "'," .
+                      "'" . $guest->address->line2    . "'," .
+                      "'" . $guest->address->state    . "'," .
+                      "'" . $guest->address->country  . "'," .
+                      "'" . $guest->address->zipCode  . "'" .
   				        ");";
 
-      $this->mysqlConnection->query($sql);
+      echo("SQL = " . $sql . "\n");
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception("An issue occurred when attempting create new guest with name " . $guest->firstName . " " . $guest->lastName . ".");
+      }
 
     }
 
@@ -171,17 +184,29 @@
     */
     public function UpdateGuest($guest){
 
+      //echo("GuestRepository : UpdateGuest : guest = \n");
+      //var_dump($guest);
+
+      $hasPlusOneBit = 0;
+
+      if($guest->hasPlusOne){ $hasPlusOneBit = 1; }
+
       $sql	=   "CALL jonfreer_wedding.UPDATE_GUEST
                   (" .
-                            $guest->guestId . "," .
+                            $guest->guest_id . "," .
                       "'" . $guest->firstName . "'," .
                       "'" . $guest->lastName . "'," .
                       "'" . $guest->description . "'," .
-                      "'" . $guest->dietaryRestrictions . "'" .
-                            $guest->hasPlusOne .
+                      "'" . $guest->dietaryRestrictions . "'," .
+                            $hasPlusOneBit .
                   ");";
 
-      $this->mysqlConnection->query($sql);
+      //echo("SQL = " . $sql . "\n");
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception("An issue occurred when attempting to update " . $guest->firstName . " " . $guest->lastName . "'s information.");
+      }
 
     }
 

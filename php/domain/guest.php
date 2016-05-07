@@ -7,6 +7,7 @@
     public $guest_id;
     public $first_name;
     public $last_name;
+    public $invite_code;
     public $description;
     public $dietary_restrictions;
     public $has_plus_one;
