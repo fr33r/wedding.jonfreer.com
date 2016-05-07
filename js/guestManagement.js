@@ -126,7 +126,7 @@ function setupEventHandlers(){
   lastNameInput.addEventListener("blur", function blurEvent(e){
     if(firstNameInput.value !== "" && lastNameInput.value !== ""){
       ajaxModule.get(
-        "php/lookupGuest.php?firstName=" + firstNameInput.value + "&lastName=" + lastNameInput.value,
+        "php/lookupGuest2.php?firstName=" + firstNameInput.value + "&lastName=" + lastNameInput.value,
         overwriteFields,
         null
       );
@@ -139,7 +139,7 @@ function setupEventHandlers(){
     e.preventDefault();
     var guest = readFields();
     ajaxModule.post(
-      "php/saveGuest.php",
+      "php/saveGuest2.php",
       guest,
       success,
       null

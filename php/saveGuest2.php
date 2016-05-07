@@ -6,6 +6,7 @@
   require 'domain/reservation.php';
   require 'serviceModel/response.php';
   require 'repositories/guestRepository.php';
+  require 'repositories/reservationRepository.php';
 
   $json = file_get_contents('php://input');
   $guestReceived = json_decode($json);
@@ -13,6 +14,8 @@
 	$connection = new mysqli(DATABASE_SERVER_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 
 	if($connection->connect_error){
+
+    header("Content-Type: application/json");
 
 		$error_response = new Response();
 		$error_response->code 						= 1;
@@ -57,17 +60,18 @@
           $guest->reservation->isAttending);
       }
     }
+
+    header("Content-Type: application/json");
+
+  	$connection->close();
+
+  	$success_response = new Response();
+  	$success_response->code 							= 0;
+  	$success_response->codeDescription 		= "SUCCESS";
+  	$success_response->message 						= "Saved guest successfully.";
+
+  	echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
   }
-
-  header("Content-Type: application/json");
-
-	$connection->close();
-
-	$success_response = new Response();
-	$success_response->code 							= 0;
-	$success_response->codeDescription 		= "SUCCESS";
-	$success_response->message 						= "Saved guest successfully.";
-
-	echo(json_encode($success_response, JSON_PRETTY_PRINT));
 
  ?>

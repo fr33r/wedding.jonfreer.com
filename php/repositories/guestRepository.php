@@ -38,7 +38,7 @@
                   G.FIRST_NAME = '" . $first_name . "'" .
                   "AND G.LAST_NAME = '" . $last_name . "';";
 
-    	$result = $connection->query($sql);
+    	$result = $this->mysqlConnection->query($sql);
 
       $currentGuest = null;
 
@@ -105,7 +105,7 @@
                 WHERE
                   G.GUEST_ID = " . $id . ";";
 
-      $result = $connection->query($sql);
+      $result = $this->mysqlConnection->query($sql);
 
       $currentGuest = null;
 
@@ -162,7 +162,7 @@
                       "'" . $guest->address->zipCode .
   				        ");";
 
-      $connection->query($sql);
+      $this->mysqlConnection->query($sql);
 
     }
 
@@ -181,7 +181,7 @@
                             $guest->hasPlusOne .
                   ");";
 
-      $connection->query($sql);
+      $this->mysqlConnection->query($sql);
 
     }
 
@@ -223,8 +223,6 @@
 
       //loop throught the results retrieved from the database.
     	if($result->num_rows > 0){
-
-        echo "num of rows" . $result->num_rows;
 
         //even though i am using a while, i am strategically
         //hoping that there is only one guest returned.
