@@ -10,27 +10,58 @@
       $this->mysqlConnection = $mysqlConnection;
     }
 
-    public function GetReservation(){
+    public function GetReservationForGuest($guestId){
 
+      $sql	=   "SELECT
+                  R.RESERVATION_ID,
+                  R.IS_ATTENDING,
+                  R.DATETIME_SUBMITTED
+                FROM
+                  jonfreer_wedding.GUEST AS G
+                  INNER JOIN jonfreer_wedding.RESERVATION AS R
+                    ON G.RESERVATION_ID = R.RESERVATION_ID
+                WHERE
+                  G.GUEST_ID = " . $guestId . ";";
+
+      $result = $this->mysqlConnection->query($sql);
+
+      $reservation = null;
+
+      if($result->num_rows > 0){
+
+        while($row = $result->fetch_assoc()){
+
+          $reservation = new Reservation();
+          $reservation->reservation_id = $row["RESERVATION_ID"];
+          $reservation->is_attending = $row["IS_ATTENDING"];
+          $reservation->submitted_datetime = $row["DATETIME_SUBMITTED"];
+        }
+      }
+
+      return $reservation;
     }
 
     /*
       Inserts a reservation for an existing guest.
     */
-    public function InsertReservation(
-      $guestId, $guestDietaryRestrictions, $plusOneFirstName,
-      $plusOneLastName, $isAttending){
+    public function InsertReservationForGuest($guestId, $isAttending){
 
-      $sql	=   "CALL jonfreer_wedding.INSERT_RESERVATION
-    				(" .
-    					$guestId . "," .
-    					"'" . $guestDietaryRestrictions . "'," .
-              "'" . $plusOneFirstName . "'," .
-              "'" . $plusOneLastName . "'" .
-    					$isAttending .
-    				");";
+      $isAttendingBit = 0;
 
-    	$result = $this->mysqlConnection->query($sql);
+      if($isAttending) { $isAttendingBit = 1; }
+
+      $sql  =   "CALL jonfreer_wedding.INSERT_RESERVATION2
+            (" .
+              $guestId . "," .
+              $isAttendingBit .
+            ");";
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception(
+          "An issue occurred when attempting to insert reservation for guest ID " .
+          $guestId . ".");
+      }
 
     }
 
@@ -39,13 +70,22 @@
     */
     public function UpdateReservation($reservationId, $isAttending){
 
+      $isAttendingBit = 0;
+
+      if($isAttending) { $isAttendingBit = 1; }
+
       $sql	=   "CALL jonfreer_wedding.UPDATE_RESERVATION
                   (" .
                       $reservationId . "," .
-                      $isAttending .
+                      $isAttendingBit .
                   ");";
 
-      $this->mysqlConnection->query($sql);
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception(
+          "An issue occurred when attempting to update reservation with reservation ID " .
+          $reservationId . ".");
+      }
 
     }
 

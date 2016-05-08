@@ -21,18 +21,36 @@
 		$error_response->message 					= "there was an issue connecting to the database.";
 
 		echo(json_encode($error_response, JSON_PRETTY_PRINT));
-	}
 
-  $guestRepository = new GuestRepository($connection);
-  $guest = $guestRepository->GetGuestByName($guestFirstName, $guestLastName);
+	}else{
 
-	$connection->close();
+    $guestRepository = new GuestRepository($connection);
+    $guest = $guestRepository->GetGuestByName($guestFirstName, $guestLastName);
 
-	$success_response = new Response();
-	$success_response->code 							= 0;
-	$success_response->codeDescription 		= "SUCCESS";
-	$success_response->message 						= "Discovered a matching guest.";
-  $success_response->data               = $guest;
+    if($guest == null){
 
-	echo(json_encode($success_response, JSON_PRETTY_PRINT));
+    	$success_response = new Response();
+    	$success_response->code 							= 0;
+    	$success_response->codeDescription 		= "FAILURE";
+    	$success_response->message 						= "No guests with the name '" . $guestFirstName . " " . $guestLastName . "' were found.";
+      $success_response->data               = null;
+
+    	echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
+    }else{
+
+      $success_response = new Response();
+      $success_response->code 							= 0;
+      $success_response->codeDescription 		= "SUCCESS";
+      $success_response->message 						= "Discovered a matching guest.";
+      $success_response->data               = $guest;
+
+      echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
+    }
+
+    $connection->close();
+
+  }
+
  ?>

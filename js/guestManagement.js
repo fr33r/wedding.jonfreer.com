@@ -1,20 +1,10 @@
-function Guest(firstName, lastName, inviteCode, description, dietaryRestrictions, hasPlusOne, address, reservation){
+function Guest(firstName, lastName, inviteCode, description, dietaryRestrictions, reservation){
   this.firstName = firstName;
   this.lastName = lastName;
   this.inviteCode = inviteCode;
   this.description = description;
   this.dietaryRestrictions = dietaryRestrictions;
-  this.hasPlusOne = hasPlusOne;
-  this.address = address;
   this.reservation = reservation;
-}
-
-function Address(line1, line2, state, country, zipCode){
-  this.line1 = line1;
-  this.line2 = line2;
-  this.state = state;
-  this.country = country;
-  this.zipCode = zipCode;
 }
 
 function Reservation(isAttending){
@@ -35,12 +25,6 @@ function overwriteFields(response){
     var inviteCodeInput = window.document.getElementsByName("guest-invite-code")[0];
     var description = window.document.getElementsByName("guest-description")[0];
     var dietaryRestrictions = window.document.getElementsByName("guest-dietary-restrictions")[0];
-    /*var addressLine1 = window.document.getElementsByName("guest-address-line-1")[0];
-    var addressLine2 = window.document.getElementsByName("guest-address-line-2")[0];
-    var addressState = window.document.getElementsByName("guest-address-state")[0];
-    var addressCountry = window.document.getElementsByName("guest-address-country")[0];
-    var addressZipCode = window.document.getElementsByName("guest-address-zip-code")[0];*/
-    var hasPlusOne = window.document.getElementsByName("guest-has-plus-one")[0];
     var reservationStatus = window.document.getElementsByName("guest-reservation-status")[0];
     var reservationStatusOptions = reservationStatus.options;
 
@@ -49,12 +33,6 @@ function overwriteFields(response){
     inviteCodeInput.value = response.data.invite_code;
     description.value = response.data.description;
     dietaryRestrictions.value = response.data.dietary_restrictions;
-    /*addressLine1.value = response.data.address.line_1;
-    addressLine2.value = response.data.address.line_2;
-    addressState.value = response.data.address.state;
-    addressCountry.value = response.data.address.country;
-    addressZipCode.value = response.data.address.zip_code;*/
-    hasPlusOne.checked = response.data.has_plus_one;
 
     if(response.data.reservation !== undefined && response.data.reservation !== null){
       if(response.data.reservation.is_attending){
@@ -75,12 +53,6 @@ function readFields(){
   var inviteCodeInput = window.document.getElementsByName("guest-invite-code")[0];
   var description = window.document.getElementsByName("guest-description")[0];
   var dietaryRestrictions = window.document.getElementsByName("guest-dietary-restrictions")[0];
-  /*var addressLine1 = window.document.getElementsByName("guest-address-line-1")[0];
-  var addressLine2 = window.document.getElementsByName("guest-address-line-2")[0];
-  var addressState = window.document.getElementsByName("guest-address-state")[0];
-  var addressCountry = window.document.getElementsByName("guest-address-country")[0];
-  var addressZipCode = window.document.getElementsByName("guest-address-zip-code")[0];*/
-  var hasPlusOne = window.document.getElementsByName("guest-has-plus-one")[0];
   var reservationStatus = window.document.getElementsByName("guest-reservation-status")[0];
 
   var isAttending = null;
@@ -88,23 +60,6 @@ function readFields(){
   if(reservationStatus.selectedIndex !== -1){
     isAttending = reservationStatus.selectedIndex === 1 ? false : true;
   }
-
-/*
-  var address = new Address(
-    addressLine1.value,
-    addressLine2.value,
-    addressState.value,
-    addressCountry.value,
-    addressZipCode.value
-  );
-*/
-  var address = new Address(
-    "",
-    "",
-    "",
-    "",
-    ""
-  );
 
   var reservation = new Reservation(
     isAttending
@@ -116,8 +71,6 @@ function readFields(){
     inviteCodeInput.value,
     description.value,
     dietaryRestrictions.value,
-    hasPlusOne.checked,
-    address,
     reservation
   );
 

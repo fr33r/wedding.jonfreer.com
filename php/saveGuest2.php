@@ -43,9 +43,22 @@
 
         $guestRepository->UpdateGuest($guestReceived);
 
-        //update their reservation information.
-        $reservationRepository->UpdateReservation(
-          $guest->reservation->reservationId, $guestReceived->reservation->isAttending);
+        $reservation = $reservationRepository->GetReservationForGuest($guest->guest_id);
+
+        if($reservation != null){
+
+          //update their reservation information.
+          $reservationRepository->UpdateReservation(
+            $reservation->reservation_id, $guestReceived->reservation->isAttending);
+
+        }else{
+
+          //insert a reservation.
+          $reservationRepository->InsertReservationForGuest(
+            $guest->guest_id,
+            $guestReceived->reservation->isAttending);
+        }
+
       }
       catch(Exception $exception){
 
@@ -69,12 +82,11 @@
       //if a reservation information was provided...
       if($guestReceived->reservation != null){
 
+        $guest = $guestRepository->GetGuestByName($guestReceived->firstName, $guestReceived->lastName);
+
         //insert a reservation for the newly created guest.
-        $reservationRepository->InsertReservation(
-          $guestReceived->guestId,
-          $guestReceived->dietaryRestrictions,
-          $guestReceived->plusOneFirstName,
-          $guestReceived->plusOneLastName,
+        $reservationRepository->InsertReservationForGuest(
+          $guest->guest_id,
           $guestReceived->reservation->isAttending);
       }
 
