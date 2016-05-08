@@ -121,7 +121,7 @@ function showRsvpDetail(response){
 		var hiddenGuestIdInput = window.document.getElementById("guest-id");
 
 		nameHeader.innerText = firstMatchingGuest.first_name + " " + firstMatchingGuest.last_name;
-		descriptionHeader.innerText = firstMatchingGuest.guest_description;
+		descriptionHeader.innerText = firstMatchingGuest.description;
 		hiddenGuestIdInput.value = firstMatchingGuest.guest_id;
 
 		if(!firstMatchingGuest.has_plus_one){

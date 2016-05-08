@@ -17,25 +17,26 @@
 	if($connection->connect_error){
 
 		$error_response = new Response();
-		$error_response->code 						= 1;
+		$error_response->code 				= 1;
 		$error_response->codeDescription 	= "DATABASE CONNECTION ERROR";
-		$error_response->message 					= "there was an issue connecting to the database.";
+		$error_response->message 			= "there was an issue connecting to the database.";
 
 		echo(json_encode($error_response, JSON_PRETTY_PRINT));
 	}
+	else
+	{
+		$reservationRepository = new ReservationRepository($connection);
+	  	$reservationRepository->InsertReservationForGuest($guestId, $isAttending);
 
-	$reservationRepository = new ReservationRepository($connection);
-  $reservationRepository->InsertReservation($guestId, $guestDietaryRestrictions, null, null, $isAttending);
+		$connection->close();
 
-	$connection->close();
+		$success_response = new Response();
+		$success_response->code 				= 0;
+		$success_response->codeDescription 		= "SUCCESS";
+		$success_response->message 				= "we successfully received your rsvp.";
 
-	$success_response = new Response();
-	$success_response->code 							= 0;
-	$success_response->codeDescription 		= "SUCCESS";
-	$success_response->message 						= "we successfully received your rsvp.";
+	  	header("Content-Type: application/json");
 
-  header("Content-Type: application/json");
-
-	echo(json_encode($success_response, JSON_PRETTY_PRINT));
-
+		echo(json_encode($success_response, JSON_PRETTY_PRINT));
+	}
 ?>
