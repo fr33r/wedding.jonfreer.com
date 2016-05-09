@@ -15,28 +15,27 @@
     */
     public function GetGuestByName($first_name, $last_name){
 
+      //echo("GuestRepository : GetGuestByName : first_name = " . $first_name . ", last_name = " . $last_name . "\n");
+
       $sql	=   "SELECT
                   G.GUEST_ID,
                   G.FIRST_NAME,
                   G.LAST_NAME,
                   G.GUEST_DESCRIPTION,
                   G.GUEST_DIETARY_RESTRICTIONS,
-                  G.HAS_PLUS_ONE,
                   G.INVITE_CODE,
-                  A.ADDRESS_LINE1,
-                  A.ADDRESS_LINE2,
-                  A.STATE,
-                  A.COUNTRY,
-                  A.ZIP_CODE
+                  R.IS_ATTENDING,
+                  G.RESERVATION_ID,
+                  R.DATETIME_SUBMITTED
                 FROM
                   jonfreer_wedding.GUEST AS G
-                  JOIN jonfreer_wedding.ADDRESS AS A
-                    ON G.ADDRESS_ID = A.ADDRESS_ID
                   LEFT JOIN jonfreer_wedding.RESERVATION AS R
                     ON G.RESERVATION_ID = R.RESERVATION_ID
                 WHERE
-                  G.FIRST_NAME = '" . $first_name . "'" .
+                  G.FIRST_NAME = '" . $first_name . "' " .
                   "AND G.LAST_NAME = '" . $last_name . "';";
+
+      //echo("SQL = " . $sql . "\n");
 
     	$result = $this->mysqlConnection->query($sql);
 
@@ -52,25 +51,23 @@
     			$currentGuest->guest_id = $row["GUEST_ID"];
     			$currentGuest->first_name = $row["FIRST_NAME"];
     			$currentGuest->last_name = $row["LAST_NAME"];
+          $currentGuest->invite_code = $row["INVITE_CODE"];
     			$currentGuest->description = $row["GUEST_DESCRIPTION"];
           $currentGuest->dietary_restrictions = $row["GUEST_DIETARY_RESTRICTIONS"];
 
-    			if($row["HAS_PLUS_ONE"] == 1){
-    				$currentGuest->has_plus_one = true;
-    			}
+          if($row["RESERVATION_ID"] != null){
 
-          $currentGuest->address = new Address();
-          $currentGuest->address->line_1 = $row["ADDRESS_LINE1"];
-          $currentGuest->address->line_2 = $row["ADDRESS_LINE2"];
-          $currentGuest->address->state = $row["STATE"];
-          $currentGuest->address->country = $row["COUNTRY"];
-          $currentGuest->address->zip_code = $row["ZIP_CODE"];
-
-    			if($row["IS_ATTENDING"] == 1){
             $currentGuest->reservation = new Reservation();
-    				$currentGuest->reservation->is_attending = true;
-    			}
+            $currentGuest->reservation->reservation_id = $row["RESERVATION_ID"];
+            $currentGuest->reservation->submitted_datetime = $row["DATETIME_SUBMITTED"];
 
+            if($row["IS_ATTENDING"] == 1){
+      				$currentGuest->reservation->is_attending = true;
+
+      			}else if($row["IS_ATTENDING"] == 0){
+              $currentGuest->reservation->is_attending = false;
+            }
+          }
     		}
     	}
 
@@ -82,28 +79,24 @@
     */
     public function GetGuestById($id){
 
+      //echo("GuestRepository : GetGuestById : id = " . $id . "\n");
+
       $sql	=   "SELECT
                   G.GUEST_ID,
                   G.FIRST_NAME,
                   G.LAST_NAME,
                   G.GUEST_DESCRIPTION,
                   G.GUEST_DIETARY_RESTRICTIONS,
-                  G.HAS_PLUS_ONE,
                   G.INVITE_CODE,
-                  R.IS_ATTENDING,
-                  A.ADDRESS_LINE1,
-                  A.ADDRESS_LINE2,
-                  A.STATE,
-                  A.COUNTRY,
-                  A.ZIP_CODE
+                  R.IS_ATTENDING
                 FROM
                   jonfreer_wedding.GUEST AS G
-                  JOIN jonfreer_wedding.ADDRESS AS A
-                    ON G.ADDRESS_ID = A.ADDRESS_ID
                   LEFT JOIN jonfreer_wedding.RESERVATION AS R
                     ON G.RESERVATION_ID = R.RESERVATION_ID
                 WHERE
                   G.GUEST_ID = " . $id . ";";
+
+      //echo("SQL = " . $sql . "\n");
 
       $result = $this->mysqlConnection->query($sql);
 
@@ -119,24 +112,17 @@
     			$currentGuest->guest_id = $row["GUEST_ID"];
     			$currentGuest->first_name = $row["FIRST_NAME"];
     			$currentGuest->last_name = $row["LAST_NAME"];
+          $currentGuest->invite_code = $row["INVITE_CODE"];
     			$currentGuest->description = $row["GUEST_DESCRIPTION"];
           $currentGuest->dietary_restrictions = $row["GUEST_DIETARY_RESTRICTIONS"];
 
-    			if($row["HAS_PLUS_ONE"] == 1){
-    				$currentGuest->has_plus_one = true;
-    			}
-
-          $currentGuest->address = new Address();
-          $currentGuest->address->line_1 = $row["ADDRESS_LINE1"];
-          $currentGuest->address->line_2 = $row["ADDRESS_LINE2"];
-          $currentGuest->address->state = $row["STATE"];
-          $currentGuest->address->country = $row["COUNTRY"];
-          $currentGuest->address->zip_code = $row["ZIP_CODE"];
-
     			if($row["IS_ATTENDING"] == 1){
             $currentGuest->reservation = new Reservation();
-    				$currentGuest->reservation->is_attending = true;
-    			}
+            $currentGuest->reservation->is_attending = true;
+          }else if($row["IS_ATTENDING"] == 0){
+            $currentGuest->reservation = new Reservation();
+            $currentGuest->reservation->is_attending = false;
+          }
 
     		}
     	}
@@ -149,20 +135,26 @@
     */
     public function InsertGuest($guest){
 
-      $sql	=   "CALL jonfreer_wedding.INSERT_GUEST
+      //echo("GuestRepository : InsertGuest : guest = \n");
+      //var_dump($guest);
+
+      $sql	=   "CALL jonfreer_wedding.INSERT_GUEST2
     				      (" .
-                      "'" . $guest->firstName . "'," .
-                      "'" . $guest->lastName . "'," .
-                      "'" . $guest->description . "'," .
-                            $guest->hasPlusOne . "," .
-                      "'" . $guest->address->line1 . "'," .
-                      "'" . $guest->address->line2 . "'," .
-                      "'" . $guest->address->state . "'," .
-                      "'" . $guest->address->country . "'," .
-                      "'" . $guest->address->zipCode .
+                      "'" . $guest->first_name         . "'," .
+                      "'" . $guest->last_name          . "'," .
+                      "'" . $guest->description       . "'," .
+                      "'" . $guest->dietary_restrictions       . "'," .
+                      "'" . $guest->invite_code        . "'" .
   				        ");";
 
-      $this->mysqlConnection->query($sql);
+      //echo("SQL = " . $sql . "\n");
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception(
+          "An issue occurred when attempting create new guest with name " .
+          $guest->first_name . " " . $guest->last_name . ". " . $mysqlConnection->error);
+      }
 
     }
 
@@ -171,17 +163,27 @@
     */
     public function UpdateGuest($guest){
 
-      $sql	=   "CALL jonfreer_wedding.UPDATE_GUEST
+      //echo("GuestRepository : UpdateGuest : guest = \n");
+      //var_dump($guest);
+
+      $sql	=   "CALL jonfreer_wedding.UPDATE_GUEST2
                   (" .
-                            $guest->guestId . "," .
-                      "'" . $guest->firstName . "'," .
-                      "'" . $guest->lastName . "'," .
+                            $guest->guest_id . "," .
+                      "'" . $guest->first_name . "'," .
+                      "'" . $guest->last_name . "'," .
                       "'" . $guest->description . "'," .
-                      "'" . $guest->dietaryRestrictions . "'" .
-                            $guest->hasPlusOne .
+                      "'" . $guest->dietary_restrictions . "'," .
+                      "'" . $guest->invite_code . "'" .
                   ");";
 
-      $this->mysqlConnection->query($sql);
+      //echo("SQL = " . $sql . "\n");
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception(
+          "An issue occurred when attempting to update " .
+          $guest->first_name . " " . $guest->last_name . "'s information.");
+      }
 
     }
 
@@ -198,22 +200,18 @@
                   G.LAST_NAME,
                   G.GUEST_DESCRIPTION,
                   G.GUEST_DIETARY_RESTRICTIONS,
-                  G.HAS_PLUS_ONE,
                   G.INVITE_CODE,
                   R.IS_ATTENDING,
-                  A.ADDRESS_LINE1,
-                  A.ADDRESS_LINE2,
-                  A.STATE,
-                  A.COUNTRY,
-                  A.ZIP_CODE
+                  G.RESERVATION_ID,
+                  R.DATETIME_SUBMITTED
                 FROM
                   jonfreer_wedding.GUEST AS G
                   LEFT OUTER JOIN jonfreer_wedding.RESERVATION AS R
                     ON G.RESERVATION_ID = R.RESERVATION_ID
-                  INNER JOIN jonfreer_wedding.ADDRESS AS A
-                    ON A.ADDRESS_ID = G.ADDRESS_ID
                 WHERE
                   G.INVITE_CODE = '" . $inviteCode . "'";
+
+      //echo("SQL = " . $sql . "\n");
 
       //execute query.
     	$result = $this->mysqlConnection->query($sql);
@@ -232,24 +230,23 @@
     			$currentGuest->guest_id = $row["GUEST_ID"];
     			$currentGuest->first_name = $row["FIRST_NAME"];
     			$currentGuest->last_name = $row["LAST_NAME"];
+          $currentGuest->invite_code = $row["INVITE_CODE"];
     			$currentGuest->description = $row["GUEST_DESCRIPTION"];
           $currentGuest->dietary_restrictions = $row["GUEST_DIETARY_RESTRICTIONS"];
 
-    			if($row["HAS_PLUS_ONE"] == 1){
-    				$currentGuest->has_plus_one = true;
-    			}
+          if($row["RESERVATION_ID"] != null){
 
-          $currentGuest->address = new Address();
-          $currentGuest->address->line_1 = $row["ADDRESS_LINE1"];
-          $currentGuest->address->line_2 = $row["ADDRESS_LINE2"];
-          $currentGuest->address->state = $row["STATE"];
-          $currentGuest->address->country = $row["COUNTRY"];
-          $currentGuest->address->zip_code = $row["ZIP_CODE"];
-
-    			if($row["IS_ATTENDING"] == 1){
             $currentGuest->reservation = new Reservation();
-    				$currentGuest->reservation->is_attending = true;
-    			}
+            $currentGuest->reservation->reservation_id = $row["RESERVATION_ID"];
+            $currentGuest->reservation->submitted_datetime = $row["DATETIME_SUBMITTED"];
+
+            if($row["IS_ATTENDING"] == 1){
+      				$currentGuest->reservation->is_attending = true;
+
+      			}else if($row["IS_ATTENDING"] == 0){
+              $currentGuest->reservation->is_attending = false;
+            }
+          }
 
           //add the current guest into the array.
     			$guestsWithMatchingInviteCode[] = $currentGuest;

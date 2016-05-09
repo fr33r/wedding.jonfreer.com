@@ -6,6 +6,7 @@
   require 'domain/reservation.php';
   require 'serviceModel/response.php';
   require 'repositories/reservationRepository.php';
+  require 'repositories/guestRepository.php';
 
 	//grab the code that the user entered.
 	$guestId = $_POST["guestId"];
@@ -17,25 +18,55 @@
 	if($connection->connect_error){
 
 		$error_response = new Response();
-		$error_response->code 						= 1;
+		$error_response->code 				    = 1;
 		$error_response->codeDescription 	= "DATABASE CONNECTION ERROR";
-		$error_response->message 					= "there was an issue connecting to the database.";
+		$error_response->message 			    = "there was an issue connecting to the database.";
 
 		echo(json_encode($error_response, JSON_PRETTY_PRINT));
 	}
+	else
+	{
+      try{
 
-	$reservationRepository = new ReservationRepository($connection);
-  $reservationRepository->InsertReservation($guestId, $guestDietaryRestrictions, null, null, $isAttending);
+        //update reservation information.
+  		  $reservationRepository = new ReservationRepository($connection);
+  	  	$reservationRepository->InsertReservationForGuest($guestId, $isAttending);
 
-	$connection->close();
+        //retrieve guest information so update can be performed.
+        $guestRepository = new GuestRepository($connection);
+        $guest = $guestRepository->GetGuestById($guestId);
 
-	$success_response = new Response();
-	$success_response->code 							= 0;
-	$success_response->codeDescription 		= "SUCCESS";
-	$success_response->message 						= "we successfully received your rsvp.";
+        if($guest != null){
 
-  header("Content-Type: application/json");
+          $guest->dietary_restrictions = $guestDietaryRestrictions;
 
-	echo(json_encode($success_response, JSON_PRETTY_PRINT));
+          //update guest information.
+          $guestRepository->UpdateGuest($guest);
+    
+        }
 
+        $connection->close();
+
+        $success_response = new Response();
+        $success_response->code 				       = 0;
+  	    $success_response->codeDescription 		 = "SUCCESS";
+  	    $success_response->message 				     = "we successfully received your rsvp.";
+
+  	  	header("Content-Type: application/json");
+
+  	    echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
+      }catch(Exception $exception){
+
+        header("Content-Type: application/json");
+
+        $success_response = new Response();
+        $success_response->code               = 2;
+        $success_response->codeDescription    = "DATABASE QUERY ERROR";
+        $success_response->message            = $exception->getMessage();
+
+        echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
+      }
+	}
 ?>

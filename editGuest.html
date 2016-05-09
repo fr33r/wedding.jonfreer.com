@@ -147,23 +147,21 @@
     <!-- Guest Management Form -->
     <div id = "guest-info-form">
       <form method="" action ="">
+
         <input type="text" name="guest-first-name" placeholder="guest first name" autocomplete="off"/>
         <input type="text" name="guest-last-name" placeholder="guest last name" autocomplete="off"/>
         <input type="text" name="guest-description" placeholder="guest description" autocomplete="off"/>
-        <input type="text" name="guest-address-line-1" placeholder="address line 1" autocomplete="off"/>
-        <input type="text" name="guest-address-line-2" placeholder="address line 2" autocomplete="off"/>
-        <input type="text" name="guest-address-state" placeholder="state" autocomplete="off"/>
-        <input type="text" name="guest-address-country" placeholder="country" autocomplete="off"/>
-        <input type="text" name="guest-address-zip-code" placeholder="postal code" autocomplete="off"/>
-        <label for="guest-has-plus-one">plus one?</label>
-        <input type="checkbox" name="guest-has-plus-one" autocomplete="off" class="float-right">
+        <input type="text" name="guest-invite-code" placeholder="invite code" autocomplete="off"/>
+
         <textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+
         <label for="guest-reservation-status">status</label>
         <select name="guest-reservation-status" class="float-right">
           <option>haven't heard yet.</option>
           <option>can't make it.</option>
           <option>coming.</option>
         </select>
+        
         <input id="guest-info-save-button" type="submit" name="guest-info-save-button" value="save"/>
       </form>
     </div>

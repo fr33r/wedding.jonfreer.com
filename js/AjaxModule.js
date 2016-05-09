@@ -51,7 +51,7 @@ var ajaxModule = (function(){
     }
 
     internalXHR.open("GET", uri);
-    internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tGET\n");
+    internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tGET\n");
     internalXHR.send();
   };
 
@@ -81,10 +81,10 @@ var ajaxModule = (function(){
 
     if(internalSettings.contentType === "application/json"){
       internalXHR.send(JSON.stringify(data));
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + JSON.stringify(data, null, 4));
     }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
       internalXHR.send(data);
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + data);
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tPOST\nBody:\n" + data);
     }
   };
 
@@ -114,10 +114,10 @@ var ajaxModule = (function(){
 
     if(internalSettings.contentType === "application/json"){
       internalXHR.send(JSON.stringify(data));
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + JSON.stringify(data, null, 4));
     }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
       internalXHR.send(data);
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + data);
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tDELETE\nBody:\n" + data);
     }
   };
 
@@ -147,10 +147,10 @@ var ajaxModule = (function(){
 
     if(internalSettings.contentType === "application/json"){
       internalXHR.send(JSON.stringify(data));
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + JSON.stringify(data));
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + JSON.stringify(data, null, 4));
     }else if(internalSettings.contentType === "application/x-www-form-urlencoded"){
       internalXHR.send(data);
-      internalLog("HTTP Request\nURI:\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + data);
+      internalLog("HTTP Request\nURI:\t\t\t\t" + uri + "\nMethod:\t\tPUT\nBody:\n" + data);
     }
   };
 

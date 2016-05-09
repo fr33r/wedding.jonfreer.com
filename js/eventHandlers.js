@@ -119,15 +119,19 @@ function showRsvpDetail(response){
 		var nameHeader = contentDetail.getElementsByTagName("h1")[0];
 		var descriptionHeader = contentDetail.getElementsByTagName("h3")[0];
 		var hiddenGuestIdInput = window.document.getElementById("guest-id");
+		var dietaryRestrictions = window.document.getElementById("guest-dietary-restrictions");
 
 		nameHeader.innerText = firstMatchingGuest.first_name + " " + firstMatchingGuest.last_name;
-		descriptionHeader.innerText = firstMatchingGuest.guest_description;
+		descriptionHeader.innerText = firstMatchingGuest.description;
 		hiddenGuestIdInput.value = firstMatchingGuest.guest_id;
+		dietaryRestrictions.value = firstMatchingGuest.dietary_restrictions;
 
+		/*
 		if(!firstMatchingGuest.has_plus_one){
 			var guestSection = window.document.getElementById("guest-info");
 			guestSection.style.display = "none";
 		}
+		*/
 
 		modalModule.configure({
 			modalContentID: "rsvp-modal-content-code-detail"

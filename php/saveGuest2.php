@@ -9,7 +9,20 @@
   require 'repositories/reservationRepository.php';
 
   $json = file_get_contents('php://input');
-  $guestReceived = json_decode($json);
+  $guestReceivedOther = json_decode($json);
+
+  $guestReceived = new Guest();
+  $guestReceived->guest_id = $guestReceivedOther->guestId;
+  $guestReceived->first_name = $guestReceivedOther->firstName;
+  $guestReceived->last_name = $guestReceivedOther->lastName;
+  $guestReceived->description = $guestReceivedOther->description;
+  $guestReceived->dietary_restrictions = $guestReceivedOther->dietaryRestrictions;
+  $guestReceived->invite_code = $guestReceivedOther->inviteCode;
+
+  if($guestReceivedOther->reservation != null){
+    $guestReceived->reservation = new Reservation();
+    $guestReceived->reservation->is_attending = $guestReceivedOther->reservation->isAttending;
+  }
 
 	$connection = new mysqli(DATABASE_SERVER_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 
@@ -30,35 +43,81 @@
     $reservationRepository = new ReservationRepository($connection);
 
     //check to see if the guest already exists...
-    $guest = $guestRepository->GetGuestByName($guestReceived->firstName, $guestReceived->lastName);
+    $guest = $guestRepository->GetGuestByName($guestReceived->first_name, $guestReceived->last_name);
 
-    //if so...
+    //if the guest already exists...
     if($guest != null){
 
       //update their guest information.
-      $guestRepository->UpdateGuest($guestReceived);
+      $guestReceived->guest_id = $guest->guest_id;
 
-      //update their reservation information.
-      $reservationRepository->UpdateReservation(
-        $guest->reservation->reservationId, $guestReceived->reservation->isAttending);
+      try{
 
-    //if not...
+        $guestRepository->UpdateGuest($guestReceived);
+
+        $reservation = $reservationRepository->GetReservationForGuest($guest->guest_id);
+
+        //if there currently is a reservation for the guest...
+        if($reservation != null){
+
+          //and if the guest information recieved has reservation information...
+          if($guestReceived->reservation != null){
+
+            //update their reservation information.
+            $reservationRepository->UpdateReservation(
+              $reservation->reservation_id, $guestReceived->reservation->is_attending);
+
+          }else{
+
+            //delete their reservation.
+            $reservationRepository->DeleteReservation($reservation->reservation_id);
+
+          }
+
+        }else{ //if there is no reservation information currently for the guest...
+
+          //and if the guest information recieved has reservation information...
+          if($guestReceived->reservation != null){
+
+            //insert a reservation.
+            $reservationRepository->InsertReservationForGuest(
+              $guest->guest_id,
+              $guestReceived->reservation->is_attending);
+          }
+
+        }
+
+      }
+      catch(Exception $exception){
+
+        header("Content-Type: application/json");
+
+        $success_response = new Response();
+        $success_response->code               = 2;
+        $success_response->codeDescription    = "DATABASE QUERY ERROR";
+        $success_response->message            = $exception->getMessage();
+
+        echo(json_encode($success_response, JSON_PRETTY_PRINT));
+
+      }
+
+    //if the guest does not exist yet...
     }else{
 
       //create a new guest.
-      $guestRepository->InsertGuest($guest);
+      $guestRepository->InsertGuest($guestReceived);
 
       //if a reservation information was provided...
-      if($guest->reservation != null){
+      if($guestReceived->reservation != null){
+
+        $guest = $guestRepository->GetGuestByName($guestReceived->first_name, $guestReceived->last_name);
 
         //insert a reservation for the newly created guest.
-        $reservationRepository->InsertReservation(
-          $guest->guestId,
-          $guest->dietaryRestrictions,
-          $guest->plusOneFirstName,
-          $guest->plusOneLastName,
-          $guest->reservation->isAttending);
+        $reservationRepository->InsertReservationForGuest(
+          $guest->guest_id,
+          $guestReceived->reservation->is_attending);
       }
+
     }
 
     header("Content-Type: application/json");
