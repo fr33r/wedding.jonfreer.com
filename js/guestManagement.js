@@ -55,15 +55,13 @@ function readFields(){
   var dietaryRestrictions = window.document.getElementsByName("guest-dietary-restrictions")[0];
   var reservationStatus = window.document.getElementsByName("guest-reservation-status")[0];
 
-  var isAttending = null;
+  var reservation = null;
 
-  if(reservationStatus.selectedIndex !== -1){
-    isAttending = reservationStatus.selectedIndex === 1 ? false : true;
+  if(reservationStatus.selectedIndex === 1){
+    reservation = new Reservation(false);
+  }else if(reservationStatus.selectedIndex === 2){
+    reservation = new Reservation(true);
   }
-
-  var reservation = new Reservation(
-    isAttending
-  );
 
   var guest = new Guest(
     firstNameInput.value,
@@ -118,4 +116,7 @@ var globalUtility = new Utility();
 
 window.onload = function(){
 	setupEventHandlers();
+
+  var guestDescription = window.document.getElementsByName("guest-description")[0];
+  guestDescription.value = 'Guest';
 }

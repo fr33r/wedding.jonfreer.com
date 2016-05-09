@@ -1,7 +1,7 @@
 <?php
 
   	require 'constants/constants.php';
-	require 'domain/guest.php';
+	  require 'domain/guest.php';
   	require 'domain/reservation.php';
   	require 'domain/address.php';
   	require 'serviceModel/response.php';
@@ -25,23 +25,23 @@
 	else
   {
 
-		$guestRepository = new GuestRepository($connection);
+		  $guestRepository = new GuestRepository($connection);
 	  	$guestsWithMatchingInviteCode = $guestRepository->GetGuestsWithMatchingInviteCode($codeEntered);
 
-		//create the success response object.
-		$success_response = new Response();
-		$success_response->code 				= 0;
-		$success_response->codeDescription 		= "SUCCESS";
-		$success_response->message 				= "there were " . count($guestsWithMatchingInviteCode) . " guests found with code " . $codeEntered . ".";
-		$success_response->data 				=	$guestsWithMatchingInviteCode;
+	    //create the success response object.
+      $success_response = new Response();
+	    $success_response->code 				   = 0;
+      $success_response->codeDescription = "SUCCESS";
+      $success_response->message 				 = "there were " . count($guestsWithMatchingInviteCode) . " guests found with code " . $codeEntered . ".";
+	    $success_response->data 				   = $guestsWithMatchingInviteCode;
 
-		//close the database connection. maybe can do this earlier? need the $result object.
-		$connection->close();
+	    //close the database connection. maybe can do this earlier? need the $result object.
+	    $connection->close();
 
-		header("Content-Type: application/json");
+	    header("Content-Type: application/json");
 
-		//send it off.
-		echo(json_encode($success_response, JSON_PRETTY_PRINT));
+	    //send it off.
+	    echo(json_encode($success_response, JSON_PRETTY_PRINT));
 
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
   /*
-    Performs all direct access logic against the data SplObjectStorage
+    Performs all direct access logic against the data store
     that contains information about the reservations.
   */
   class ReservationRepository{
@@ -10,6 +10,9 @@
       $this->mysqlConnection = $mysqlConnection;
     }
 
+    /*
+      Retrieves a reservation for a specific guest.
+    */
     public function GetReservationForGuest($guestId){
 
       $sql	=   "SELECT
@@ -59,7 +62,7 @@
       if(!$this->mysqlConnection->query($sql)){
 
         throw new Exception(
-          "An issue occurred when attempting to insert reservation for guest ID " .
+          "An issue occurred when attempting to insert reservation for guest ID: " .
           $guestId . ".");
       }
 
@@ -83,10 +86,25 @@
       if(!$this->mysqlConnection->query($sql)){
 
         throw new Exception(
-          "An issue occurred when attempting to update reservation with reservation ID " .
+          "An issue occurred when attempting to update reservation with reservation ID: " .
           $reservationId . ".");
       }
 
+    }
+
+    /*
+      Deletes an already existing reservation.
+    */
+    public function DeleteReservation($reservationId){
+
+      $sql	=   "CALL jonfreer_wedding.DELETE_RESERVATION(" . $reservationId . ");";
+
+      if(!$this->mysqlConnection->query($sql)){
+
+        throw new Exception(
+          "An issue occurred when attempting to delete reservation with reservation ID: " .
+          $reservationId . ".");
+      }
     }
 
   }
