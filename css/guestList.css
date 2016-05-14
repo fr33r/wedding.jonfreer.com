@@ -49,5 +49,5 @@ table#coming td{
 }
 
 table#no-rsvp td{
-	width: calc(100%/2);
+	width: calc(100%/3);
 }

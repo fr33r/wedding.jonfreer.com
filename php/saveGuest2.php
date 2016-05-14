@@ -42,6 +42,9 @@
     $guestRepository = new GuestRepository($connection);
     $reservationRepository = new ReservationRepository($connection);
 
+    //message to return to caller.
+    $message = "";
+
     //check to see if the guest already exists...
     $guest = $guestRepository->GetGuestByName($guestReceived->first_name, $guestReceived->last_name);
 
@@ -54,6 +57,8 @@
       try{
 
         $guestRepository->UpdateGuest($guestReceived);
+
+        $message = "successfully updated guest.";
 
         $reservation = $reservationRepository->GetReservationForGuest($guest->guest_id);
 
@@ -107,6 +112,8 @@
       //create a new guest.
       $guestRepository->InsertGuest($guestReceived);
 
+      $message = "successfully created guest.";
+
       //if a reservation information was provided...
       if($guestReceived->reservation != null){
 
@@ -127,7 +134,7 @@
   	$success_response = new Response();
   	$success_response->code 							= 0;
   	$success_response->codeDescription 		= "SUCCESS";
-  	$success_response->message 						= "Saved guest successfully.";
+  	$success_response->message 						= $message;
 
   	echo(json_encode($success_response, JSON_PRETTY_PRINT));
 

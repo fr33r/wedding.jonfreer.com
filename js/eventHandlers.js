@@ -1,10 +1,10 @@
-
 function setUpRsvpLinkEventHandler(){
 	var rsvpLink = window.document.getElementById("side-nav-link-rsvp");
 	rsvpLink.addEventListener("click", function(e){
 		e.preventDefault();
 		modalModule.configure({
 			modalContentID: "rsvp-modal-content-code"
+			//modalContentID: "rsvp-model-matching-guest-list"
 		});
 		modalModule.show();
 	});
@@ -36,7 +36,7 @@ function setUpRsvpSubmitButtonHandler(){
 		ajaxModule.post(
 			"php/enterCode2.php",
 			"rsvp-code=" + window.document.getElementById("rsvp-code-input").value,
-			showRsvpDetail,
+			submitRsvpCodeSuccess,
 			submitRsvpErrorHandler
 		);
 	});
@@ -105,38 +105,48 @@ function setUpCannotMakeItButtonHandlerRevised(){
 	RSVP detail screen so that the user can submit
 	their RSVP.
 */
-function showRsvpDetail(response){
+function showRsvpDetail(guest){
 
+	var contentDetail = window.document.getElementById("rsvp-modal-content-code-detail");
+	var nameHeader = contentDetail.getElementsByTagName("h1")[0];
+	var descriptionHeader = contentDetail.getElementsByTagName("h3")[0];
+	var hiddenGuestIdInput = window.document.getElementById("guest-id");
+	var dietaryRestrictions = window.document.getElementById("guest-dietary-restrictions");
+
+	nameHeader.innerText = guest.first_name + " " + guest.last_name;
+	descriptionHeader.innerText = guest.description;
+	hiddenGuestIdInput.value = guest.guest_id;
+	dietaryRestrictions.value = guest.dietary_restrictions;
+
+	modalModule.configure({
+		modalContentID: "rsvp-modal-content-code-detail"
+	});
+	modalModule.show();
+
+}
+
+/*
+
+*/
+function submitRsvpCodeSuccess(response){
 	if(response.data.length === 0){
 		submitRsvpCodeError(response);
 	}else{
+		var guestsWithoutReservations = [];
 
-		// TODO: currently just arbitrarily picking the first result that
-		//comes back. ultimately need to have an additional step that shows
-		//all of the guests that come back on API call, before performing this logic.
-		var firstMatchingGuest = response.data[0];
-		var contentDetail = window.document.getElementById("rsvp-modal-content-code-detail");
-		var nameHeader = contentDetail.getElementsByTagName("h1")[0];
-		var descriptionHeader = contentDetail.getElementsByTagName("h3")[0];
-		var hiddenGuestIdInput = window.document.getElementById("guest-id");
-		var dietaryRestrictions = window.document.getElementById("guest-dietary-restrictions");
-
-		nameHeader.innerText = firstMatchingGuest.first_name + " " + firstMatchingGuest.last_name;
-		descriptionHeader.innerText = firstMatchingGuest.description;
-		hiddenGuestIdInput.value = firstMatchingGuest.guest_id;
-		dietaryRestrictions.value = firstMatchingGuest.dietary_restrictions;
-
-		/*
-		if(!firstMatchingGuest.has_plus_one){
-			var guestSection = window.document.getElementById("guest-info");
-			guestSection.style.display = "none";
+		for(var i =0; i < response.data.length; i++){
+			if(response.data[i].reservation == null){
+				guestsWithoutReservations.push(response.data[i]);
+			}
 		}
-		*/
 
-		modalModule.configure({
-			modalContentID: "rsvp-modal-content-code-detail"
-		});
-		modalModule.show();
+		if(guestsWithoutReservations.length > 0){
+			clearMatchingGuestList();
+			showMatchingGuestsWithoutReservation(guestsWithoutReservations);
+		}else{
+			showThatAllMatchingGuestsHaveReservation();
+		}
+
 	}
 }
 
@@ -192,6 +202,98 @@ function submitRsvpErrorHandler(response){
 	modalModule.configure({
 		modalContentID: "rsvp-modal-error"
 	});
+}
+
+/*
+	Dynamically constructs the list of the guests that match the
+	entered invite code that have not made a reservation yet.
+*/
+function showMatchingGuestsWithoutReservation(guestsWithoutReservation){
+
+	var fragment = window.document.createDocumentFragment();
+	var centeredDiv = window.document.createElement("div");
+	centeredDiv.className = "vert-horiz-centered";
+
+	var numOfGuestWithoutReservation = guestsWithoutReservation.length;
+
+	for(var i = 0; i < numOfGuestWithoutReservation; i++){
+		var div = window.document.createElement("div");
+		div.addEventListener("click", clickMatchingGuestCardHandler, false);
+		var header2 = window.document.createElement("h2");
+		var header4 = window.document.createElement("h4");
+		var horizRule = window.document.createElement("hr");
+
+		div.className = "matching-guest-card";
+		div.setAttribute("data-guest-id", guestsWithoutReservation[i].guest_id);
+		header2.innerHTML = guestsWithoutReservation[i].first_name +
+		" " + guestsWithoutReservation[i].last_name;
+		header4.innerHTML = guestsWithoutReservation[i].description;
+		horizRule.className = "section-header-bar spaced";
+
+		div.appendChild(header2);
+		div.appendChild(header4);
+		centeredDiv.appendChild(div);
+
+		if(i != numOfGuestWithoutReservation - 1){
+			centeredDiv.appendChild(horizRule);
+		}
+	}
+
+	var modalContent = window.document.getElementById("rsvp-model-matching-guest-list");
+	fragment.appendChild(centeredDiv);
+	modalContent.appendChild(fragment);
+
+	modalModule.configure({
+		modalContentID: "rsvp-model-matching-guest-list"
+	});
+
+	modalModule.show();
+}
+
+function clearMatchingGuestList(){
+
+	var modalContent = window.document.getElementById("rsvp-model-matching-guest-list");
+	var centeredDivs = modalContent.getElementsByClassName("vert-horiz-centered");
+
+	if(centeredDivs != null && centeredDivs.length > 0){
+		var centeredDiv = centeredDivs[0];
+		modalContent.removeChild(centeredDiv);
+	}
+
+}
+
+
+/*
+	Handles when the click event fires for the
+	matching guest cards.
+*/
+function clickMatchingGuestCardHandler(e){
+	var guestId = this.dataset.guestId;
+
+	ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
+	ajaxModule.get(
+		"php/lookupGuestById.php?guestId="+ guestId,
+		clickMatchingGuestCardSuccessHandler,
+		null);
+}
+
+function clickMatchingGuestCardSuccessHandler(response){
+	if(response.data.length === 0){
+		window.alert("someting went wrong!");
+	}else{
+		var guest = response.data;
+		showRsvpDetail(guest);
+	}
+}
+
+function showThatAllMatchingGuestsHaveReservation(){
+
+	modalModule.configure({
+		modalContentID: "rsvp-all-guests-have-reservation"
+	});
+
+	modalModule.show();
+
 }
 
 function setUpEventHandlers(){

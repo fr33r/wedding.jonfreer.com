@@ -386,3 +386,27 @@ a.registry-link img{
 	margin-right: 10px;
 	vertical-align: 25%;
 }
+
+div.matching-guest-card h2, h3, h4{
+	margin: 0;
+}
+
+div.matching-guest-card h4{
+	color: #999;
+}
+
+div.matching-guest-card{
+	/*TRANSITION*/
+	-webkit-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+div.matching-guest-card:hover{
+	color: #999;
+	cursor: pointer;
+}
+
+hr.section-header-bar.spaced{
+	margin-top: 50px;
+	margin-bottom: 50px;
+}

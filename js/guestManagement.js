@@ -76,7 +76,11 @@ function readFields(){
 }
 
 function success(response){
-  window.alert(response.codeDescription);
+  window.alert(response.message);
+}
+
+function error(response){
+  window.alert(response.message);
 }
 
 function setupEventHandlers(){
@@ -107,7 +111,7 @@ function setupEventHandlers(){
       "php/saveGuest2.php",
       guest,
       success,
-      null
+      error
     );
   });
 }

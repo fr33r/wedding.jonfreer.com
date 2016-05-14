@@ -56,7 +56,7 @@
 			<div id = "rsvp-modal-error" class = "modal-content">
 				<form method="POST">
 					<h1>oops...</h1>
-					<p>there was an issue when attempting to submit your RSVP.</p>
+					<p>there was an issue when attempting to submit your rsvp.</p>
 				</form>
 			</div>
 
@@ -66,6 +66,46 @@
 					<h1>we got it!</h1>
 					<p>thanks for submitting our rsvp.</p>
 				</form>
+			</div>
+
+			<!-- Model Content: RSVP List -->
+			<div id = "rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;">
+				<!-- Dynamically add matching guests for invite code here...
+				<div class="vert-horiz-centered">
+					<div class="matching-guest-card">
+						<h2>Jon Freer</h2>
+						<h4>Groom</h4>
+					</div>
+					<hr class = "section-header-bar spaced" />
+					<div class="matching-guest-card">
+						<h2>Emma Paas</h2>
+						<h4>Bride</h4>
+					</div>
+					<hr class = "section-header-bar spaced" />
+					<div class="matching-guest-card">
+						<h2>Sandy Freer</h2>
+						<h4>Mother of the Groom</h4>
+					</div>
+					<hr class = "section-header-bar spaced" />
+					<div class="matching-guest-card">
+						<h2>Dustin Freer</h2>
+						<h4>Best Man</h4>
+					</div>
+					<hr class = "section-header-bar spaced" />
+					<div class="matching-guest-card">
+						<h2>Alex Lord</h2>
+						<h4>Groomsman</h4>
+					</div>
+				</div>-->
+
+			</div>
+
+			<!-- Modal Content: All RSVPs Received -->
+			<div id="rsvp-all-guests-have-reservation" class="modal-content">
+				<div class="vert-horiz-centered">
+					<h1>you're all set!</h1>
+					<p>kick back and we'll see you on the big day.</p>
+				</div>
 			</div>
 
 			<!-- Modal Content: RSVP Code -->
@@ -85,14 +125,6 @@
 					<h1>jon freer</h1>
 					<!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
 					<h3>groom</h3>
-
-					<!--<div id = "guest-info" class="show-guest-info">
-
-						<!-- Guest info when applicable
-						<input type="text" name="guest-first-name" placeholder="guest first name" />
-						<input type="text" name="guest-last-name" placeholder="guest last name" />
-
-					</div>-->
 
 					<textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
 

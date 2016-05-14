@@ -9,13 +9,9 @@
 	<body>
 		<?php
 
-			//$serverName 	= "localhost";
-			$serverName 	= "jonfreer.com";
-			$username		= "jonfreer";
-			$password		= "__Goalie31__";
-			$databaseName	= "jonfreer_wedding";
+			require 'php/constants/constants.php';
 
-			$connection = new mysqli($serverName, $username, $password, $databaseName);
+			$connection = new mysqli(DATABASE_SERVER_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 
 			if($connection->connect_error){
 				echo("There was an issue connecting to the database.");
@@ -45,7 +41,7 @@
 		<!-- Guest List (Not Coming) -->
 		<?php
 			echo("<h2>can't make it. (" . $result->num_rows . ")</h2>");
-		?>	
+		?>
 		<table id="not-coming">
 			<thead>
 				<tr>
@@ -121,12 +117,15 @@
 		<?php
 
 			$sql	= "SELECT
-							FIRST_NAME,
-							LAST_NAME
-						FROM
-							jonfreer_wedding.GUEST AS G
-						WHERE
-							G.RESERVATION_ID IS NULL";
+								G.FIRST_NAME,
+								G.LAST_NAME,
+								G.INVITE_CODE
+							FROM
+								jonfreer_wedding.GUEST AS G
+							WHERE
+								G.RESERVATION_ID IS NULL
+							ORDER BY
+								G.INVITE_CODE";
 
 			$result = $connection->query($sql);
 		?>
@@ -140,6 +139,7 @@
 				<tr>
 					<td>First Name</td>
 					<td>Last Name</td>
+					<td>Invite Code</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -149,7 +149,8 @@
 							echo("<tr>");
 							echo(
 								"<td>" . $row["FIRST_NAME"] . "</td>" .
-								"<td>" . $row["LAST_NAME"] . "</td>"
+								"<td>" . $row["LAST_NAME"] . "</td>" .
+								"<td>" . $row["INVITE_CODE"] . "</td>"
 								);
 							echo("</tr>");
 						}
