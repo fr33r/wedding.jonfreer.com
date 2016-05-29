@@ -16,6 +16,8 @@
     public function GetGuestByName($first_name, $last_name){
 
       //echo("GuestRepository : GetGuestByName : first_name = " . $first_name . ", last_name = " . $last_name . "\n");
+      $first_name = $this->mysqlConnection->real_escape_string($first_name);
+      $last_name = $this->mysqlConnection->real_escape_string($last_name);
 
       $sql	=   "SELECT
                   G.GUEST_ID,
@@ -81,6 +83,9 @@
 
       //echo("GuestRepository : GetGuestById : id = " . $id . "\n");
 
+      //escape any characters that may be reservered for SQL.
+      $id = $this->mysqlConnection->real_escape_string($id);
+
       $sql	=   "SELECT
                   G.GUEST_ID,
                   G.FIRST_NAME,
@@ -140,11 +145,11 @@
 
       $sql	=   "CALL jonfreer_wedding.INSERT_GUEST2
     				      (" .
-                      "'" . $guest->first_name         . "'," .
-                      "'" . $guest->last_name          . "'," .
-                      "'" . $guest->description       . "'," .
-                      "'" . $guest->dietary_restrictions       . "'," .
-                      "'" . $guest->invite_code        . "'" .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->first_name)            . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->last_name)             . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->description)           . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->dietary_restrictions)  . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->invite_code)           . "'"  .
   				        ");";
 
       //echo("SQL = " . $sql . "\n");
@@ -168,12 +173,12 @@
 
       $sql	=   "CALL jonfreer_wedding.UPDATE_GUEST2
                   (" .
-                            $guest->guest_id . "," .
-                      "'" . $guest->first_name . "'," .
-                      "'" . $guest->last_name . "'," .
-                      "'" . $guest->description . "'," .
-                      "'" . $guest->dietary_restrictions . "'," .
-                      "'" . $guest->invite_code . "'" .
+                            $this->mysqlConnection->real_escape_string($guest->guest_id)              . "," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->first_name)            . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->last_name)             . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->description)           . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->dietary_restrictions)  . "'," .
+                      "'" . $this->mysqlConnection->real_escape_string($guest->invite_code)           . "'" .
                   ");";
 
       //echo("SQL = " . $sql . "\n");
@@ -192,6 +197,9 @@
       that have been associated with the invite code.
     */
     public function GetGuestsWithMatchingInviteCode($inviteCode){
+
+      //escape any characters that may be reservered for SQL.
+      $inviteCode = $this->mysqlConnection->real_escape_string($inviteCode);
 
       //construct SQL query.
       $sql	= "	SELECT

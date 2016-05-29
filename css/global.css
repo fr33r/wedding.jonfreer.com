@@ -8,8 +8,8 @@ div.section{
 	text-align: center;
 
 	font-size: 1.25em;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 100px;
+	padding-bottom: 100px;
 
 }
 div.section:nth-child(odd){
@@ -34,22 +34,26 @@ div#top-section{
 
 	/* DIMENSIONS */
 	width: 100%;
-	height: 80%;
+	height: 50%;
 }
 
 .six-column{
 	width: 60%;
 }
 
+h1, h2, h3, h4, h5, h6{
+	font-weight: normal;
+}
+
 h1.section-header{
 
 	/* FONT */
-	font-family: 'Quicksand-Light';
-	font-size: 1.5em;
+	font-family: 'Quicksand-Regular';
+	font-size: 2em;
 	text-align: center;
 
 	/* DIMENSIONS */
-	margin: 0;
+	margin-top:0;
 	padding-bottom: 10px;
 
 }
@@ -76,7 +80,7 @@ hr.section-header-bar{
 p{
 	/* TEXT */
 	text-align: justify;
-	font-family: 'Quicksand-Light';
+	font-family: 'Quicksand-Regular';
 
 	/* DIMENSIONS */
 	margin: auto;

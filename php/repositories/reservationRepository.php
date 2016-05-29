@@ -24,7 +24,7 @@
                   INNER JOIN jonfreer_wedding.RESERVATION AS R
                     ON G.RESERVATION_ID = R.RESERVATION_ID
                 WHERE
-                  G.GUEST_ID = " . $guestId . ";";
+                  G.GUEST_ID = " . $this->mysqlConnection->real_escape_string($guestId) . ";";
 
       $result = $this->mysqlConnection->query($sql);
 
@@ -54,10 +54,10 @@
       if($isAttending) { $isAttendingBit = 1; }
 
       $sql  =   "CALL jonfreer_wedding.INSERT_RESERVATION2
-            (" .
-              $guestId . "," .
-              $isAttendingBit .
-            ");";
+                (" .
+                  $this->mysqlConnection->real_escape_string($guestId) . "," .
+                  $this->mysqlConnection->real_escape_string($isAttendingBit) .
+                ");";
 
       if(!$this->mysqlConnection->query($sql)){
 
@@ -79,8 +79,8 @@
 
       $sql	=   "CALL jonfreer_wedding.UPDATE_RESERVATION
                   (" .
-                      $reservationId . "," .
-                      $isAttendingBit .
+                      $this->mysqlConnection->real_escape_string($reservationId) . "," .
+                      $this->mysqlConnection->real_escape_string($isAttendingBit) .
                   ");";
 
       if(!$this->mysqlConnection->query($sql)){
@@ -97,7 +97,7 @@
     */
     public function DeleteReservation($reservationId){
 
-      $sql	=   "CALL jonfreer_wedding.DELETE_RESERVATION(" . $reservationId . ");";
+      $sql	=   "CALL jonfreer_wedding.DELETE_RESERVATION(" . $this->mysqlConnection->real_escape_string($reservationId) . ");";
 
       if(!$this->mysqlConnection->query($sql)){
 
