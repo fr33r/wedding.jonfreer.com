@@ -11,6 +11,8 @@
 
 			require 'php/constants/constants.php';
 
+			date_default_timezone_set('America/Chicago');
+
 			$connection = new mysqli(DATABASE_SERVER_NAME, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME);
 
 			if($connection->connect_error){
@@ -58,7 +60,7 @@
 							echo(
 								"<td>" . $row["FIRST_NAME"] . "</td>" .
 								"<td>" . $row["LAST_NAME"] . "</td>" .
-								"<td>" . $row["DATETIME_SUBMITTED"] . "</td>"
+								"<td>" . date('l d M H:i:s', strtotime($row["DATETIME_SUBMITTED"])) . "</td>"
 								);
 							echo("</tr>");
 						}
@@ -105,7 +107,7 @@
 								"<td>" . $row["FIRST_NAME"] . "</td>" .
 								"<td>" . $row["LAST_NAME"] . "</td>" .
 								"<td>" . $row["GUEST_DIETARY_RESTRICTIONS"] . "</td>" .
-								"<td>" . $row["DATETIME_SUBMITTED"] . "</td>"
+								"<td>" . date('l d M H:i:s', strtotime($row["DATETIME_SUBMITTED"])) . "</td>"
 								);
 							echo("</tr>");
 						}
