@@ -27,7 +27,9 @@
 							jonfreer_wedding.GUEST AS G
 							JOIN jonfreer_wedding.RESERVATION AS R ON G.RESERVATION_ID = R.RESERVATION_ID
 						WHERE
-							R.IS_ATTENDING = 0";
+							R.IS_ATTENDING = 0
+						ORDER BY
+							DATETIME_SUBMITTED";
 
 			$result = $connection->query($sql);
 		?>
@@ -80,7 +82,9 @@
 							jonfreer_wedding.GUEST AS G
 							JOIN jonfreer_wedding.RESERVATION AS R ON G.RESERVATION_ID = R.RESERVATION_ID
 						WHERE
-							R.IS_ATTENDING = 1";
+							R.IS_ATTENDING = 1
+						ORDER BY
+							DATETIME_SUBMITTED";
 
 			$result = $connection->query($sql);
 		?>
