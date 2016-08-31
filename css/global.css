@@ -143,7 +143,7 @@ nav#side-nav{
 	top: 0;
 
 	/*DIMENSIONS*/
-	width: 25%;
+	width: 35%;
 	height: 100%;
 
 	/*STACKING*/
@@ -413,4 +413,39 @@ div.matching-guest-card:hover{
 hr.section-header-bar.spaced{
 	margin-top: 50px;
 	margin-bottom: 50px;
+}
+
+div.display-table{
+	display: table;
+	margin: 0 auto;
+}
+
+div.display-table.large{
+	width: 50%;
+	min-width: 500px;
+}
+
+div.display-table.medium{
+	width: 40%;
+	min-width: 400px;
+}
+
+div.display-table > div.display-row{
+	display: table-row;
+}
+
+div.display-table > div.display-row > div.display-cell{
+	display: table-cell;
+	padding: 10px;
+}
+
+div.display-cell.right-aligned{
+	text-align: right;
+	border-left: 1px solid black;
+}
+
+div.display-cell.left-aligned{
+	text-align: left;
+	border-right: 1px solid black;
+	width: 50%;
 }
