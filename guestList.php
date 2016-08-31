@@ -29,7 +29,7 @@
 						WHERE
 							R.IS_ATTENDING = 0
 						ORDER BY
-							DATETIME_SUBMITTED";
+							DATETIME_SUBMITTED DESC";
 
 			$result = $connection->query($sql);
 		?>
@@ -84,7 +84,7 @@
 						WHERE
 							R.IS_ATTENDING = 1
 						ORDER BY
-							DATETIME_SUBMITTED";
+							DATETIME_SUBMITTED DESC";
 
 			$result = $connection->query($sql);
 		?>
