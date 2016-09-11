@@ -346,7 +346,7 @@ div.quarter-section{
 }
 
 a.registry-link{
-	width: 50%;
+	width: calc(100%/3);
 	height: 50%;
 	display: block;
 	float: left;
