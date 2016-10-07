@@ -1,5 +1,7 @@
 package com.jonfreer.wedding.domain;
 
+import com.jonfreer.wedding.domain.Reservation;
+
 public class Guest{
 
   private int id;

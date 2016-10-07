@@ -3,7 +3,7 @@ package com.jonfreer.wedding.domain;
 public class Reservation{
   private int id;
   private boolean isAttending;
-  private Date submittedDateTime;
+  private java.util.Date submittedDateTime;
 
   public Reservation(){ }
 
@@ -23,11 +23,11 @@ public class Reservation{
     this.isAttending = isAttending;
   }
 
-  public Date getSubmittedDateTime(){
+  public java.util.Date getSubmittedDateTime(){
     return this.submittedDateTime;
   }
 
-  public void setSubmittedDateTime(Date submittedDateTime){
+  public void setSubmittedDateTime(java.util.Date submittedDateTime){
     this.submittedDateTime = submittedDateTime;
   }
 }
