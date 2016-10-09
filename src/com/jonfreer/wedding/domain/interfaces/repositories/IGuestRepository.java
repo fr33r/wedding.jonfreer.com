@@ -1,16 +1,16 @@
 package com.jonfreer.wedding.domain.interfaces.repositories;
 
 import com.jonfreer.wedding.domain.Guest;
-import java.sql.*;
+import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
 
 public interface IGuestRepository{
 
-  Guest getGuest(int id) throws SQLException;
+	Guest getGuest(int id) throws ResourceNotFoundException;
 
-  void updateGuest(Guest guest) throws SQLException;
+	void updateGuest(Guest guest) throws ResourceNotFoundException;
 
-  void deleteGuest(int id) throws SQLException;
+	void deleteGuest(int id) throws ResourceNotFoundException;
 
-  int insertGuest(Guest guest) throws SQLException;
+	int insertGuest(Guest guest);
 
 }
