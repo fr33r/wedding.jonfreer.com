@@ -41,7 +41,7 @@ public class GuestRepository implements IGuestRepository{
 		try{
 			connection = DriverManager.getConnection(this.connectionString);
 			pStatement = connection.prepareStatement(
-					"SELECT"
+					"SELECT "
 							+ "G.GUEST_ID,"
 							+ "G.FIRST_NAME,"
 							+ "G.LAST_NAME,"
@@ -155,11 +155,7 @@ public class GuestRepository implements IGuestRepository{
 		try{
 			connection = DriverManager.getConnection(this.connectionString);
 			pStatement = connection.prepareStatement(
-					"DELETE"
-							+ "FROM"
-							+ "jonfreer_wedding.GUEST"
-							+ "WHERE"
-							+ "G.GUEST_ID = ?;");
+					"DELETE FROM jonfreer_wedding.GUEST WHERE G.GUEST_ID = ?;");
 			pStatement.setInt(0, id);
 
 			int numOfRecords = pStatement.executeUpdate();
@@ -257,7 +253,7 @@ public class GuestRepository implements IGuestRepository{
 		try{
 			connection = DriverManager.getConnection(this.connectionString);
 			pStatement = connection.prepareStatement(
-					"SELECT"
+					"SELECT "
 					+ "G.GUEST_ID,"
 					+ "G.FIRST_NAME,"
 					+ "G.LAST_NAME,"
@@ -265,7 +261,7 @@ public class GuestRepository implements IGuestRepository{
 					+ "G.GUEST_DIETARY_RESTRICTIONS,"
 					+ "G.INVITE_CODE,"
 					+ "G.RESERVATION_ID"
-					+ "FROM"
+					+ " FROM "
 					+ "jonfreer_wedding.GUEST AS G;");
 
 			result = pStatement.executeQuery();
@@ -276,7 +272,7 @@ public class GuestRepository implements IGuestRepository{
 				guest.setGivenName(result.getString("FIRST_NAME"));
 				guest.setSurName(result.getString("LAST_NAME"));
 				guest.setDescription(result.getString("GUEST_DESCRIPTION"));
-				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_DESCRIPTION"));
+				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
 				guest.setInviteCode(result.getString("INVITE_CODE"));
 
 				int reservationId = result.getInt("RESERVATION_ID");
