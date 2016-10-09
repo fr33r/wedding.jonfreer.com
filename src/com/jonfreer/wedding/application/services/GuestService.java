@@ -1,5 +1,7 @@
 package com.jonfreer.wedding.application.services;
 
+import java.util.ArrayList;
+
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
@@ -63,6 +65,17 @@ public class GuestService implements IGuestService{
 		try{
 			return this.guestRepository.insertGuest(guest);
 		}catch(Exception ex){
+			//log.
+			throw new RuntimeException(ex);
+		}
+	}
+	
+
+	public ArrayList<Guest> getGuests() {
+		try{
+			return this.guestRepository.getGuests();
+		}
+		catch(Exception ex){
 			//log.
 			throw new RuntimeException(ex);
 		}

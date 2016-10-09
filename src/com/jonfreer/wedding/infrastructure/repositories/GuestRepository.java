@@ -6,6 +6,7 @@ import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,10 +14,14 @@ import java.sql.PreparedStatement;
 public class GuestRepository implements IGuestRepository{
 
 	private String connectionString;
+	private String username;
+	private String password;
 
-	public GuestRepository(){
+	public GuestRepository(String connectionString, String username, String password){
 
-		this.connectionString = "jdbc:mysql://jonfreer.com:3306/jonfreer_wedding";
+		this.connectionString = connectionString;
+		this.username = username;
+		this.password = password;
 
 		try {
 			java.lang.Class.forName("com.mysql.jdbc.Driver");
@@ -239,5 +244,66 @@ public class GuestRepository implements IGuestRepository{
 				throw new RuntimeException(sqlEx);
 			}
 		}	  
+	}
+
+	
+	public ArrayList<Guest> getGuests() {
+		
+		ArrayList<Guest> guests = new ArrayList<Guest>();
+		Connection connection = null;
+		PreparedStatement pStatement = null;
+		ResultSet result = null;
+		
+		try{
+			connection = DriverManager.getConnection(this.connectionString);
+			pStatement = connection.prepareStatement(
+					"SELECT"
+					+ "G.GUEST_ID,"
+					+ "G.FIRST_NAME,"
+					+ "G.LAST_NAME,"
+					+ "G.GUEST_DESCRIPTION,"
+					+ "G.GUEST_DIETARY_RESTRICTIONS,"
+					+ "G.INVITE_CODE,"
+					+ "G.RESERVATION_ID"
+					+ "FROM"
+					+ "jonfreer_wedding.GUEST AS G;");
+
+			result = pStatement.executeQuery();
+
+			while(result.next()){
+				Guest guest = new Guest();
+				guest.setId(result.getInt("GUEST_ID"));
+				guest.setGivenName(result.getString("FIRST_NAME"));
+				guest.setSurName(result.getString("LAST_NAME"));
+				guest.setDescription(result.getString("GUEST_DESCRIPTION"));
+				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_DESCRIPTION"));
+				guest.setInviteCode(result.getString("INVITE_CODE"));
+
+				int reservationId = result.getInt("RESERVATION_ID");
+				if(!result.wasNull()){
+					Reservation reservation = new Reservation();
+					reservation.setId(reservationId);
+					guest.setReservation(reservation);
+				}
+
+				guests.add(guest);
+			}
+
+			return guests;
+		}catch(SQLException sqlEx){
+			sqlEx.printStackTrace();
+			throw new RuntimeException(sqlEx);
+		}
+		finally{
+			//release resources needed.
+			try{
+				if(connection != null) { connection.close(); }
+				if(pStatement != null) { pStatement.close(); }
+				if(result != null) { result.close(); }
+			}catch(SQLException sqlEx){
+				sqlEx.printStackTrace();
+				throw new RuntimeException(sqlEx);
+			}
+		}
 	}
 }
