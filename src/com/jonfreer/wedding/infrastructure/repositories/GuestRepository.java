@@ -42,18 +42,19 @@ public class GuestRepository implements IGuestRepository{
 			connection = DriverManager.getConnection(this.connectionString);
 			pStatement = connection.prepareStatement(
 					"SELECT "
-							+ "G.GUEST_ID,"
-							+ "G.FIRST_NAME,"
-							+ "G.LAST_NAME,"
-							+ "G.GUEST_DESCRIPTION,"
-							+ "G.GUEST_DIETARY_RESTRICTIONS,"
-							+ "G.INVITE_CODE,"
-							+ "G.RESERVATION_ID"
-							+ "FROM"
-							+ "jonfreer_wedding.GUEST AS G"
-							+ "WHERE"
-							+ "G.GUEST_ID = ?;");
+					+ "G.GUEST_ID,"
+					+ "G.FIRST_NAME,"
+					+ "G.LAST_NAME,"
+					+ "G.GUEST_DESCRIPTION,"
+					+ "G.GUEST_DIETARY_RESTRICTIONS,"
+					+ "G.INVITE_CODE,"
+					+ "G.RESERVATION_ID"
+					+ " FROM "
+					+ "jonfreer_wedding.GUEST AS G"
+					+ " WHERE "
+					+ "G.GUEST_ID = ?;");
 
+			pStatement.setInt(1, id);
 			result = pStatement.executeQuery();
 
 			if(result.next()){
@@ -62,7 +63,7 @@ public class GuestRepository implements IGuestRepository{
 				guest.setGivenName(result.getString("FIRST_NAME"));
 				guest.setSurName(result.getString("LAST_NAME"));
 				guest.setDescription(result.getString("GUEST_DESCRIPTION"));
-				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_DESCRIPTION"));
+				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
 				guest.setInviteCode(result.getString("INVITE_CODE"));
 
 				Reservation reservation = new Reservation();
