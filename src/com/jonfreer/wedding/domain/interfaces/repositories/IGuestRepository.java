@@ -15,5 +15,4 @@ public interface IGuestRepository{
 	void deleteGuest(int id) throws ResourceNotFoundException;
 
 	int insertGuest(Guest guest);
-
 }

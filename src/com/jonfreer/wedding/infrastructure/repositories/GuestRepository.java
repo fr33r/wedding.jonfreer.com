@@ -4,43 +4,26 @@ import com.jonfreer.wedding.domain.Guest;
 import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
+import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.DriverManager;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class GuestRepository implements IGuestRepository{
+public class GuestRepository extends DatabaseRepository implements IGuestRepository{
 
-	private String connectionString;
-	private String username;
-	private String password;
-
-	public GuestRepository(String connectionString, String username, String password){
-
-		this.connectionString = connectionString;
-		this.username = username;
-		this.password = password;
-
-		try {
-			java.lang.Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public GuestRepository(IDatabaseUnitOfWork unitOfWork){
+		super(unitOfWork);
 	}
 
 	public Guest getGuest(int id) throws ResourceNotFoundException{
 
 		Guest guest = null;
-		Connection connection = null;
 		PreparedStatement pStatement = null;
 		ResultSet result = null;
 
 		try{
-			connection = DriverManager.getConnection(this.connectionString);
-			pStatement = connection.prepareStatement(
+			pStatement = this.getUnitOfWork().createPreparedStatement(
 					"SELECT "
 					+ "G.GUEST_ID,"
 					+ "G.FIRST_NAME,"
@@ -76,7 +59,7 @@ public class GuestRepository implements IGuestRepository{
 				throw new ResourceNotFoundException(
 						"A guest with an ID of '" + id + "' could not be found.", id);
 			}
-
+			
 			return guest;
 
 		}catch(SQLException sqlEx){
@@ -86,7 +69,6 @@ public class GuestRepository implements IGuestRepository{
 		finally{
 			//release resources needed.
 			try{
-				if(connection != null) { connection.close(); }
 				if(pStatement != null) { pStatement.close(); }
 				if(result != null) { result.close(); }
 			}catch(SQLException sqlEx){
@@ -98,21 +80,19 @@ public class GuestRepository implements IGuestRepository{
 
 	public void updateGuest(Guest guest) throws ResourceNotFoundException{
 
-		Connection connection = null;
 		PreparedStatement pStatement = null;
 
 		try{
-			connection = DriverManager.getConnection(this.connectionString);
-			pStatement = connection.prepareStatement(
+			pStatement = this.getUnitOfWork().createPreparedStatement(
 					"UPDATE jonfreer_wedding.GUEST"
-							+ "SET"
+							+ " SET "
 							+ "FIRST_NAME = ?,"
 							+ "LAST_NAME = ?,"
 							+ "GUEST_DESCRIPTION = ?,"
 							+ "GUEST_DIETARY_RESTRICTIONS = ?,"
 							+ "INVITE_CODE = ?,"
 							+ "RESERVATION_ID = ?"
-							+ "WHERE"
+							+ " WHERE "
 							+ "GUEST_ID = ?;");
 			pStatement.setString(1, guest.getGivenName());
 			pStatement.setString(2, guest.getSurName());
@@ -125,6 +105,8 @@ public class GuestRepository implements IGuestRepository{
 			}else{
 				pStatement.setInt(6, guest.getReservation().getId());
 			}
+			
+			pStatement.setInt(7, guest.getId());
 
 			int numOfRecords = pStatement.executeUpdate();
 
@@ -139,7 +121,6 @@ public class GuestRepository implements IGuestRepository{
 		finally{
 			//release resources needed.
 			try{
-				if(connection != null) { connection.close(); }
 				if(pStatement != null) { pStatement.close(); }
 			}catch(SQLException sqlEx){
 				sqlEx.printStackTrace();
@@ -150,12 +131,10 @@ public class GuestRepository implements IGuestRepository{
 
 	public void deleteGuest(int id) throws ResourceNotFoundException{
 
-		Connection connection = null;
 		PreparedStatement pStatement = null;
 
 		try{
-			connection = DriverManager.getConnection(this.connectionString);
-			pStatement = connection.prepareStatement(
+			pStatement = this.getUnitOfWork().createPreparedStatement(
 					"DELETE FROM jonfreer_wedding.GUEST WHERE G.GUEST_ID = ?;");
 			pStatement.setInt(0, id);
 
@@ -173,7 +152,6 @@ public class GuestRepository implements IGuestRepository{
 		finally{
 			//release resources needed.
 			try{
-				if(connection != null) { connection.close(); }
 				if(pStatement != null) { pStatement.close(); }
 			}catch(SQLException sqlEx){
 				sqlEx.printStackTrace();
@@ -184,14 +162,12 @@ public class GuestRepository implements IGuestRepository{
 
 	public int insertGuest(Guest guest){
 
-		Connection connection = null;
 		PreparedStatement pStatementInsert = null;
 		PreparedStatement pStatementGetId = null;
 		ResultSet result = null;
 
 		try{
-			connection = DriverManager.getConnection(this.connectionString);
-			pStatementInsert = connection.prepareStatement(
+			pStatementInsert = this.getUnitOfWork().createPreparedStatement(
 					"INSERT INTO jonfreer_wedding.GUEST"
 							+ "("
 							+ "FIRST_NAME,"
@@ -217,7 +193,7 @@ public class GuestRepository implements IGuestRepository{
 
 			pStatementInsert.executeUpdate();
 
-			pStatementGetId = connection.prepareStatement("SELECT LAST_INSERT_ID();");
+			pStatementGetId = this.getUnitOfWork().createPreparedStatement("SELECT LAST_INSERT_ID();");
 
 			result = pStatementGetId.executeQuery();
 			result.next();
@@ -232,7 +208,6 @@ public class GuestRepository implements IGuestRepository{
 
 			//release resources needed.
 			try{
-				if(connection != null) { connection.close(); }
 				if(pStatementInsert != null) { pStatementInsert.close(); }
 				if(pStatementGetId != null) { pStatementGetId.close(); }
 				if(result != null) { result.close(); }
@@ -243,17 +218,14 @@ public class GuestRepository implements IGuestRepository{
 		}	  
 	}
 
-	
 	public ArrayList<Guest> getGuests() {
 		
 		ArrayList<Guest> guests = new ArrayList<Guest>();
-		Connection connection = null;
 		PreparedStatement pStatement = null;
 		ResultSet result = null;
 		
 		try{
-			connection = DriverManager.getConnection(this.connectionString);
-			pStatement = connection.prepareStatement(
+			pStatement = this.getUnitOfWork().createPreparedStatement(
 					"SELECT "
 					+ "G.GUEST_ID,"
 					+ "G.FIRST_NAME,"
@@ -294,7 +266,6 @@ public class GuestRepository implements IGuestRepository{
 		finally{
 			//release resources needed.
 			try{
-				if(connection != null) { connection.close(); }
 				if(pStatement != null) { pStatement.close(); }
 				if(result != null) { result.close(); }
 			}catch(SQLException sqlEx){

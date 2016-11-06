@@ -1,33 +1,37 @@
 package com.jonfreer.wedding.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="reservation")
 public class Reservation{
-  private int id;
-  private boolean isAttending;
-  private java.util.Date submittedDateTime;
 
-  public Reservation(){ }
+	private int id;
+	private boolean isAttending;
+	private java.util.Date submittedDateTime;
 
-  public int getId(){
-    return this.id;
-  }
+	public Reservation(){ }
 
-  public void setId(int id){
-    this.id = id;
-  }
+	public int getId(){
+		return this.id;
+	}
 
-  public boolean getIsAttending(){
-    return this.isAttending;
-  }
+	public void setId(int id){
+		this.id = id;
+	}
 
-  public void setIsAttending(boolean isAttending){
-    this.isAttending = isAttending;
-  }
+	public boolean getIsAttending(){
+		return this.isAttending;
+	}
 
-  public java.util.Date getSubmittedDateTime(){
-    return this.submittedDateTime;
-  }
+	public void setIsAttending(boolean isAttending){
+		this.isAttending = isAttending;
+	}
 
-  public void setSubmittedDateTime(java.util.Date submittedDateTime){
-    this.submittedDateTime = submittedDateTime;
-  }
+	public java.util.Date getSubmittedDateTime(){
+		return this.submittedDateTime;
+	}
+
+	public void setSubmittedDateTime(java.util.Date submittedDateTime){
+		this.submittedDateTime = submittedDateTime;
+	}
 }
