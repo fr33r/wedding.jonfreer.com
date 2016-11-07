@@ -18,10 +18,7 @@ public class Console {
 			return new GuestService(
 					new GuestRepositoryFactory(),
 					new ReservationRepositoryFactory(),
-					new DatabaseUnitOfWorkFactory(
-							"jdbc:mysql://jonfreer.com:3306/jonfreer_wedding", 
-							"jonfreer_creator", "__Goalie31__")
-					);
+					new DatabaseUnitOfWorkFactory());
 		}
 	}
 	

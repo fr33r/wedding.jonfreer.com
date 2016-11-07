@@ -28,7 +28,7 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 					+ "R.DATETIME_SUBMITTED,"
 					+ "R.IS_ATTENDING"
 					+ " FROM "
-					+ "jonfreer_wedding.RESERVATION AS R"
+					+ "wedding_jonfreer_com.RESERVATION AS R"
 					+ " WHERE "
 					+ "R.RESERVATION_ID = ?;");
 
@@ -72,7 +72,7 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
 		try{
 			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"UPDATE jonfreer_wedding.RESERVATION"
+					"UPDATE wedding_jonfreer_com.RESERVATION"
 						+ " SET "
 						+ "DATETIME_SUBMITTED = ?,"
 						+ "IS_ATTENDING = ?"
@@ -114,7 +114,7 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
 		try{
 			pStatementInsert = this.getUnitOfWork().createPreparedStatement(
-					"INSERT INTO jonfreer_wedding.RESERVATION"
+					"INSERT INTO wedding_jonfreer_com.RESERVATION"
 						+ "("
 						+ "DATETIME_SUBMITTEDD,"
 						+ "IS_ATTENDING"
@@ -158,7 +158,7 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
 		try{
 			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"DELETE FROM jonfreer_wedding.RESERVATION WHERE G.RESERVATION_ID = ?;");
+					"DELETE FROM wedding_jonfreer_com.RESERVATION WHERE G.RESERVATION_ID = ?;");
 			pStatement.setInt(0, id);
 
 			int numOfRecords = pStatement.executeUpdate();

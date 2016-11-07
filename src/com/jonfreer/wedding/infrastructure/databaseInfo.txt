@@ -1,3 +1,0 @@
-jdbc:mysql://jonfreer.com:3306/jonfreer_wedding
-jonfreer_creator
-__Goalie31__

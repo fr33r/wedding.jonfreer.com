@@ -33,7 +33,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 					+ "G.INVITE_CODE,"
 					+ "G.RESERVATION_ID"
 					+ " FROM "
-					+ "jonfreer_wedding.GUEST AS G"
+					+ "wedding_jonfreer_com.GUEST AS G"
 					+ " WHERE "
 					+ "G.GUEST_ID = ?;");
 
@@ -84,7 +84,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
 		try{
 			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"UPDATE jonfreer_wedding.GUEST"
+					"UPDATE wedding_jonfreer_com.GUEST"
 							+ " SET "
 							+ "FIRST_NAME = ?,"
 							+ "LAST_NAME = ?,"
@@ -135,7 +135,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
 		try{
 			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"DELETE FROM jonfreer_wedding.GUEST WHERE G.GUEST_ID = ?;");
+					"DELETE FROM wedding_jonfreer_com.GUEST WHERE G.GUEST_ID = ?;");
 			pStatement.setInt(0, id);
 
 			int numOfRecords = pStatement.executeUpdate();
@@ -168,7 +168,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
 		try{
 			pStatementInsert = this.getUnitOfWork().createPreparedStatement(
-					"INSERT INTO jonfreer_wedding.GUEST"
+					"INSERT INTO wedding_jonfreer_com.GUEST"
 							+ "("
 							+ "FIRST_NAME,"
 							+ "LAST_NAME,"
@@ -235,7 +235,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 					+ "G.INVITE_CODE,"
 					+ "G.RESERVATION_ID"
 					+ " FROM "
-					+ "jonfreer_wedding.GUEST AS G;");
+					+ "wedding_jonfreer_com.GUEST AS G;");
 
 			result = pStatement.executeQuery();
 
