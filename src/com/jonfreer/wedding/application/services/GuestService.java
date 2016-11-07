@@ -32,36 +32,26 @@ public class GuestService implements IGuestService{
 
 	public Guest getGuest(int id) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException{
 		
-		long before = new java.util.Date().getTime();
 		IDatabaseUnitOfWork unitOfWork = 
 				this.databaseUnitOfWorkFactory.create();
-		System.out.println("DatabaseUnitOfWorkFacotry took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
-		before = new java.util.Date().getTime();
 		IGuestRepository guestRepository = 
 				this.guestRepositoryFactory.create(unitOfWork);
-		System.out.println("GuestRepositoryFactory took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
-		before = new java.util.Date().getTime();
 		IReservationRepository reservationRepository = 
 				this.reservationRepositoryFactory.create(unitOfWork);
-		System.out.println("ReservationRepositoryFactory took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
 		
 		
 		try{
 
-			before = new java.util.Date().getTime();
 			Guest guest = guestRepository.getGuest(id);
-			System.out.println("GuestRepository.getGuest(id) took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
 			
 			if(guest.getReservation() != null){
-				before = new java.util.Date().getTime();
 				Reservation reservation = 
 						reservationRepository.getReservation(guest.getReservation().getId());
 				guest.setReservation(reservation);
-				System.out.println("ReservationRepository.getReservation(id) took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
 			}
 			
 			unitOfWork.Save();
-			System.out.println("GuestService.getGuest(id) took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
+			
 			return guest;
 			
 		}catch(ResourceNotFoundException resourceNotFoundEx){
@@ -201,30 +191,21 @@ public class GuestService implements IGuestService{
 	
 	public ArrayList<Guest> getGuests() {
 		
-		long before = new java.util.Date().getTime();
 		IDatabaseUnitOfWork unitOfWork = 
 				this.databaseUnitOfWorkFactory.create();
-		System.out.println("DatabaseUnitOfWorkFacotry took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
-		before = new java.util.Date().getTime();
 		IGuestRepository guestRepository = 
 				this.guestRepositoryFactory.create(unitOfWork);
-		System.out.println("GuestRepositoryFactory took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
-		before = new java.util.Date().getTime();
 		IReservationRepository reservationRepository = 
 				this.reservationRepositoryFactory.create(unitOfWork);
-		System.out.println("ReservationRepositoryFactory took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
 		
 		try{
-			before = new java.util.Date().getTime();
 			ArrayList<Guest> guests = guestRepository.getGuests();
-			System.out.println("GuestRepository.getGuests took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
-			before = new java.util.Date().getTime();
+
 			for(Guest guest : guests){
 				if(guest.getReservation() != null){
 					guest.setReservation(reservationRepository.getReservation(guest.getReservation().getId()));
 				}
 			}
-			System.out.println("All of the ReservationRepository.getReservation(id) calls took " + (new java.util.Date().getTime() - before) + " milliseconds to complete.");
 			
 			unitOfWork.Save();
 			
