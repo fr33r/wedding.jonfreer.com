@@ -7,9 +7,9 @@ import com.jonfreer.wedding.infrastructure.interfaces.factories.IDatabaseUnitOfW
 
 public class IDatabaseUnitOfWorkFactoryBinder extends AbstractBinder {
 
-	@Override
-	protected void configure() {
-		this.bind(DatabaseUnitOfWorkFactory.class).to(IDatabaseUnitOfWorkFactory.class);
-	}
+    @Override
+    protected void configure() {
+        this.bind(DatabaseUnitOfWorkFactory.class).to(IDatabaseUnitOfWorkFactory.class);
+    }
 
 }

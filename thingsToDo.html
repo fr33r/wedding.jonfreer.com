@@ -1,277 +1,278 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Cheers to the Freers: Things To Do</title>
-		<link rel="stylesheet" type="text/css" href="css/global-font.css">
-		<link rel="stylesheet" href="css/main.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/thingsToDo.css">
+<head>
+    <title>Cheers to the Freers: Things To Do</title>
+    <link rel="stylesheet" type="text/css" href="css/global-font.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/thingsToDo.css">
 
-		<!-- Google Maps API -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqtQrvs-yWts5LGJ5Jz9SEidA26ITn2FE"></script>
-	</head>
-	<body>
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqtQrvs-yWts5LGJ5Jz9SEidA26ITn2FE"></script>
+</head>
+<body>
 
-		<div id="side-nav-button">
-			<div class="stack"></div>
-			<div class="stack"></div>
-			<div class="stack"></div>
-		</div>
+<div id="side-nav-button">
+    <div class="stack"></div>
+    <div class="stack"></div>
+    <div class="stack"></div>
+</div>
 
-		<!-- Side Nav -->
-		<nav id="side-nav">
-			<ul>
-				<li><a href="index.html">our story</a></li>
-				<li><a href="weddingDetails.html">details</a></li>
-				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="#">things to do</a></li>
-				<li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
-				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
-			</ul>
-		</nav>
+<!-- Side Nav -->
+<nav id="side-nav">
+    <ul>
+        <li><a href="index.html">our story</a></li>
+        <li><a href="weddingDetails.html">details</a></li>
+        <li><a href="accommodations.html">accommodations</a></li>
+        <li><a href="#">things to do</a></li>
+        <li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
+        <li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
+    </ul>
+</nav>
 
-		<!-- Page Header -->
-		<div id = "page-header" class ="quarter-section">
-			<div class="vert-horiz-centered">
-				<h1>things to do</h1>
-				<hr class = "section-header-bar"/>
-			</div>
-		</div>
+<!-- Page Header -->
+<div id="page-header" class="quarter-section">
+    <div class="vert-horiz-centered">
+        <h1>things to do</h1>
+        <hr class="section-header-bar"/>
+    </div>
+</div>
 
-		<!-- Modal -->
-		<div class = "modal-container">
-			<span class = "modal-close-button-container">&times;</span>
+<!-- Modal -->
+<div class="modal-container">
+    <span class="modal-close-button-container">&times;</span>
 
-			<!-- Modal Content: RSVP Error -->
-			<div id = "rsvp-modal-error" class = "modal-content">
-				<form method="POST">
-					<h1>oops...</h1>
-					<p>there was an issue when attempting to submit your RSVP.</p>
-				</form>
-			</div>
+    <!-- Modal Content: RSVP Error -->
+    <div id="rsvp-modal-error" class="modal-content">
+        <form method="POST">
+            <h1>oops...</h1>
+            <p>there was an issue when attempting to submit your RSVP.</p>
+        </form>
+    </div>
 
-			<!-- Modal Content: RSVP Success -->
-			<div id = "rsvp-modal-success" class = "modal-content">
-				<form method="POST">
-					<h1>we got it!</h1>
-					<p>thanks for submitting our rsvp.</p>
-				</form>
-			</div>
+    <!-- Modal Content: RSVP Success -->
+    <div id="rsvp-modal-success" class="modal-content">
+        <form method="POST">
+            <h1>we got it!</h1>
+            <p>thanks for submitting our rsvp.</p>
+        </form>
+    </div>
 
-			<!-- Modal Content: RSVP Code -->
-			<div id = "rsvp-modal-content-code" class = "modal-content">
-				<form id="form-enter-code" method="POST">
-					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
-					<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
-					<span id="rsvp-modal-content-code-error-message" >the code you have entered is invalid.</span>
-				</form>
-			</div>
+    <!-- Modal Content: RSVP Code -->
+    <div id="rsvp-modal-content-code" class="modal-content">
+        <form id="form-enter-code" method="POST">
+            <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
+            <input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
+            <span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
+        </form>
+    </div>
 
-			<!-- Modal Content: RSVP Form -->
-			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
-				<form id="form-rsvp-detail" method="POST">
+    <!-- Modal Content: RSVP Form -->
+    <div id="rsvp-modal-content-code-detail" class="modal-content">
+        <form id="form-rsvp-detail" method="POST">
 
-					<h1>jon freer</h1>
-					<!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
-					<h3>groom</h3>
+            <h1>jon freer</h1>
+            <!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
+            <h3>groom</h3>
 
-					<!--<div id = "guest-info" class="show-guest-info">
+            <!--<div id = "guest-info" class="show-guest-info">
 
-						<!-- Guest info when applicable
-						<input type="text" name="guest-first-name" placeholder="guest first name" />
-						<input type="text" name="guest-last-name" placeholder="guest last name" />
+                <!-- Guest info when applicable
+                <input type="text" name="guest-first-name" placeholder="guest first name" />
+                <input type="text" name="guest-last-name" placeholder="guest last name" />
 
-					</div>-->
+            </div>-->
 
-					<textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+            <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
+                      placeholder="dietary restrictions"></textarea>
 
-					<input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-					<div>we ask that you respect our decision to have an adult only wedding.</div>
-					<input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
-				</form>
-			</div>
+            <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+            <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+            <div>we ask that you respect our decision to have an adult only wedding.</div>
+            <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
+        </form>
+    </div>
 
-			<!-- Modal Content: Registry -->
-			<div id = "registry-modal-content" class = "modal-content">
-				<a href="http://www.potterybarn.com/registry/3837964/registry-list.html" class="registry-link">
-					<img src="img/pottery-barn-logo.png"/>
-				</a>
-				<a href="http://www.crateandbarrel.com/gift-registry/emma-paas-and-jon-freer/r5495287" class="registry-link">
-					<img src="img/crate-and-barrel-logo.png"/>
-				</a>
-				<a href="https://www.honeyfund.com/wedding/cheerstothefreers" class="registry-link">
-					<img src="img/honeyfundlogo_bw.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/big_brothers_big_sisters_logo.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/animal_humane_society_fixed.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/hartlogo_bw.png" />
-				</a>
-			</div>
-		</div>
+    <!-- Modal Content: Registry -->
+    <div id="registry-modal-content" class="modal-content">
+        <a href="http://www.potterybarn.com/registry/3837964/registry-list.html" class="registry-link">
+            <img src="img/pottery-barn-logo.png"/>
+        </a>
+        <a href="http://www.crateandbarrel.com/gift-registry/emma-paas-and-jon-freer/r5495287" class="registry-link">
+            <img src="img/crate-and-barrel-logo.png"/>
+        </a>
+        <a href="https://www.honeyfund.com/wedding/cheerstothefreers" class="registry-link">
+            <img src="img/honeyfundlogo_bw.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/big_brothers_big_sisters_logo.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/animal_humane_society_fixed.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/hartlogo_bw.png"/>
+        </a>
+    </div>
+</div>
 
-		<!-- Google Maps -->
-		<div id="map"></div>
+<!-- Google Maps -->
+<div id="map"></div>
 
-		<!-- Buttons -->
-		<a href="http://www.rhinegeist.com/home" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png"/>
-					<h2>Rhinegeist</h2>
-					<h3>Brewery</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.madtreebrewing.com/home.html" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png"/>
-					<h2>Mad Tree</h2>
-					<h3>Brewery</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://cincinnati.reds.mlb.com/schedule/?c_id=cin#y=2016&m=9&calendar=DEFAULT" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png"/>
-					<h2>Cincinnati Reds vs. Pittsburg Pirates</h2>
-					<h3>Sporting Event</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.oktoberfestzinzinnati.com" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png"/>
-					<h2>Oktoberfest</h2>
-					<h3>Festival</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.thecityflea.com" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>The City Flea</h2>
-					<h3>Thrifting</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.skylinechili.com" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Skyline Chili</h2>
-					<h3>Food</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.graeters.com" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Graeter's Ice Cream</h2>
-					<h3>Food</h3>
-				</div>
-			</div>
-		</a>
-		<a href="https://www.caesars.com/horseshoe-cincinnati" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Horseshoe Casino</h2>
-					<h3>Gambling</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.moerleinlagerhouse.com" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Moerlein Lager House</h2>
-					<h3>Food</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://cincinnatiusa.com/events/dressing-downton-changing-fashion-changing-times" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Downton Abby Clothing Exhibit</h2>
-					<h3>Museum</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://cincinnatiusa.com/events/seahorses-unbridled-fun" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Newport Aquarium</h2>
-					<h3>Aquarium</h3>
-				</div>
-			</div>
-		</a>
-		<!--
-		<a href="http://www.americanlegacytours.com/ultimate-underground/" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>OTR Tour</h2>
-					<h3>Tour</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.cincinnatibrewerytours.com/" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Cincinnati Brewery Tours</h2>
-					<h3>Brewery/Tour</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://www.cincyredbike.org/locations/" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Cincinnati Red Bike Locations</h2>
-					<h3>Biking</h3>
-				</div>
-			</div>
-		</a>
-	-->
-		<a href="http://cincinnatiusa.com/things-to-do/attractions/smale-riverfront-park" class="tile-link">
-			<div class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/marker-64.png" />
-					<h2>Smale Riverfront Park</h2>
-					<h3>Park</h3>
-				</div>
-			</div>
-		</a>
-		<a href="http://thetransept.com" class="tile-link">
-			<div id="transept-tile-button" class="tile-button">
-				<div class="vert-horiz-centered">
-					<img src="img/icon/red-marker-64.png"/>
-					<h2>The Transept</h2>
-					<h3>Wedding Venue</h3>
-				</div>
-			</div>
-		</a>
+<!-- Buttons -->
+<a href="http://www.rhinegeist.com/home" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Rhinegeist</h2>
+            <h3>Brewery</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.madtreebrewing.com/home.html" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Mad Tree</h2>
+            <h3>Brewery</h3>
+        </div>
+    </div>
+</a>
+<a href="http://cincinnati.reds.mlb.com/schedule/?c_id=cin#y=2016&m=9&calendar=DEFAULT" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Cincinnati Reds vs. Pittsburg Pirates</h2>
+            <h3>Sporting Event</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.oktoberfestzinzinnati.com" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Oktoberfest</h2>
+            <h3>Festival</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.thecityflea.com" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>The City Flea</h2>
+            <h3>Thrifting</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.skylinechili.com" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Skyline Chili</h2>
+            <h3>Food</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.graeters.com" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Graeter's Ice Cream</h2>
+            <h3>Food</h3>
+        </div>
+    </div>
+</a>
+<a href="https://www.caesars.com/horseshoe-cincinnati" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Horseshoe Casino</h2>
+            <h3>Gambling</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.moerleinlagerhouse.com" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Moerlein Lager House</h2>
+            <h3>Food</h3>
+        </div>
+    </div>
+</a>
+<a href="http://cincinnatiusa.com/events/dressing-downton-changing-fashion-changing-times" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Downton Abby Clothing Exhibit</h2>
+            <h3>Museum</h3>
+        </div>
+    </div>
+</a>
+<a href="http://cincinnatiusa.com/events/seahorses-unbridled-fun" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Newport Aquarium</h2>
+            <h3>Aquarium</h3>
+        </div>
+    </div>
+</a>
+<!--
+<a href="http://www.americanlegacytours.com/ultimate-underground/" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png" />
+            <h2>OTR Tour</h2>
+            <h3>Tour</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.cincinnatibrewerytours.com/" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png" />
+            <h2>Cincinnati Brewery Tours</h2>
+            <h3>Brewery/Tour</h3>
+        </div>
+    </div>
+</a>
+<a href="http://www.cincyredbike.org/locations/" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png" />
+            <h2>Cincinnati Red Bike Locations</h2>
+            <h3>Biking</h3>
+        </div>
+    </div>
+</a>
+-->
+<a href="http://cincinnatiusa.com/things-to-do/attractions/smale-riverfront-park" class="tile-link">
+    <div class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/marker-64.png"/>
+            <h2>Smale Riverfront Park</h2>
+            <h3>Park</h3>
+        </div>
+    </div>
+</a>
+<a href="http://thetransept.com" class="tile-link">
+    <div id="transept-tile-button" class="tile-button">
+        <div class="vert-horiz-centered">
+            <img src="img/icon/red-marker-64.png"/>
+            <h2>The Transept</h2>
+            <h3>Wedding Venue</h3>
+        </div>
+    </div>
+</a>
 
-		<script type="text/javascript" src="js/global.js"></script>
-		<script type="text/javascript" src="js/thingsToDo.js"></script>
-		<script type="text/javascript" src="js/navigationModule.js"></script>
-		<script type="text/javascript" src="js/modalModule.js"></script>
-		<script type="text/javascript" src="js/ajaxModule.js"></script>
-		<script type="text/javascript" src="js/eventHandlers.js"></script>
-		<script type="text/javascript" src="js/google-maps-things-to-do.js"></script>
-		<script type="text/javascript" src="js/thingsToDo.js"></script>
-	</body>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/thingsToDo.js"></script>
+<script type="text/javascript" src="js/navigationModule.js"></script>
+<script type="text/javascript" src="js/modalModule.js"></script>
+<script type="text/javascript" src="js/ajaxModule.js"></script>
+<script type="text/javascript" src="js/eventHandlers.js"></script>
+<script type="text/javascript" src="js/google-maps-things-to-do.js"></script>
+<script type="text/javascript" src="js/thingsToDo.js"></script>
+</body>
 </html>

@@ -5,276 +5,292 @@ import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import javax.inject.Named;
+
 import org.jvnet.hk2.annotations.Service;
 
-@Service @Named
-public class GuestRepository extends DatabaseRepository implements IGuestRepository{
+@Service
+@Named
+public class GuestRepository extends DatabaseRepository implements IGuestRepository {
 
-	public GuestRepository(IDatabaseUnitOfWork unitOfWork){
-		super(unitOfWork);
-	}
+    public GuestRepository(IDatabaseUnitOfWork unitOfWork) {
+        super(unitOfWork);
+    }
 
-	public Guest getGuest(int id) throws ResourceNotFoundException{
+    public Guest getGuest(int id) throws ResourceNotFoundException {
 
-		Guest guest = null;
-		PreparedStatement pStatement = null;
-		ResultSet result = null;
+        Guest guest = null;
+        PreparedStatement pStatement = null;
+        ResultSet result = null;
 
-		try{
-			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"SELECT "
-					+ "G.GUEST_ID,"
-					+ "G.FIRST_NAME,"
-					+ "G.LAST_NAME,"
-					+ "G.GUEST_DESCRIPTION,"
-					+ "G.GUEST_DIETARY_RESTRICTIONS,"
-					+ "G.INVITE_CODE,"
-					+ "G.RESERVATION_ID"
-					+ " FROM "
-					+ "wedding_jonfreer_com.GUEST AS G"
-					+ " WHERE "
-					+ "G.GUEST_ID = ?;");
+        try {
+            pStatement = this.getUnitOfWork().createPreparedStatement(
+                    "SELECT "
+                            + "G.GUEST_ID,"
+                            + "G.FIRST_NAME,"
+                            + "G.LAST_NAME,"
+                            + "G.GUEST_DESCRIPTION,"
+                            + "G.GUEST_DIETARY_RESTRICTIONS,"
+                            + "G.INVITE_CODE,"
+                            + "G.RESERVATION_ID"
+                            + " FROM "
+                            + "wedding_jonfreer_com.GUEST AS G"
+                            + " WHERE "
+                            + "G.GUEST_ID = ?;");
 
-			pStatement.setInt(1, id);
-			result = pStatement.executeQuery();
+            pStatement.setInt(1, id);
+            result = pStatement.executeQuery();
 
-			if(result.next()){
-				guest = new Guest();
-				guest.setId(result.getInt("GUEST_ID"));
-				guest.setGivenName(result.getString("FIRST_NAME"));
-				guest.setSurName(result.getString("LAST_NAME"));
-				guest.setDescription(result.getString("GUEST_DESCRIPTION"));
-				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
-				guest.setInviteCode(result.getString("INVITE_CODE"));
+            if (result.next()) {
+                guest = new Guest();
+                guest.setId(result.getInt("GUEST_ID"));
+                guest.setGivenName(result.getString("FIRST_NAME"));
+                guest.setSurName(result.getString("LAST_NAME"));
+                guest.setDescription(result.getString("GUEST_DESCRIPTION"));
+                guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
+                guest.setInviteCode(result.getString("INVITE_CODE"));
 
-				Reservation reservation = new Reservation();
-				reservation.setId(result.getInt("RESERVATION_ID"));
+                Reservation reservation = new Reservation();
+                reservation.setId(result.getInt("RESERVATION_ID"));
 
-				guest.setReservation(reservation);
-			}
+                guest.setReservation(reservation);
+            }
 
-			if(guest == null){
-				throw new ResourceNotFoundException(
-						"A guest with an ID of '" + id + "' could not be found.", id);
-			}
-			
-			return guest;
+            if (guest == null) {
+                throw new ResourceNotFoundException(
+                        "A guest with an ID of '" + id + "' could not be found.", id);
+            }
 
-		}catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
-			throw new RuntimeException(sqlEx);
-		}
-		finally{
-			//release resources needed.
-			try{
-				if(pStatement != null) { pStatement.close(); }
-				if(result != null) { result.close(); }
-			}catch(SQLException sqlEx){
-				sqlEx.printStackTrace();
-				throw new RuntimeException(sqlEx);
-			}
-		}
-	}
+            return guest;
 
-	public void updateGuest(Guest guest) throws ResourceNotFoundException{
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            throw new RuntimeException(sqlEx);
+        } finally {
+            //release resources needed.
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
+                throw new RuntimeException(sqlEx);
+            }
+        }
+    }
 
-		PreparedStatement pStatement = null;
+    public void updateGuest(Guest guest) throws ResourceNotFoundException {
 
-		try{
-			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"UPDATE wedding_jonfreer_com.GUEST"
-							+ " SET "
-							+ "FIRST_NAME = ?,"
-							+ "LAST_NAME = ?,"
-							+ "GUEST_DESCRIPTION = ?,"
-							+ "GUEST_DIETARY_RESTRICTIONS = ?,"
-							+ "INVITE_CODE = ?,"
-							+ "RESERVATION_ID = ?"
-							+ " WHERE "
-							+ "GUEST_ID = ?;");
-			pStatement.setString(1, guest.getGivenName());
-			pStatement.setString(2, guest.getSurName());
-			pStatement.setString(3, guest.getDescription());
-			pStatement.setString(4, guest.getDietaryRestrictions());
-			pStatement.setString(5, guest.getInviteCode());
+        PreparedStatement pStatement = null;
 
-			if(guest.getReservation() == null){
-				pStatement.setNull(6, java.sql.Types.INTEGER);
-			}else{
-				pStatement.setInt(6, guest.getReservation().getId());
-			}
-			
-			pStatement.setInt(7, guest.getId());
+        try {
+            pStatement = this.getUnitOfWork().createPreparedStatement(
+                    "UPDATE wedding_jonfreer_com.GUEST"
+                            + " SET "
+                            + "FIRST_NAME = ?,"
+                            + "LAST_NAME = ?,"
+                            + "GUEST_DESCRIPTION = ?,"
+                            + "GUEST_DIETARY_RESTRICTIONS = ?,"
+                            + "INVITE_CODE = ?,"
+                            + "RESERVATION_ID = ?"
+                            + " WHERE "
+                            + "GUEST_ID = ?;");
+            pStatement.setString(1, guest.getGivenName());
+            pStatement.setString(2, guest.getSurName());
+            pStatement.setString(3, guest.getDescription());
+            pStatement.setString(4, guest.getDietaryRestrictions());
+            pStatement.setString(5, guest.getInviteCode());
 
-			int numOfRecords = pStatement.executeUpdate();
+            if (guest.getReservation() == null) {
+                pStatement.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                pStatement.setInt(6, guest.getReservation().getId());
+            }
 
-			if(numOfRecords < 1){
-				throw new ResourceNotFoundException(
-						"A guest with an ID of '" + guest.getId() + "' could not be found.", guest.getId());
-			}
-		}catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
-			throw new RuntimeException(sqlEx);
-		}
-		finally{
-			//release resources needed.
-			try{
-				if(pStatement != null) { pStatement.close(); }
-			}catch(SQLException sqlEx){
-				sqlEx.printStackTrace();
-				throw new RuntimeException(sqlEx);
-			}
-		}
-	}
+            pStatement.setInt(7, guest.getId());
 
-	public void deleteGuest(int id) throws ResourceNotFoundException{
+            int numOfRecords = pStatement.executeUpdate();
 
-		PreparedStatement pStatement = null;
+            if (numOfRecords < 1) {
+                throw new ResourceNotFoundException(
+                        "A guest with an ID of '" + guest.getId() + "' could not be found.", guest.getId());
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            throw new RuntimeException(sqlEx);
+        } finally {
+            //release resources needed.
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
+                throw new RuntimeException(sqlEx);
+            }
+        }
+    }
 
-		try{
-			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"DELETE FROM wedding_jonfreer_com.GUEST WHERE G.GUEST_ID = ?;");
-			pStatement.setInt(0, id);
+    public void deleteGuest(int id) throws ResourceNotFoundException {
 
-			int numOfRecords = pStatement.executeUpdate();
+        PreparedStatement pStatement = null;
 
-			if(numOfRecords < 1){
-				throw new ResourceNotFoundException(
-						"A guest with an ID of '" + id + "' could not be found.", id);
-			}
+        try {
+            pStatement = this.getUnitOfWork().createPreparedStatement(
+                    "DELETE FROM wedding_jonfreer_com.GUEST WHERE G.GUEST_ID = ?;");
+            pStatement.setInt(0, id);
 
-		}catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
-			throw new RuntimeException(sqlEx);
-		}
-		finally{
-			//release resources needed.
-			try{
-				if(pStatement != null) { pStatement.close(); }
-			}catch(SQLException sqlEx){
-				sqlEx.printStackTrace();
-				throw new RuntimeException(sqlEx);
-			}
-		}
-	}
+            int numOfRecords = pStatement.executeUpdate();
 
-	public int insertGuest(Guest guest){
+            if (numOfRecords < 1) {
+                throw new ResourceNotFoundException(
+                        "A guest with an ID of '" + id + "' could not be found.", id);
+            }
 
-		PreparedStatement pStatementInsert = null;
-		PreparedStatement pStatementGetId = null;
-		ResultSet result = null;
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            throw new RuntimeException(sqlEx);
+        } finally {
+            //release resources needed.
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
+                throw new RuntimeException(sqlEx);
+            }
+        }
+    }
 
-		try{
-			pStatementInsert = this.getUnitOfWork().createPreparedStatement(
-					"INSERT INTO wedding_jonfreer_com.GUEST"
-							+ "("
-							+ "FIRST_NAME,"
-							+ "LAST_NAME,"
-							+ "GUEST_DESCRIPTION,"
-							+ "GUEST_DIETARY_RESTRICTIONS,"
-							+ "INVITE_CODE,"
-							+ "RESERVATION_ID"
-							+ ")"
-							+ "VALUES"
-							+ "(?,?,?,?,?,?);");
-			pStatementInsert.setString(1, guest.getGivenName());
-			pStatementInsert.setString(2, guest.getSurName());
-			pStatementInsert.setString(3, guest.getDescription());
-			pStatementInsert.setString(4, guest.getDietaryRestrictions());
-			pStatementInsert.setString(5, guest.getInviteCode());
+    public int insertGuest(Guest guest) {
 
-			if(guest.getReservation() == null){
-				pStatementInsert.setNull(6, java.sql.Types.INTEGER);
-			}else{
-				pStatementInsert.setInt(6, guest.getReservation().getId());
-			}
+        PreparedStatement pStatementInsert = null;
+        PreparedStatement pStatementGetId = null;
+        ResultSet result = null;
 
-			pStatementInsert.executeUpdate();
+        try {
+            pStatementInsert = this.getUnitOfWork().createPreparedStatement(
+                    "INSERT INTO wedding_jonfreer_com.GUEST"
+                            + "("
+                            + "FIRST_NAME,"
+                            + "LAST_NAME,"
+                            + "GUEST_DESCRIPTION,"
+                            + "GUEST_DIETARY_RESTRICTIONS,"
+                            + "INVITE_CODE,"
+                            + "RESERVATION_ID"
+                            + ")"
+                            + "VALUES"
+                            + "(?,?,?,?,?,?);");
+            pStatementInsert.setString(1, guest.getGivenName());
+            pStatementInsert.setString(2, guest.getSurName());
+            pStatementInsert.setString(3, guest.getDescription());
+            pStatementInsert.setString(4, guest.getDietaryRestrictions());
+            pStatementInsert.setString(5, guest.getInviteCode());
 
-			pStatementGetId = this.getUnitOfWork().createPreparedStatement("SELECT LAST_INSERT_ID();");
+            if (guest.getReservation() == null) {
+                pStatementInsert.setNull(6, java.sql.Types.INTEGER);
+            } else {
+                pStatementInsert.setInt(6, guest.getReservation().getId());
+            }
 
-			result = pStatementGetId.executeQuery();
-			result.next();
+            pStatementInsert.executeUpdate();
 
-			return result.getInt(1);
+            pStatementGetId = this.getUnitOfWork().createPreparedStatement("SELECT LAST_INSERT_ID();");
 
-		}catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
-			throw new RuntimeException(sqlEx);
-		}
-		finally{
+            result = pStatementGetId.executeQuery();
+            result.next();
 
-			//release resources needed.
-			try{
-				if(pStatementInsert != null) { pStatementInsert.close(); }
-				if(pStatementGetId != null) { pStatementGetId.close(); }
-				if(result != null) { result.close(); }
-			}catch(SQLException sqlEx){
-				sqlEx.printStackTrace();
-				throw new RuntimeException(sqlEx);
-			}
-		}	  
-	}
+            return result.getInt(1);
 
-	public ArrayList<Guest> getGuests() {
-		
-		ArrayList<Guest> guests = new ArrayList<Guest>();
-		PreparedStatement pStatement = null;
-		ResultSet result = null;
-		
-		try{
-			pStatement = this.getUnitOfWork().createPreparedStatement(
-					"SELECT "
-					+ "G.GUEST_ID,"
-					+ "G.FIRST_NAME,"
-					+ "G.LAST_NAME,"
-					+ "G.GUEST_DESCRIPTION,"
-					+ "G.GUEST_DIETARY_RESTRICTIONS,"
-					+ "G.INVITE_CODE,"
-					+ "G.RESERVATION_ID"
-					+ " FROM "
-					+ "wedding_jonfreer_com.GUEST AS G;");
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            throw new RuntimeException(sqlEx);
+        } finally {
 
-			result = pStatement.executeQuery();
+            //release resources needed.
+            try {
+                if (pStatementInsert != null) {
+                    pStatementInsert.close();
+                }
+                if (pStatementGetId != null) {
+                    pStatementGetId.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
+                throw new RuntimeException(sqlEx);
+            }
+        }
+    }
 
-			while(result.next()){
-				Guest guest = new Guest();
-				guest.setId(result.getInt("GUEST_ID"));
-				guest.setGivenName(result.getString("FIRST_NAME"));
-				guest.setSurName(result.getString("LAST_NAME"));
-				guest.setDescription(result.getString("GUEST_DESCRIPTION"));
-				guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
-				guest.setInviteCode(result.getString("INVITE_CODE"));
+    public ArrayList<Guest> getGuests() {
 
-				int reservationId = result.getInt("RESERVATION_ID");
-				if(!result.wasNull()){
-					Reservation reservation = new Reservation();
-					reservation.setId(reservationId);
-					guest.setReservation(reservation);
-				}
+        ArrayList<Guest> guests = new ArrayList<Guest>();
+        PreparedStatement pStatement = null;
+        ResultSet result = null;
 
-				guests.add(guest);
-			}
+        try {
+            pStatement = this.getUnitOfWork().createPreparedStatement(
+                    "SELECT "
+                            + "G.GUEST_ID,"
+                            + "G.FIRST_NAME,"
+                            + "G.LAST_NAME,"
+                            + "G.GUEST_DESCRIPTION,"
+                            + "G.GUEST_DIETARY_RESTRICTIONS,"
+                            + "G.INVITE_CODE,"
+                            + "G.RESERVATION_ID"
+                            + " FROM "
+                            + "wedding_jonfreer_com.GUEST AS G;");
 
-			return guests;
-		}catch(SQLException sqlEx){
-			sqlEx.printStackTrace();
-			throw new RuntimeException(sqlEx);
-		}
-		finally{
-			//release resources needed.
-			try{
-				if(pStatement != null) { pStatement.close(); }
-				if(result != null) { result.close(); }
-			}catch(SQLException sqlEx){
-				sqlEx.printStackTrace();
-				throw new RuntimeException(sqlEx);
-			}
-		}
-	}
+            result = pStatement.executeQuery();
+
+            while (result.next()) {
+                Guest guest = new Guest();
+                guest.setId(result.getInt("GUEST_ID"));
+                guest.setGivenName(result.getString("FIRST_NAME"));
+                guest.setSurName(result.getString("LAST_NAME"));
+                guest.setDescription(result.getString("GUEST_DESCRIPTION"));
+                guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
+                guest.setInviteCode(result.getString("INVITE_CODE"));
+
+                int reservationId = result.getInt("RESERVATION_ID");
+                if (!result.wasNull()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(reservationId);
+                    guest.setReservation(reservation);
+                }
+
+                guests.add(guest);
+            }
+
+            return guests;
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+            throw new RuntimeException(sqlEx);
+        } finally {
+            //release resources needed.
+            try {
+                if (pStatement != null) {
+                    pStatement.close();
+                }
+                if (result != null) {
+                    result.close();
+                }
+            } catch (SQLException sqlEx) {
+                sqlEx.printStackTrace();
+                throw new RuntimeException(sqlEx);
+            }
+        }
+    }
 }

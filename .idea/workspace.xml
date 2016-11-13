@@ -2,20 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e62c3b98-c20b-4261-be93-1223b6282c8b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/accommodations.html" afterPath="$PROJECT_DIR$/accommodations.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/wedding/jonfreer/com/util/Console.java" afterPath="$PROJECT_DIR$/console/wedding/jonfreer/com/util/Console.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/editGuest.html" afterPath="$PROJECT_DIR$/editGuest.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notFinished.html" afterPath="$PROJECT_DIR$/notFinished.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/GeneralExceptionMapper.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/GeneralExceptionMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/exceptions/ResourceNotFoundException.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/exceptions/ResourceNotFoundException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/interfaces/services/IGuestService.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/interfaces/services/IGuestService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/services/GuestService.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/application/services/GuestService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Address.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Address.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Guest.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Guest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Location.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Location.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Reservation.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/Reservation.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/repositories/IGuestRepository.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/repositories/IGuestRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/repositories/IReservationRepository.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/repositories/IReservationRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/unitofwork/IDatabaseUnitOfWork.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/unitofwork/IDatabaseUnitOfWork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/unitofwork/IUnitOfWork.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/domain/interfaces/unitofwork/IUnitOfWork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IDatabaseUnitOfWorkFactoryBinder.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IDatabaseUnitOfWorkFactoryBinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IReservationRepositoryFactoryBinder.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IReservationRepositoryFactoryBinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/exceptions/ResourceNotFoundException.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/exceptions/ResourceNotFoundException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/DatabaseUnitOfWorkFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/DatabaseUnitOfWorkFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/GuestRepositoryFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/GuestRepositoryFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/ReservationRepositoryFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/factories/ReservationRepositoryFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IDatabaseUnitOfWorkFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IDatabaseUnitOfWorkFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IGuestRepositoryFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IGuestRepositoryFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IReservationRepositoryFactory.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/interfaces/factories/IReservationRepositoryFactory.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/DatabaseRepository.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/DatabaseRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/GuestRepository.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/GuestRepository.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/ReservationRepository.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/repositories/ReservationRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/unitofwork/DatabaseUnitOfWork.java" afterPath="$PROJECT_DIR$/src/com/jonfreer/wedding/infrastructure/unitofwork/DatabaseUnitOfWork.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thingsToDo.html" afterPath="$PROJECT_DIR$/thingsToDo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/weddingDetails.html" afterPath="$PROJECT_DIR$/weddingDetails.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/weddingParty.html" afterPath="$PROJECT_DIR$/weddingParty.html" />
     </list>
     <ignored path="wedding.jonfreer.com.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,9 +63,10 @@
       <file leaf-file-name="GuestResource.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="161">
+              <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
               <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
                 <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
                 <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
@@ -52,13 +77,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeddingApplication.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="accommodations.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/accommodations.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeddingApplication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="2" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
+            <state relative-caret-position="300">
+              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
               <folding>
-                <element signature="e#0#769#0" expanded="true" />
                 <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
               </folding>
             </state>
@@ -68,11 +102,9 @@
       <file leaf-file-name="WeddingApplicationConfiguration.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="375">
+              <caret line="33" column="4" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,40 +112,12 @@
       <file leaf-file-name="IGuestServiceBinder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestServiceBinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="105">
               <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#381#382#0" expanded="true" />
                 <element signature="e#450#451#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IGuestRepositoryBinder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestRepositoryBinder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#396#397#0" expanded="true" />
-                <element signature="e#471#472#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IReservationRepositoryBinder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IReservationRepositoryBinder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#413#414#0" expanded="true" />
-                <element signature="e#500#501#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -139,14 +143,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.1.jar!/javax/ws/rs/core/Application.class" />
         <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/IGuestServiceBinder.java" />
         <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/IGuestRepositoryBinder.java" />
         <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/IReservationRepositoryBinder.java" />
         <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestRepositoryBinder.java" />
-        <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java" />
         <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java" />
+        <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java" />
+        <option value="$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java" />
       </list>
     </option>
   </component>
@@ -179,9 +183,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -190,18 +191,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wedding.jonfreer.com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wedding.jonfreer.com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -428,6 +422,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -439,7 +434,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -467,9 +461,25 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#updateGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#deleteGuest#0;class#GuestResource#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
             <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
             <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
@@ -484,7 +494,6 @@
         <state relative-caret-position="195">
           <caret line="25" column="39" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="39" />
           <folding>
-            <element signature="e#0#769#0" expanded="true" />
             <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
           </folding>
         </state>
@@ -494,7 +503,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -502,17 +510,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
             <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
             <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
             <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
@@ -527,7 +534,6 @@
         <state relative-caret-position="195">
           <caret line="25" column="39" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="39" />
           <folding>
-            <element signature="e#0#769#0" expanded="true" />
             <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
           </folding>
         </state>
@@ -537,7 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -546,6 +551,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
             <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
             <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
@@ -560,7 +566,6 @@
         <state relative-caret-position="195">
           <caret line="25" column="39" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="39" />
           <folding>
-            <element signature="e#0#769#0" expanded="true" />
             <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
           </folding>
         </state>
@@ -570,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -581,23 +585,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IReservationRepositoryBinder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="105">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestRepositoryBinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.1.jar!/javax/ws/rs/core/Application.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
           <folding>
-            <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
-            <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
-            <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
-            <element signature="method#updateGuest#0;class#GuestResource#0" expanded="false" />
-            <element signature="method#deleteGuest#0;class#GuestResource#0" expanded="false" />
+            <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestServiceBinder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="105">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -607,56 +630,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IReservationRepositoryBinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/hk2/IGuestRepositoryBinder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#396#397#0" expanded="true" />
-            <element signature="e#471#472#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplicationConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/WebContent/WEB-INF/lib/javax.ws.rs-api-2.0.1.jar!/javax/ws/rs/core/Application.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="375">
+          <caret line="33" column="4" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/WeddingApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/com/jonfreer/wedding/api/GuestResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="2" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
+        <state relative-caret-position="161">
+          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
           <folding>
-            <element signature="e#0#769#0" expanded="true" />
-            <marker date="1479058368000" expanded="false" signature="604:614" ph="&lt;~&gt;" />
+            <element signature="imports" expanded="true" />
+            <element signature="method#getGuests#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#createGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#getGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#updateGuest#0;class#GuestResource#0" expanded="false" />
+            <element signature="method#deleteGuest#0;class#GuestResource#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/accommodations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

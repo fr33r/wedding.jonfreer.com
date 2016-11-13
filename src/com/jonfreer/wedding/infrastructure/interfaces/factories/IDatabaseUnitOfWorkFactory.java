@@ -5,7 +5,7 @@ import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IDatabaseUnitOfWorkFactory {
-	
-	IDatabaseUnitOfWork create();
-	
+
+    IDatabaseUnitOfWork create();
+
 }

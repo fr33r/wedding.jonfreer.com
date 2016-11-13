@@ -7,11 +7,11 @@ import org.jvnet.hk2.annotations.Contract;
 @Contract
 public interface IReservationRepository {
 
-	Reservation getReservation(int id) throws ResourceNotFoundException;
-	
-	void updateReservation(Reservation desiredReservationState) throws ResourceNotFoundException;
-	
-	int insertReservation(Reservation desiredReservationState);
-	
-	void deleteReservation(int id) throws ResourceNotFoundException;	
+    Reservation getReservation(int id) throws ResourceNotFoundException;
+
+    void updateReservation(Reservation desiredReservationState) throws ResourceNotFoundException;
+
+    int insertReservation(Reservation desiredReservationState);
+
+    void deleteReservation(int id) throws ResourceNotFoundException;
 }

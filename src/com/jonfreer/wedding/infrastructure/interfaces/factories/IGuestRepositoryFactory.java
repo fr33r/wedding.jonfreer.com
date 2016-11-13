@@ -6,7 +6,7 @@ import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IGuestRepositoryFactory {
-	
-	IGuestRepository create(IDatabaseUnitOfWork unitOfWork);
-	
+
+    IGuestRepository create(IDatabaseUnitOfWork unitOfWork);
+
 }

@@ -6,7 +6,7 @@ import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IReservationRepositoryFactory {
-	
-	IReservationRepository create(IDatabaseUnitOfWork unitOfWork);
-	
+
+    IReservationRepository create(IDatabaseUnitOfWork unitOfWork);
+
 }

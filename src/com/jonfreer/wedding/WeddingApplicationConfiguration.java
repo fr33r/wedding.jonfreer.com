@@ -14,22 +14,22 @@ import javax.ws.rs.ApplicationPath;
  * Created by jonfreer on 11/9/16.
  */
 @ApplicationPath("/resources")
-public class WeddingApplicationConfiguration extends ResourceConfig{
+public class WeddingApplicationConfiguration extends ResourceConfig {
 
-    public WeddingApplicationConfiguration(){
+    public WeddingApplicationConfiguration() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-		this.register(new GeneralExceptionMapper());
-		this.register(new JacksonJsonProvider());
-		this.register(new IGuestServiceBinder());
-		this.register(new IGuestRepositoryFactoryBinder());
-		this.register(new IReservationRepositoryFactoryBinder());	
-		this.register(new IDatabaseUnitOfWorkFactoryBinder());
-        
+        this.register(new GeneralExceptionMapper());
+        this.register(new JacksonJsonProvider());
+        this.register(new IGuestServiceBinder());
+        this.register(new IGuestRepositoryFactoryBinder());
+        this.register(new IReservationRepositoryFactoryBinder());
+        this.register(new IDatabaseUnitOfWorkFactoryBinder());
+
         this.packages(true, "com.jonfreer.wedding.api");
     }
 }
