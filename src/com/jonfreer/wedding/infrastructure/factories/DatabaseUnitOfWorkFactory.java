@@ -9,7 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import org.jvnet.hk2.annotations.Service;
+import javax.inject.Named;
 
+@Service @Named
 public class DatabaseUnitOfWorkFactory implements IDatabaseUnitOfWorkFactory{
 
 	private String connectionString;

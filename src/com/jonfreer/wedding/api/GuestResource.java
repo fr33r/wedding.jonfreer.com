@@ -1,15 +1,8 @@
 package com.jonfreer.wedding.api;
 
-/*
- * Application dependencies.
- */
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
-import com.jonfreer.wedding.application.services.GuestService;
 import com.jonfreer.wedding.domain.Guest;
-import com.jonfreer.wedding.infrastructure.factories.DatabaseUnitOfWorkFactory;
-import com.jonfreer.wedding.infrastructure.factories.GuestRepositoryFactory;
-import com.jonfreer.wedding.infrastructure.factories.ReservationRepositoryFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Consumes;
@@ -21,25 +14,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.MediaType;
-
+import javax.inject.Inject;
 import java.net.URI;
-/*
- * Java SE dependencies.
- */
 import java.util.ArrayList;
 
 @Path("/guests")
 public class GuestResource{
 
+	@Inject
 	private IGuestService guestService;
-
-	public GuestResource(){
-		guestService = 
-				new GuestService(
-						new GuestRepositoryFactory(),
-						new ReservationRepositoryFactory(),
-						new DatabaseUnitOfWorkFactory());
-	}
 
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -98,5 +81,4 @@ public class GuestResource{
 			return Response.status(Status.NOT_FOUND).build();
 		} 
 	}
-
 }

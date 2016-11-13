@@ -9,7 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.sql.PreparedStatement;
+import javax.inject.Named;
+import org.jvnet.hk2.annotations.Service;
 
+@Service @Named
 public class GuestRepository extends DatabaseRepository implements IGuestRepository{
 
 	public GuestRepository(IDatabaseUnitOfWork unitOfWork){

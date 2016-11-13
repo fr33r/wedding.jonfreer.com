@@ -1,4 +1,4 @@
-package com.jonfreer.wedding;
+/*package com.jonfreer.wedding;
 
 import javax.ws.rs.core.Application;
 import java.util.Set;
@@ -27,3 +27,4 @@ public class WeddingApplication extends Application {
         return s;
     }
 }
+*/

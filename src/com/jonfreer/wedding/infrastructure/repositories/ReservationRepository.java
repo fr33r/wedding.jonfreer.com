@@ -7,7 +7,10 @@ import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IReservationRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
+import javax.inject.Named;
+import org.jvnet.hk2.annotations.Service;
 
+@Service @Named
 public class ReservationRepository extends DatabaseRepository implements IReservationRepository {
 
 	public ReservationRepository(IDatabaseUnitOfWork unitOfWork){

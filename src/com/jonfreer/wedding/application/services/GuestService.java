@@ -11,15 +11,20 @@ import com.jonfreer.wedding.domain.interfaces.repositories.IReservationRepositor
 import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
 import com.jonfreer.wedding.infrastructure.interfaces.factories.IDatabaseUnitOfWorkFactory;
 import com.jonfreer.wedding.domain.Reservation;
+import org.jvnet.hk2.annotations.Service;
+import javax.inject.Named;
+import javax.inject.Inject;
 
 import com.jonfreer.wedding.domain.Guest;
 
+@Service @Named
 public class GuestService implements IGuestService{
 
 	private IGuestRepositoryFactory guestRepositoryFactory;
 	private IReservationRepositoryFactory reservationRepositoryFactory;
 	private IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory;
 
+	@Inject
 	public GuestService(
 			IGuestRepositoryFactory guestRepositoryFactory, 
 			IReservationRepositoryFactory reservationRepositoryFactory,
@@ -38,7 +43,6 @@ public class GuestService implements IGuestService{
 				this.guestRepositoryFactory.create(unitOfWork);
 		IReservationRepository reservationRepository = 
 				this.reservationRepositoryFactory.create(unitOfWork);
-		
 		
 		try{
 
