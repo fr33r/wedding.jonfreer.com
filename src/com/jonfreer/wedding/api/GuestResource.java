@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import java.net.URI;
 import java.util.ArrayList;
 
+/**
+ * JAX-RS resource class representing a wedding guest resource.
+ */
 public class GuestResource implements IGuestResource {
 
     @Inject
@@ -18,12 +21,23 @@ public class GuestResource implements IGuestResource {
     public GuestResource() {
     }
 
+    /**
+     * Retrieves the collection of guest resources.
+     *
+     * @return The collection of guest resources.
+     */
     @Override
     public Response getGuests() {
         ArrayList<Guest> guests = this.guestService.getGuests();
         return Response.ok(guests).build();
     }
 
+    /**
+     * Creates a new guest resource and appends it to the /guests/ resource collect
+     *
+     * @param desiredGuestState The desired state for the guest resource being created.
+     * @return javax.ws.rs.Response with an HTTP status of 201 - Created on success.
+     */
     @Override
     public Response createGuest(Guest desiredGuestState) {
         try {
@@ -35,6 +49,13 @@ public class GuestResource implements IGuestResource {
         }
     }
 
+    /**
+     * Retrieves the current state of the guest resources with the id provided.
+     *
+     * @param id The id of the guest resource being retrieved.
+     * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
+     */
+    @Override
     public Response getGuest(int id) {
         Guest guest;
         try {
@@ -45,6 +66,13 @@ public class GuestResource implements IGuestResource {
         }
     }
 
+    /**
+     * Replaces the current state of the guest resource with the id provided.
+     *
+     * @param id                The id of the guest resource to be updated.
+     * @param desiredGuestState The desired state for the guest resource being updated.
+     * @return javax.ws.rs.core.Response with an HTTP status of 200 - OK on success.
+     */
     @Override
     public Response updateGuest(int id, Guest desiredGuestState) {
         try {
@@ -56,6 +84,13 @@ public class GuestResource implements IGuestResource {
         }
     }
 
+    /**
+     * Deletes the guest resource with the id provided.
+     *
+     * @param id The id of the guest resource to be deleted.
+     * @return javax.ws.rs.core.Response with an HTTP status code of 204 - No Content
+     * on success.
+     */
     @Override
     public Response deleteGuest(int id) {
         try {
