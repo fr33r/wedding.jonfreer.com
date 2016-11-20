@@ -15,6 +15,9 @@ import org.jvnet.hk2.annotations.Service;
 
 import javax.inject.Named;
 
+/**
+ * Factory that creates DatabaseUnitOfWork instances.
+ */
 @Service
 @Named
 public class DatabaseUnitOfWorkFactory implements IDatabaseUnitOfWorkFactory {
@@ -23,6 +26,11 @@ public class DatabaseUnitOfWorkFactory implements IDatabaseUnitOfWorkFactory {
     private String username;
     private String password;
 
+    /**
+     * Constructs a DatabaseUnitOfWorkFactory. This constructor looks for a
+     * file called 'databaseInfo.properties' in order to load in database
+     * configuration information.
+     */
     public DatabaseUnitOfWorkFactory() {
 
         InputStream is = null;
@@ -56,6 +64,11 @@ public class DatabaseUnitOfWorkFactory implements IDatabaseUnitOfWorkFactory {
         }
     }
 
+    /**
+     * Creates a new instance of DatabaseUnitOfWork.
+     *
+     * @return The new instance of DatabaseUnitOfWork.
+     */
     @Override
     public IDatabaseUnitOfWork create() {
         try {

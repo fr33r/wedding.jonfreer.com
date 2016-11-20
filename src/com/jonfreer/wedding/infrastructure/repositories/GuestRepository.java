@@ -14,14 +14,37 @@ import javax.inject.Named;
 
 import org.jvnet.hk2.annotations.Service;
 
+/**
+ * A database repository that directly interacts with the database
+ * to manage guest entities.
+ */
 @Service
 @Named
 public class GuestRepository extends DatabaseRepository implements IGuestRepository {
 
+    /**
+     * Constructs a new instance provided an instance of a class that
+     * implements the IDatabaseUnitOfWork interface. It is recommended
+     * that instead of invoking this constructor, instead use the
+     * GuestRepositoryFactory class to create an instance.
+     *
+     * @param unitOfWork An instance of a class that implements the
+     *                   IDatabaseUnitOfWork interface. All methods invoked
+     *                   on the GuestRepository instance being created will
+     *                   utilize this unit of work.
+     */
     public GuestRepository(IDatabaseUnitOfWork unitOfWork) {
         super(unitOfWork);
     }
 
+    /**
+     * Retrieves a guest that is identified by the identifier provided.
+     *
+     * @param id The identifier of the guest to be retrieved.
+     * @return An instance of Guest that has the identifier specified.
+     * @throws ResourceNotFoundException Thrown when a guest with the identifier
+     *                                   provided cannot be found.
+     */
     public Guest getGuest(int id) throws ResourceNotFoundException {
 
         Guest guest = null;
@@ -89,6 +112,13 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         }
     }
 
+    /**
+     * Replaces the state of an existing guest with the state of the guest provided.
+     *
+     * @param guest The desired state of the guest to update.
+     * @throws ResourceNotFoundException Thrown when a guest with the identifier
+     *                                   provided in the desired state cannot be found.
+     */
     public void updateGuest(Guest guest) throws ResourceNotFoundException {
 
         PreparedStatement pStatement = null;
@@ -141,6 +171,13 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         }
     }
 
+    /**
+     * Deletes a guest that is identified by the identifier provided.
+     *
+     * @param id The identifier of the guest to be deleted.
+     * @throws ResourceNotFoundException Thrown when a guest with the identifier
+     *                                   provided cannot be found.
+     */
     public void deleteGuest(int id) throws ResourceNotFoundException {
 
         PreparedStatement pStatement = null;
@@ -173,6 +210,12 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         }
     }
 
+    /**
+     * Creates a new guest with the state provided.
+     *
+     * @param guest The desired state of the guest to create.
+     * @return The identifier of the newly created guest.
+     */
     public int insertGuest(Guest guest) {
 
         PreparedStatement pStatementInsert = null;
@@ -236,6 +279,11 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         }
     }
 
+    /**
+     * Retrieves all guests.
+     *
+     * @return All of the guests.
+     */
     public ArrayList<Guest> getGuests() {
 
         ArrayList<Guest> guests = new ArrayList<Guest>();

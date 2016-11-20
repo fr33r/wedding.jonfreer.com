@@ -13,14 +13,37 @@ import javax.inject.Named;
 
 import org.jvnet.hk2.annotations.Service;
 
+/**
+ * A database repository that directly interacts with the database
+ * to manage reservation entities.
+ */
 @Service
 @Named
 public class ReservationRepository extends DatabaseRepository implements IReservationRepository {
 
+    /**
+     * Constructs a new instance provided an instance of a class that
+     * implements the IDatabaseUnitOfWork interface. It is recommended
+     * that instead of invoking this constructor, instead use the
+     * ReservationRepositoryFactory class to create an instance.
+     *
+     * @param unitOfWork An instance of a class that implements the
+     *                   IDatabaseUnitOfWork interface. All methods invoked
+     *                   on the ReservationRepository instance being created will
+     *                   utilize this unit of work.
+     */
     public ReservationRepository(IDatabaseUnitOfWork unitOfWork) {
         super(unitOfWork);
     }
 
+    /**
+     * Retrieves a reservation that is identified by the identifier provided.
+     *
+     * @param id The identifier of the reservation to be retrieved.
+     * @return An instance of Reservation that has the identifier specified.
+     * @throws ResourceNotFoundException Thrown when a reservation with the identifier
+     *                                   provided cannot be found.
+     */
     @Override
     public Reservation getReservation(int id) throws ResourceNotFoundException {
 
@@ -75,6 +98,13 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
         }
     }
 
+    /**
+     * Replaces the state of an existing reservation with the state of the reservation provided.
+     *
+     * @param desiredReservationState The desired state of the reservation to update.
+     * @throws ResourceNotFoundException Thrown when a reservation with the identifier
+     *                                   provided in the desired state cannot be found.
+     */
     @Override
     public void updateReservation(Reservation desiredReservationState) throws ResourceNotFoundException {
 
@@ -116,6 +146,12 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
     }
 
+    /**
+     * Creates a new reservation with the state provided.
+     *
+     * @param desiredReservationState The desired state of the reservation to create.
+     * @return The identifier of the newly created reservation.
+     */
     @Override
     public int insertReservation(Reservation desiredReservationState) {
 
@@ -167,6 +203,13 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
         }
     }
 
+    /**
+     * Deletes a reservation that is identified by the identifier provided.
+     *
+     * @param id The identifier of the reservation to be deleted.
+     * @throws ResourceNotFoundException Thrown when a reservation with the identifier
+     *                                   provided cannot be found.
+     */
     @Override
     public void deleteReservation(int id) throws ResourceNotFoundException {
 

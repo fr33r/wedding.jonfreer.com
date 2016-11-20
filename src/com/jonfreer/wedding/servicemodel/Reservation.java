@@ -20,7 +20,7 @@ public class Reservation implements Cloneable {
         this.isAttending = false;
         this.submittedDateTime = null;
     }
-    
+
     /**
      * Constructs a Reservation instance.
      *

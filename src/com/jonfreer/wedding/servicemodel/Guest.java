@@ -28,7 +28,7 @@ public class Guest implements Cloneable {
         this.dietaryRestrictions = null;
         this.reservation = null;
     }
-    
+
     /**
      * Constructs a guest without a reservation.
      *
