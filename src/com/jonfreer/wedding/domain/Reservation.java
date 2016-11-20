@@ -13,6 +13,15 @@ public class Reservation implements Cloneable {
     private java.util.Date submittedDateTime;
 
     /**
+     * Default constructor for the Reservation class. Creates an empty Reservation object.
+     */
+    public Reservation() {
+        this.id = 0;
+        this.isAttending = false;
+        this.submittedDateTime = null;
+    }
+
+    /**
      * Constructs a Reservation instance.
      *
      * @param id                The identifier of the reservation.

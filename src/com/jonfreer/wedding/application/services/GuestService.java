@@ -2,6 +2,7 @@ package com.jonfreer.wedding.application.services;
 
 import java.util.ArrayList;
 
+import org.dozer.Mapper;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
@@ -16,8 +17,6 @@ import org.jvnet.hk2.annotations.Service;
 import javax.inject.Named;
 import javax.inject.Inject;
 
-import com.jonfreer.wedding.domain.Guest;
-
 @Service
 @Named
 public class GuestService implements IGuestService {
@@ -25,19 +24,22 @@ public class GuestService implements IGuestService {
     private IGuestRepositoryFactory guestRepositoryFactory;
     private IReservationRepositoryFactory reservationRepositoryFactory;
     private IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory;
+    private Mapper mapper;
 
     @Inject
     public GuestService(
             IGuestRepositoryFactory guestRepositoryFactory,
             IReservationRepositoryFactory reservationRepositoryFactory,
-            IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory) {
+            IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory,
+            Mapper mapper) {
 
         this.guestRepositoryFactory = guestRepositoryFactory;
         this.reservationRepositoryFactory = reservationRepositoryFactory;
         this.databaseUnitOfWorkFactory = databaseUnitOfWorkFactory;
+        this.mapper = mapper;
     }
 
-    public Guest getGuest(int id) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
+    public com.jonfreer.wedding.servicemodel.Guest getGuest(int id) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();
@@ -48,7 +50,7 @@ public class GuestService implements IGuestService {
 
         try {
 
-            Guest guest = guestRepository.getGuest(id);
+            com.jonfreer.wedding.domain.Guest guest = guestRepository.getGuest(id);
 
             if (guest.getReservation() != null) {
                 Reservation reservation =
@@ -58,7 +60,7 @@ public class GuestService implements IGuestService {
 
             unitOfWork.Save();
 
-            return guest;
+            return this.mapper.map(guest, com.jonfreer.wedding.servicemodel.Guest.class);
 
         } catch (ResourceNotFoundException resourceNotFoundEx) {
             //log.
@@ -73,7 +75,8 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public void updateGuest(Guest guest) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
+    public void updateGuest(com.jonfreer.wedding.servicemodel.Guest guest)
+            throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();
@@ -84,10 +87,12 @@ public class GuestService implements IGuestService {
 
         try {
 
-            Guest guestCurrentState = guestRepository.getGuest(guest.getId());
+            com.jonfreer.wedding.domain.Guest guestDomain =
+                    this.mapper.map(guest, com.jonfreer.wedding.domain.Guest.class);
+            com.jonfreer.wedding.domain.Guest guestCurrentState = guestRepository.getGuest(guest.getId());
 
 			/*
-			 * 1 - if an id for the reservation is provided:
+             * 1 - if an id for the reservation is provided:
 			 *   a  - make sure it is the same reservation id that already exists.
 			 *   b  - overwrite the reservation information.
 			 * 2 - if an id for the reservation is not provided:
@@ -107,17 +112,17 @@ public class GuestService implements IGuestService {
                         guestCurrentState.getReservation().getId() != guest.getReservation().getId()) {
                     //throw.
                 } else {
-                    reservationRepository.updateReservation(guest.getReservation());
+                    reservationRepository.updateReservation(guestDomain.getReservation());
                 }
             } else {
                 if (guestCurrentState.getReservation() == null) {
-                    reservationRepository.insertReservation(guest.getReservation());
+                    reservationRepository.insertReservation(guestDomain.getReservation());
                 } else {
-                    reservationRepository.updateReservation(guest.getReservation());
+                    reservationRepository.updateReservation(guestDomain.getReservation());
                 }
             }
 
-            guestRepository.updateGuest(guest);
+            guestRepository.updateGuest(guestDomain);
 
             unitOfWork.Save();
 
@@ -145,7 +150,7 @@ public class GuestService implements IGuestService {
 
         try {
 
-            Guest guest = guestRepository.getGuest(id);
+            com.jonfreer.wedding.domain.Guest guest = guestRepository.getGuest(id);
             if (guest.getReservation() != null) {
                 reservationRepository.deleteReservation(guest.getReservation().getId());
             }
@@ -167,7 +172,7 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public int insertGuest(Guest guest) {
+    public int insertGuest(com.jonfreer.wedding.servicemodel.Guest guest) {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();
@@ -177,9 +182,11 @@ public class GuestService implements IGuestService {
                 this.reservationRepositoryFactory.create(unitOfWork);
 
         try {
-            int guestId = guestRepository.insertGuest(guest);
+            com.jonfreer.wedding.domain.Guest guestDomain =
+                    this.mapper.map(guest, com.jonfreer.wedding.domain.Guest.class);
+            int guestId = guestRepository.insertGuest(guestDomain);
             if (guest.getReservation() != null) {
-                reservationRepository.insertReservation(guest.getReservation());
+                reservationRepository.insertReservation(guestDomain.getReservation());
             }
 
             unitOfWork.Save();
@@ -192,7 +199,7 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public ArrayList<Guest> getGuests() {
+    public ArrayList<com.jonfreer.wedding.servicemodel.Guest> getGuests() {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();
@@ -202,9 +209,9 @@ public class GuestService implements IGuestService {
                 this.reservationRepositoryFactory.create(unitOfWork);
 
         try {
-            ArrayList<Guest> guests = guestRepository.getGuests();
+            ArrayList<com.jonfreer.wedding.domain.Guest> guests = guestRepository.getGuests();
 
-            for (Guest guest : guests) {
+            for (com.jonfreer.wedding.domain.Guest guest : guests) {
                 if (guest.getReservation() != null) {
                     guest.setReservation(reservationRepository.getReservation(guest.getReservation().getId()));
                 }
@@ -212,7 +219,7 @@ public class GuestService implements IGuestService {
 
             unitOfWork.Save();
 
-            return guests;
+            return this.mapper.map(guests, ArrayList.class);
         } catch (Exception ex) {
             //log.
             unitOfWork.Undo();

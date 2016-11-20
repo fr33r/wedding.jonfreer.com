@@ -55,10 +55,12 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
                 guest.setDietaryRestrictions(result.getString("GUEST_DIETARY_RESTRICTIONS"));
                 guest.setInviteCode(result.getString("INVITE_CODE"));
 
-                Reservation reservation = new Reservation();
-                reservation.setId(result.getInt("RESERVATION_ID"));
-
-                guest.setReservation(reservation);
+                int reservationId = result.getInt("RESERVATION_ID");
+                if (!result.wasNull()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(reservationId);
+                    guest.setReservation(reservation);
+                }
             }
 
             if (guest == null) {
@@ -145,8 +147,8 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
         try {
             pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "DELETE FROM wedding_jonfreer_com.GUEST WHERE G.GUEST_ID = ?;");
-            pStatement.setInt(0, id);
+                    "DELETE FROM wedding_jonfreer_com.GUEST WHERE GUEST_ID = ?;");
+            pStatement.setInt(1, id);
 
             int numOfRecords = pStatement.executeUpdate();
 

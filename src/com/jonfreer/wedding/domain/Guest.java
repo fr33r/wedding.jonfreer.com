@@ -17,6 +17,19 @@ public class Guest implements Cloneable {
     private Reservation reservation;
 
     /**
+     * Default constructor for the Guest class. Creates an empty Guest object.
+     */
+    public Guest() {
+        this.id = 0;
+        this.givenName = null;
+        this.surName = null;
+        this.description = null;
+        this.inviteCode = null;
+        this.dietaryRestrictions = null;
+        this.reservation = null;
+    }
+
+    /**
      * Constructs a guest without a reservation.
      *
      * @param id                  The identifier for the guest.

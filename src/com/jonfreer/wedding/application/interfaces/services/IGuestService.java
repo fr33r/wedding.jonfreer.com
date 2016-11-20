@@ -1,6 +1,6 @@
 package com.jonfreer.wedding.application.interfaces.services;
 
-import com.jonfreer.wedding.domain.Guest;
+import com.jonfreer.wedding.servicemodel.Guest;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 
 import java.util.ArrayList;

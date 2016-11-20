@@ -1,6 +1,6 @@
 package com.jonfreer.wedding.api;
 
-import com.jonfreer.wedding.domain.Guest;
+import com.jonfreer.wedding.servicemodel.Guest;
 
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 /**
  * Defines the interface for resources that wish to interact
  * with guest resources.
+ *
  * @author jonfreer
  * @since 11/13/2013.
  */
@@ -24,6 +25,7 @@ public interface IGuestResource {
 
     /**
      * Retrieves the collection of guest resources.
+     *
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
      */
     @GET
@@ -32,6 +34,7 @@ public interface IGuestResource {
 
     /**
      * Creates a new guest resource and appends it to the /guests/ resource collection.
+     *
      * @param desiredGuestState The desired state for the guest resource being created.
      * @return javax.ws.rs.Response with an HTTP status of 201 - Created on success.
      */
@@ -42,6 +45,7 @@ public interface IGuestResource {
 
     /**
      * Retrieves the current state of the guest resources with the id provided.
+     *
      * @param id The id of the guest resource being retrieved.
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
      */
@@ -52,7 +56,8 @@ public interface IGuestResource {
 
     /**
      * Replaces the current state of the guest resource with the id provided.
-     * @param id The id of the guest resource to be updated.
+     *
+     * @param id                The id of the guest resource to be updated.
      * @param desiredGuestState The desired state for the guest resource being updated.
      * @return javax.ws.rs.core.Response with an HTTP status of 200 - OK on success.
      */
@@ -64,6 +69,7 @@ public interface IGuestResource {
 
     /**
      * Deletes the guest resource with the id provided.
+     *
      * @param id The id of the guest resource to be deleted.
      * @return javax.ws.rs.core.Response with an HTTP status code of 204 - No Content
      * on success.
