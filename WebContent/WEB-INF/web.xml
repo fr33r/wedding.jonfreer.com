@@ -13,6 +13,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>wedding.jonfreer.com</servlet-name>
-        <url-pattern>/resources/*</url-pattern>
+        <url-pattern>/wedding/*</url-pattern>
     </servlet-mapping>
 </web-app>
