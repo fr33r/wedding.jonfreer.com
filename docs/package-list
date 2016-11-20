@@ -1,0 +1,16 @@
+com.jonfreer.wedding
+com.jonfreer.wedding.api
+com.jonfreer.wedding.application.exceptions
+com.jonfreer.wedding.application.interfaces.services
+com.jonfreer.wedding.application.services
+com.jonfreer.wedding.domain
+com.jonfreer.wedding.domain.interfaces.repositories
+com.jonfreer.wedding.domain.interfaces.unitofwork
+com.jonfreer.wedding.hk2
+com.jonfreer.wedding.infrastructure.exceptions
+com.jonfreer.wedding.infrastructure.factories
+com.jonfreer.wedding.infrastructure.interfaces.factories
+com.jonfreer.wedding.infrastructure.repositories
+com.jonfreer.wedding.infrastructure.unitofwork
+com.jonfreer.wedding.servicemodel
+wedding.jonfreer.com.util
