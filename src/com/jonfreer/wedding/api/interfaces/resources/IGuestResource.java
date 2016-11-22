@@ -1,5 +1,6 @@
-package com.jonfreer.wedding.api;
+package com.jonfreer.wedding.api.interfaces.resources;
 
+import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.servicemodel.Guest;
 
 import javax.ws.rs.Path;
@@ -41,7 +42,7 @@ public interface IGuestResource {
     @POST
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response createGuest(Guest desiredGuestState);
+    Response createGuest(Guest desiredGuestState) throws ResourceNotFoundException;
 
     /**
      * Retrieves the current state of the guest resources with the id provided.
@@ -52,7 +53,7 @@ public interface IGuestResource {
     @Path("{id : \\d+}")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getGuest(@PathParam("id") int id);
+    Response getGuest(@PathParam("id") int id) throws ResourceNotFoundException;
 
     /**
      * Replaces the current state of the guest resource with the id provided.
@@ -65,7 +66,7 @@ public interface IGuestResource {
     @PUT
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response updateGuest(@PathParam("id") int id, Guest desiredGuestState);
+    Response updateGuest(@PathParam("id") int id, Guest desiredGuestState) throws ResourceNotFoundException;
 
     /**
      * Deletes the guest resource with the id provided.
@@ -76,5 +77,5 @@ public interface IGuestResource {
      */
     @Path("{id : \\d+}")
     @DELETE
-    Response deleteGuest(@PathParam("id") int id);
+    Response deleteGuest(@PathParam("id") int id) throws ResourceNotFoundException;
 }

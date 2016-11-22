@@ -1,11 +1,13 @@
-package com.jonfreer.wedding.api;
+package com.jonfreer.wedding.api.resources;
 
+import com.jonfreer.wedding.api.interfaces.resources.IGuestResource;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.servicemodel.Guest;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.NotFoundException;
 import javax.inject.Inject;
 import java.net.URI;
 import java.util.ArrayList;
@@ -39,14 +41,10 @@ public class GuestResource implements IGuestResource {
      * @return javax.ws.rs.Response with an HTTP status of 201 - Created on success.
      */
     @Override
-    public Response createGuest(Guest desiredGuestState) {
-        try {
-            int guestId = this.guestService.insertGuest(desiredGuestState);
-            Guest guest = this.guestService.getGuest(guestId);
-            return Response.created(URI.create("/guests/" + guestId)).entity(guest).build();
-        } catch (ResourceNotFoundException e) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
+    public Response createGuest(Guest desiredGuestState) throws ResourceNotFoundException{
+        int guestId = this.guestService.insertGuest(desiredGuestState);
+        Guest guest = this.guestService.getGuest(guestId);
+        return Response.created(URI.create("/guests/" + guestId + "/")).entity(guest).build();
     }
 
     /**
@@ -56,14 +54,9 @@ public class GuestResource implements IGuestResource {
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
      */
     @Override
-    public Response getGuest(int id) {
-        Guest guest;
-        try {
-            guest = this.guestService.getGuest(id);
-            return Response.ok(guest).build();
-        } catch (ResourceNotFoundException e) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
+    public Response getGuest(int id) throws ResourceNotFoundException{
+        Guest guest = this.guestService.getGuest(id);
+        return Response.ok(guest).build();
     }
 
     /**
@@ -74,14 +67,10 @@ public class GuestResource implements IGuestResource {
      * @return javax.ws.rs.core.Response with an HTTP status of 200 - OK on success.
      */
     @Override
-    public Response updateGuest(int id, Guest desiredGuestState) {
-        try {
-            this.guestService.updateGuest(desiredGuestState);
-            Guest guest = guestService.getGuest(id);
-            return Response.ok(guest).build();
-        } catch (ResourceNotFoundException e) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
+    public Response updateGuest(int id, Guest desiredGuestState) throws ResourceNotFoundException{
+        this.guestService.updateGuest(desiredGuestState);
+        Guest guest = guestService.getGuest(id);
+        return Response.ok(guest).build();
     }
 
     /**
@@ -92,12 +81,8 @@ public class GuestResource implements IGuestResource {
      * on success.
      */
     @Override
-    public Response deleteGuest(int id) {
-        try {
-            this.guestService.deleteGuest(id);
-            return Response.noContent().build();
-        } catch (ResourceNotFoundException e) {
-            return Response.status(Status.NOT_FOUND).build();
-        }
+    public Response deleteGuest(int id) throws ResourceNotFoundException{
+        this.guestService.deleteGuest(id);
+        return Response.noContent().build();
     }
 }

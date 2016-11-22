@@ -39,7 +39,8 @@ public class GuestService implements IGuestService {
         this.mapper = mapper;
     }
 
-    public com.jonfreer.wedding.servicemodel.Guest getGuest(int id) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
+    public com.jonfreer.wedding.servicemodel.Guest getGuest(int id)
+            throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();
@@ -139,7 +140,8 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public void deleteGuest(int id) throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
+    public void deleteGuest(int id)
+            throws com.jonfreer.wedding.application.exceptions.ResourceNotFoundException {
 
         IDatabaseUnitOfWork unitOfWork =
                 this.databaseUnitOfWorkFactory.create();

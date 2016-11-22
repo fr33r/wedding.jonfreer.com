@@ -1,13 +1,11 @@
 package com.jonfreer.wedding;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import com.jonfreer.wedding.api.GuestResource;
-import com.jonfreer.wedding.api.IGuestResource;
-import com.jonfreer.wedding.application.interfaces.services.IGuestService;
+import com.jonfreer.wedding.api.resources.GuestResource;
+import com.jonfreer.wedding.api.exceptionmappers.GeneralExceptionMapper;
+import com.jonfreer.wedding.api.exceptionmappers.NotFoundExceptionMapper;
 import com.jonfreer.wedding.hk2.*;
 import org.glassfish.jersey.server.ResourceConfig;
-
-import javax.ws.rs.ApplicationPath;
 
 /**
  * Created by jonfreer on 11/9/16.
@@ -23,6 +21,7 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
 
         this.register(GuestResource.class);
         this.register(new GeneralExceptionMapper());
+        this.register(new NotFoundExceptionMapper());
         this.register(new JacksonJsonProvider());
 
         //HK2 Binders.
