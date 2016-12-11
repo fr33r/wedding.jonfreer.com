@@ -28,6 +28,7 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
         this.register(new IGuestServiceBinder());
         this.register(new IGuestRepositoryFactoryBinder());
         this.register(new IReservationRepositoryFactoryBinder());
+        this.register(new IExceptionRepositoryFactoryBinder());
         this.register(new IDatabaseUnitOfWorkFactoryBinder());
         this.register(new MapperBinder());
     }

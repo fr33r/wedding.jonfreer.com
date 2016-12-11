@@ -2,6 +2,8 @@ package com.jonfreer.wedding.application.services;
 
 import java.util.ArrayList;
 
+import com.jonfreer.wedding.infrastructure.interfaces.factories.IExceptionRepositoryFactory;
+import com.jonfreer.wedding.infrastructure.interfaces.repositories.IExceptionRepository;
 import org.dozer.Mapper;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
@@ -24,6 +26,7 @@ public class GuestService implements IGuestService {
     private IGuestRepositoryFactory guestRepositoryFactory;
     private IReservationRepositoryFactory reservationRepositoryFactory;
     private IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory;
+    private IExceptionRepositoryFactory exceptionRepositoryFactory;
     private Mapper mapper;
 
     @Inject
@@ -31,11 +34,13 @@ public class GuestService implements IGuestService {
             IGuestRepositoryFactory guestRepositoryFactory,
             IReservationRepositoryFactory reservationRepositoryFactory,
             IDatabaseUnitOfWorkFactory databaseUnitOfWorkFactory,
+            IExceptionRepositoryFactory exceptionRepositoryFactory,
             Mapper mapper) {
 
         this.guestRepositoryFactory = guestRepositoryFactory;
         this.reservationRepositoryFactory = reservationRepositoryFactory;
         this.databaseUnitOfWorkFactory = databaseUnitOfWorkFactory;
+        this.exceptionRepositoryFactory = exceptionRepositoryFactory;
         this.mapper = mapper;
     }
 
@@ -64,14 +69,14 @@ public class GuestService implements IGuestService {
             return this.mapper.map(guest, com.jonfreer.wedding.servicemodel.Guest.class);
 
         } catch (ResourceNotFoundException resourceNotFoundEx) {
-            //log.
             unitOfWork.Undo();
+            this.logException(resourceNotFoundEx);
             throw new com.jonfreer.wedding.application.exceptions.ResourceNotFoundException(
                     resourceNotFoundEx.getMessage(),
                     resourceNotFoundEx, resourceNotFoundEx.getResourceId());
         } catch (Exception ex) {
-            //log.
             unitOfWork.Undo();
+            this.logException(ex);
             throw new RuntimeException(ex);
         }
     }
@@ -128,14 +133,14 @@ public class GuestService implements IGuestService {
             unitOfWork.Save();
 
         } catch (ResourceNotFoundException resourceNotFoundEx) {
-            //log.
             unitOfWork.Undo();
+            this.logException(resourceNotFoundEx);
             throw new com.jonfreer.wedding.application.exceptions.ResourceNotFoundException(
                     resourceNotFoundEx.getMessage(),
                     resourceNotFoundEx, resourceNotFoundEx.getResourceId());
         } catch (Exception ex) {
-            //log.
             unitOfWork.Undo();
+            this.logException(ex);
             throw new RuntimeException(ex);
         }
     }
@@ -162,14 +167,14 @@ public class GuestService implements IGuestService {
             unitOfWork.Save();
 
         } catch (ResourceNotFoundException resourceNotFoundEx) {
-            //log.
             unitOfWork.Undo();
+            this.logException(resourceNotFoundEx);
             throw new com.jonfreer.wedding.application.exceptions.ResourceNotFoundException(
                     resourceNotFoundEx.getMessage(),
                     resourceNotFoundEx, resourceNotFoundEx.getResourceId());
         } catch (Exception ex) {
-            //log.
             unitOfWork.Undo();
+            this.logException(ex);
             throw new RuntimeException(ex);
         }
     }
@@ -195,8 +200,8 @@ public class GuestService implements IGuestService {
 
             return guestId;
         } catch (Exception ex) {
-            //log.
             unitOfWork.Undo();
+            this.logException(ex);
             throw new RuntimeException(ex);
         }
     }
@@ -223,9 +228,18 @@ public class GuestService implements IGuestService {
 
             return this.mapper.map(guests, ArrayList.class);
         } catch (Exception ex) {
-            //log.
             unitOfWork.Undo();
+            this.logException(ex);
             throw new RuntimeException(ex);
         }
+    }
+
+    private void logException(Exception exception){
+        IDatabaseUnitOfWork exceptionUnitOfWork =
+                this.databaseUnitOfWorkFactory.create();
+        IExceptionRepository exceptionRepository =
+                this.exceptionRepositoryFactory.create(exceptionUnitOfWork);
+        exceptionRepository.create(exception);
+        exceptionUnitOfWork.Save();
     }
 }
