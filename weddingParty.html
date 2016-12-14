@@ -1,271 +1,271 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Cheers to the Freers: Wedding Party</title>
-		<link rel="stylesheet" type="text/css" href="css/global-font.css">
-		<link rel="stylesheet" href="css/main.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/weddingParty.css">
-	</head>
-	<body>
+<head>
+    <title>Cheers to the Freers: Wedding Party</title>
+    <link rel="stylesheet" type="text/css" href="css/global-font.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/weddingParty.css">
+</head>
+<body>
 
-		<div id="side-nav-button">
-			<div class="stack"></div>
-			<div class="stack"></div>
-			<div class="stack"></div>
-		</div>
+<div id="side-nav-button">
+    <div class="stack"></div>
+    <div class="stack"></div>
+    <div class="stack"></div>
+</div>
 
-		<!-- Side Nav -->
-		<nav id="side-nav">
-			<ul>
-				<li><a href="index.html">our story</a></li>
-				<li><a href="notFinished.html">wedding details</a></li>
-				<li><a href="notFinished.html">wedding party</a></li>
-				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="notFinished.html">things to do</a></li>
-				<li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
-				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
-			</ul>
-		</nav>
+<!-- Side Nav -->
+<nav id="side-nav">
+    <ul>
+        <li><a href="index.html">our story</a></li>
+        <li><a href="notFinished.html">wedding details</a></li>
+        <li><a href="notFinished.html">wedding party</a></li>
+        <li><a href="accommodations.html">accommodations</a></li>
+        <li><a href="notFinished.html">things to do</a></li>
+        <li><a href="notFinished.html" id="side-nav-link-rsvp">rsvp</a></li>
+        <li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
+    </ul>
+</nav>
 
-		<!-- Page Header -->
-		<div id = "page-header" class ="quarter-section">
-			<div class="vert-horiz-centered">
-				<h1>wedding party</h1>
-				<hr class = "section-header-bar"/>
-			</div>
-		</div>
+<!-- Page Header -->
+<div id="page-header" class="quarter-section">
+    <div class="vert-horiz-centered">
+        <h1>wedding party</h1>
+        <hr class="section-header-bar"/>
+    </div>
+</div>
 
-		<!-- Modal -->
-		<div class = "modal-container">
-			<span class = "modal-close-button-container">&times;</span>
-			<div id = "rsvp-modal-content" class = "modal-content">
-				<form method="POST">
-					<h1>join us</h1>
-					<p>let us know that you can make it.</p>
+<!-- Modal -->
+<div class="modal-container">
+    <span class="modal-close-button-container">&times;</span>
+    <div id="rsvp-modal-content" class="modal-content">
+        <form method="POST">
+            <h1>join us</h1>
+            <p>let us know that you can make it.</p>
 
-					<!-- Invitee info -->
-					<input type="text" name="first-name" placeholder="first name" />
-					<input type="text" name="last-name" placeholder="last name" />
+            <!-- Invitee info -->
+            <input type="text" name="first-name" placeholder="first name"/>
+            <input type="text" name="last-name" placeholder="last name"/>
 
-					<div id = "guest-info">
+            <div id="guest-info">
 
-						<!-- Guest info when applicable -->
-						<input type="text" name="guest-first-name" placeholder="guest first name" />
-						<input type="text" name="guest-last-name" placeholder="guest last name" />
+                <!-- Guest info when applicable -->
+                <input type="text" name="guest-first-name" placeholder="guest first name"/>
+                <input type="text" name="guest-last-name" placeholder="guest last name"/>
 
-					</div>
+            </div>
 
-					<!-- Submit -->
-					<input type="submit" name="rsvp-submit" value="i'll be there" />
-				</form>
-			</div>
+            <!-- Submit -->
+            <input type="submit" name="rsvp-submit" value="i'll be there"/>
+        </form>
+    </div>
 
-			<div id = "rsvp-modal-error" class = "modal-content">
-				<form method="POST">
-					<h1>oops...</h1>
-					<p>there was an issue when attempting to submit your RSVP.</p>
-				</form>
-			</div>
+    <div id="rsvp-modal-error" class="modal-content">
+        <form method="POST">
+            <h1>oops...</h1>
+            <p>there was an issue when attempting to submit your RSVP.</p>
+        </form>
+    </div>
 
-			<div id = "rsvp-modal-content-code" class = "modal-content">
-				<form method="POST">
-					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-				</form>
-				<a id="what-code-link" href="#whatcode">what code?</a>
-			</div>
+    <div id="rsvp-modal-content-code" class="modal-content">
+        <form method="POST">
+            <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
+            <input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+            <input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+        </form>
+        <a id="what-code-link" href="#whatcode">what code?</a>
+    </div>
 
-			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
-				<form method="POST">
+    <div id="rsvp-modal-content-code-detail" class="modal-content">
+        <form method="POST">
 
-					<h1>jon freer</h1>
-					<img class = "section-icon" src = "img/clothing2.svg"/>
-					<h3>groom</h3>
+            <h1>jon freer</h1>
+            <img class="section-icon" src="img/clothing2.svg"/>
+            <h3>groom</h3>
 
-					<div id = "guest-info" class="show-guest-info">
+            <div id="guest-info" class="show-guest-info">
 
-						<!-- Guest info when applicable -->
-						<input type="text" name="guest-first-name" placeholder="guest first name" />
-						<input type="text" name="guest-last-name" placeholder="guest last name" />
+                <!-- Guest info when applicable -->
+                <input type="text" name="guest-first-name" placeholder="guest first name"/>
+                <input type="text" name="guest-last-name" placeholder="guest last name"/>
 
-					</div>
+            </div>
 
-					<select class="meal-selection">
-						<option value="select a food option">select a food option</option>
-						<option value="chicken">chicken</option>
-						<option value="vegetarian">vegetarian</option>
-						<option value="steak">steak</option>
-					</select>
+            <select class="meal-selection">
+                <option value="select a food option">select a food option</option>
+                <option value="chicken">chicken</option>
+                <option value="vegetarian">vegetarian</option>
+                <option value="steak">steak</option>
+            </select>
 
-					<input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-				</form>
-			</div>
+            <input type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+            <input type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+        </form>
+    </div>
 
-			<div id = "registry-modal-content" class = "modal-content">
-				<a href="#" class="registry-link">
-					<img src="img/pottery-barn-logo.png"/>
-				</a>
-				<a href="#" class="registry-link">
-					<img src="img/crate-and-barrel-logo.png"/>
-				</a>
-				<a href="#" class="registry-link">
-					<img src="img/target-logo.png" />
-				</a>
-				<a href="#" class="registry-link">
-					<img src="img/apple-logo.png" />
-				</a>
-			</div>
-		</div>
+    <div id="registry-modal-content" class="modal-content">
+        <a href="#" class="registry-link">
+            <img src="img/pottery-barn-logo.png"/>
+        </a>
+        <a href="#" class="registry-link">
+            <img src="img/crate-and-barrel-logo.png"/>
+        </a>
+        <a href="#" class="registry-link">
+            <img src="img/target-logo.png"/>
+        </a>
+        <a href="#" class="registry-link">
+            <img src="img/apple-logo.png"/>
+        </a>
+    </div>
+</div>
 
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>DJ Freer</h1>
-				<hr class = "section-header-bar" />
-				<h3>
-					Best Man
-				</h3>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Chelsea Wiley</h1>
-				<hr class = "section-header-bar" />
-				<h3>
-					Maid of Honor
-				</h3>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/wedding_party_ryan_armstrong.png" />
-			<div class ="party-member-description">
-				<h1>Ryan Armstrong</h1>
-				<hr class = "section-header-bar" />
-				<h3>
-					Groomsman
-				</h3>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Becca Schiedler</h1>
-				<hr class = "section-header-bar" />
-				<h3>
-					Maid of Honor
-				<h3>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>John Jacob</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Brittany Beaver</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Chris Coury</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Haley Huneck</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Chris Paas</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Bree Loes</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-					Some description. Some description. Some description.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/wedding_party_alex_lord.png" />
-			<div class ="party-member-description">
-				<h1>Alex Lord</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Jon and Alex became close friends after both joining
-					Phi Gamma Delta (FIJI) at Miami University. They ended
-					up being college roommates/housemates for three out of
-					four years.
-				</p>
-			</div>
-		</div>
-		<div class = "party-member-section">
-			<img src = "img/placeholder.png" />
-			<div class ="party-member-description">
-				<h1>Kate Kellogg</h1>
-				<hr class = "section-header-bar" />
-				<p>
-					Emma met kate when they were interns together at Target
-					in Minneapolis, Minnesota.
-				</p>
-			</div>
-		</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>DJ Freer</h1>
+        <hr class="section-header-bar"/>
+        <h3>
+            Best Man
+        </h3>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Chelsea Wiley</h1>
+        <hr class="section-header-bar"/>
+        <h3>
+            Maid of Honor
+        </h3>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/wedding_party_ryan_armstrong.png"/>
+    <div class="party-member-description">
+        <h1>Ryan Armstrong</h1>
+        <hr class="section-header-bar"/>
+        <h3>
+            Groomsman
+        </h3>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Becca Schiedler</h1>
+        <hr class="section-header-bar"/>
+        <h3>
+            Maid of Honor
+            <h3>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>John Jacob</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Brittany Beaver</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Chris Coury</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Haley Huneck</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Chris Paas</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Bree Loes</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+            Some description. Some description. Some description.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/wedding_party_alex_lord.png"/>
+    <div class="party-member-description">
+        <h1>Alex Lord</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Jon and Alex became close friends after both joining
+            Phi Gamma Delta (FIJI) at Miami University. They ended
+            up being college roommates/housemates for three out of
+            four years.
+        </p>
+    </div>
+</div>
+<div class="party-member-section">
+    <img src="img/placeholder.png"/>
+    <div class="party-member-description">
+        <h1>Kate Kellogg</h1>
+        <hr class="section-header-bar"/>
+        <p>
+            Emma met kate when they were interns together at Target
+            in Minneapolis, Minnesota.
+        </p>
+    </div>
+</div>
 
-		<script type="text/javascript" src="js/global.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/navigationModule.js"></script>
-		<script type="text/javascript" src="js/modalModule.js"></script>
-		<script type="text/javascript" src="js/eventHandlers.js"></script>
-	</body>
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/navigationModule.js"></script>
+<script type="text/javascript" src="js/modalModule.js"></script>
+<script type="text/javascript" src="js/eventHandlers.js"></script>
+</body>
 </html>

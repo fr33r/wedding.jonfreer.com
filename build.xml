@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="wedding.jonfreer.com" basedir="." default="build">
+    <property name="src.dir" value="src"/>
+    <property name="web.dir" value="WebContent"/>
+    <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
+    <property name="lib.dir" value="${web.dir}/WEB-INF/lib"/>
+    <property name="war.name" value="api.war" />
+
+    <path id="master-classpath">
+        <fileset dir="${web.dir}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+    <target name="clean" description="Cleaning the ${build.dir} directory.">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="build"
+            description="Compiling Java source files in the ${src.dir} directory." depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}" srcdir="${src.dir}" source="1.8" target="1.8">
+            <include name="**/*.java"/>
+            <classpath refid="master-classpath"/>
+        </javac>
+        <copy todir="${build.dir}">
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="war" description="Constructing ${war.name}." depends="build">
+        <war destfile="${war.name}" webxml="${web.dir}/WEB-INF/web.xml">
+            <fileset dir="${web.dir}">
+                <include name="**/*.*"/>
+            </fileset>
+            <lib dir="${lib.dir}"></lib>
+            <classes dir="${build.dir}"></classes>
+        </war>
+    </target>
+
+</project>

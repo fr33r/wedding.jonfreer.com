@@ -1,212 +1,214 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Cheers to the Freers: Details</title>
-		<link rel="stylesheet" type="text/css" href="css/global-font.css">
-		<link rel="stylesheet" href="css/main.css" type="text/css"/>
-		<link rel="stylesheet" type="text/css" href="css/weddingDetails.css">
+<head>
+    <title>Cheers to the Freers: Details</title>
+    <link rel="stylesheet" type="text/css" href="css/global-font.css">
+    <link rel="stylesheet" href="css/main.css" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="css/weddingDetails.css">
 
-		<style>
+    <style>
 			h2{text-align: center; margin: 50px;}
-		</style>
-	</head>
-	<body>
 
-		<div id="side-nav-button">
-			<div class="stack"></div>
-			<div class="stack"></div>
-			<div class="stack"></div>
-		</div>
+    </style>
+</head>
+<body>
 
-		<!-- Side Nav -->
-		<nav id="side-nav">
-			<ul>
-				<li><a href="index.html">our story</a></li>
-				<li><a href="#">details</a></li>
-				<li><a href="accommodations.html">accommodations</a></li>
-				<li><a href="thingsToDo.html">things to do</a></li>
-				<li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
-				<li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
-			</ul>
-		</nav>
+<div id="side-nav-button">
+    <div class="stack"></div>
+    <div class="stack"></div>
+    <div class="stack"></div>
+</div>
 
-		<!-- Page Header -->
-		<div id = "page-header" class ="quarter-section">
-			<div class="vert-horiz-centered">
-				<h1>details</h1>
-				<hr class = "section-header-bar"/>
-			</div>
-		</div>
+<!-- Side Nav -->
+<nav id="side-nav">
+    <ul>
+        <li><a href="index.html">our story</a></li>
+        <li><a href="#">details</a></li>
+        <li><a href="accommodations.html">accommodations</a></li>
+        <li><a href="thingsToDo.html">things to do</a></li>
+        <li><a href="#" id="side-nav-link-rsvp">rsvp</a></li>
+        <li><a id="side-nav-link-registry" href="notFinished.html">registry</a></li>
+    </ul>
+</nav>
 
-		<!-- Modal -->
-		<div class = "modal-container">
-			<span class = "modal-close-button-container">&times;</span>
+<!-- Page Header -->
+<div id="page-header" class="quarter-section">
+    <div class="vert-horiz-centered">
+        <h1>details</h1>
+        <hr class="section-header-bar"/>
+    </div>
+</div>
 
-			<!-- Modal Content: RSVP Error -->
-			<div id = "rsvp-modal-error" class = "modal-content">
-				<form method="POST">
-					<h1>oops...</h1>
-					<p>there was an issue when attempting to submit your rsvp.</p>
-				</form>
-			</div>
+<!-- Modal -->
+<div class="modal-container">
+    <span class="modal-close-button-container">&times;</span>
 
-			<!-- Modal Content: RSVP Success -->
-			<div id = "rsvp-modal-success" class = "modal-content">
-				<form method="POST">
-					<h1>we got it!</h1>
-					<p>thanks for submitting our rsvp.</p>
-				</form>
-			</div>
+    <!-- Modal Content: RSVP Error -->
+    <div id="rsvp-modal-error" class="modal-content">
+        <form method="POST">
+            <h1>oops...</h1>
+            <p>there was an issue when attempting to submit your rsvp.</p>
+        </form>
+    </div>
 
-			<!-- Model Content: RSVP List -->
-			<div id = "rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;">
-				<!-- Dynamically add matching guests for invite code here...
-				<div class="vert-horiz-centered">
-					<div class="matching-guest-card">
-						<h2>Jon Freer</h2>
-						<h4>Groom</h4>
-					</div>
-					<hr class = "section-header-bar spaced" />
-					<div class="matching-guest-card">
-						<h2>Emma Paas</h2>
-						<h4>Bride</h4>
-					</div>
-					<hr class = "section-header-bar spaced" />
-					<div class="matching-guest-card">
-						<h2>Sandy Freer</h2>
-						<h4>Mother of the Groom</h4>
-					</div>
-					<hr class = "section-header-bar spaced" />
-					<div class="matching-guest-card">
-						<h2>Dustin Freer</h2>
-						<h4>Best Man</h4>
-					</div>
-					<hr class = "section-header-bar spaced" />
-					<div class="matching-guest-card">
-						<h2>Alex Lord</h2>
-						<h4>Groomsman</h4>
-					</div>
-				</div>-->
+    <!-- Modal Content: RSVP Success -->
+    <div id="rsvp-modal-success" class="modal-content">
+        <form method="POST">
+            <h1>we got it!</h1>
+            <p>thanks for submitting our rsvp.</p>
+        </form>
+    </div>
 
-			</div>
+    <!-- Model Content: RSVP List -->
+    <div id="rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;">
+        <!-- Dynamically add matching guests for invite code here...
+        <div class="vert-horiz-centered">
+            <div class="matching-guest-card">
+                <h2>Jon Freer</h2>
+                <h4>Groom</h4>
+            </div>
+            <hr class = "section-header-bar spaced" />
+            <div class="matching-guest-card">
+                <h2>Emma Paas</h2>
+                <h4>Bride</h4>
+            </div>
+            <hr class = "section-header-bar spaced" />
+            <div class="matching-guest-card">
+                <h2>Sandy Freer</h2>
+                <h4>Mother of the Groom</h4>
+            </div>
+            <hr class = "section-header-bar spaced" />
+            <div class="matching-guest-card">
+                <h2>Dustin Freer</h2>
+                <h4>Best Man</h4>
+            </div>
+            <hr class = "section-header-bar spaced" />
+            <div class="matching-guest-card">
+                <h2>Alex Lord</h2>
+                <h4>Groomsman</h4>
+            </div>
+        </div>-->
 
-			<!-- Modal Content: All RSVPs Received -->
-			<div id="rsvp-all-guests-have-reservation" class="modal-content">
-				<div class="vert-horiz-centered">
-					<h1>you're all set!</h1>
-					<p>kick back and we'll see you on the big day.</p>
-				</div>
-			</div>
+    </div>
 
-			<!-- Modal Content: RSVP Code -->
-			<div id = "rsvp-modal-content-code" class = "modal-content">
-				<form id="form-enter-code" method="POST">
-					<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." />
-					<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
-					<span id="rsvp-modal-content-code-error-message" >the code you have entered is invalid.</span>
-				</form>
-			</div>
+    <!-- Modal Content: All RSVPs Received -->
+    <div id="rsvp-all-guests-have-reservation" class="modal-content">
+        <div class="vert-horiz-centered">
+            <h1>you're all set!</h1>
+            <p>kick back and we'll see you on the big day.</p>
+        </div>
+    </div>
 
-			<!-- Modal Content: RSVP Form -->
-			<div id = "rsvp-modal-content-code-detail" class = "modal-content">
-				<form id="form-rsvp-detail" method="POST">
+    <!-- Modal Content: RSVP Code -->
+    <div id="rsvp-modal-content-code" class="modal-content">
+        <form id="form-enter-code" method="POST">
+            <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
+            <input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
+            <span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
+        </form>
+    </div>
 
-					<h1>jon freer</h1>
-					<!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
-					<h3>groom</h3>
+    <!-- Modal Content: RSVP Form -->
+    <div id="rsvp-modal-content-code-detail" class="modal-content">
+        <form id="form-rsvp-detail" method="POST">
 
-					<textarea id = "guest-dietary-restrictions" name="guest-dietary-restrictions" placeholder="dietary restrictions"></textarea>
+            <h1>jon freer</h1>
+            <!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
+            <h3>groom</h3>
 
-					<input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-					<input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-					<div>we ask that you respect our decision to have an adult only wedding.</div>
-					<input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
-				</form>
-			</div>
+            <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
+                      placeholder="dietary restrictions"></textarea>
 
-			<!-- Modal Content: Registry -->
-			<div id = "registry-modal-content" class = "modal-content">
-				<a href="http://www.potterybarn.com/registry/3837964/registry-list.html" class="registry-link">
-					<img src="img/pottery-barn-logo.png"/>
-				</a>
-				<a href="http://www.crateandbarrel.com/gift-registry/emma-paas-and-jon-freer/r5495287" class="registry-link">
-					<img src="img/crate-and-barrel-logo.png"/>
-				</a>
-				<a href="https://www.honeyfund.com/wedding/cheerstothefreers" class="registry-link">
-					<img src="img/honeyfundlogo_bw.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/big_brothers_big_sisters_logo.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/animal_humane_society_fixed.png" />
-				</a>
-				<a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
-					<img src="img/hartlogo_bw.png" />
-				</a>
-			</div>
-		</div>
+            <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+            <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+            <div>we ask that you respect our decision to have an adult only wedding.</div>
+            <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
+        </form>
+    </div>
 
-		<div class="photo-banner">
-			<img src="img/IMG_5915.jpg" style="position:relative;top:-20px;"/>
-		</div>
+    <!-- Modal Content: Registry -->
+    <div id="registry-modal-content" class="modal-content">
+        <a href="http://www.potterybarn.com/registry/3837964/registry-list.html" class="registry-link">
+            <img src="img/pottery-barn-logo.png"/>
+        </a>
+        <a href="http://www.crateandbarrel.com/gift-registry/emma-paas-and-jon-freer/r5495287" class="registry-link">
+            <img src="img/crate-and-barrel-logo.png"/>
+        </a>
+        <a href="https://www.honeyfund.com/wedding/cheerstothefreers" class="registry-link">
+            <img src="img/honeyfundlogo_bw.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/big_brothers_big_sisters_logo.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/animal_humane_society_fixed.png"/>
+        </a>
+        <a href="http://www.idofoundation.org/cgi-bin/viewdonations.cgi?OccasionID=168997" class="registry-link">
+            <img src="img/hartlogo_bw.png"/>
+        </a>
+    </div>
+</div>
 
-		<h2>Friday, September 16th</h2>
-		<div class="display-table medium">
-			<div class="display-row">
-				<div class="display-cell left-aligned">
-					8:30 PM
-				</div>
-				<div class="display-cell right-aligned">
-					Rhinegeist
-				</div>
-			</div>
-		</div>
+<div class="photo-banner">
+    <img src="img/IMG_5915.jpg" style="position:relative;top:-20px;"/>
+</div>
 
-		<h2>Saturday, September 17th</h2>
-		<div class="display-table medium">
-			<div class="display-row">
-				<div class="display-cell left-aligned">
-					5:45 PM
-				</div>
-				<div class="display-cell right-aligned">
-					Ceremony
-				</div>
-			</div>
-			<div class="display-row">
-				<div class="display-cell left-aligned">
-					6:15 PM
-				</div>
-				<div class="display-cell right-aligned">
-					Cocktail Hour
-				</div>
-			</div>
-			<div class="display-row">
-				<div class="display-cell left-aligned">
-					7:15 PM
-				</div>
-				<div class="display-cell right-aligned">
-					Reception
-				</div>
-			</div>
-		</div>
+<h2>Friday, September 16th</h2>
+<div class="display-table medium">
+    <div class="display-row">
+        <div class="display-cell left-aligned">
+            8:30 PM
+        </div>
+        <div class="display-cell right-aligned">
+            Rhinegeist
+        </div>
+    </div>
+</div>
 
-		<h2>Sunday, September 18th</h2>
-		<div class="display-table medium" style="padding-bottom:50px;">
-			<div class="display-row">
-				<div class="display-cell left-aligned">
-					11:00 AM
-				</div>
-				<div class="display-cell right-aligned">
-					Brunch
-				</div>
-			</div>
-		</div>
+<h2>Saturday, September 17th</h2>
+<div class="display-table medium">
+    <div class="display-row">
+        <div class="display-cell left-aligned">
+            5:45 PM
+        </div>
+        <div class="display-cell right-aligned">
+            Ceremony
+        </div>
+    </div>
+    <div class="display-row">
+        <div class="display-cell left-aligned">
+            6:15 PM
+        </div>
+        <div class="display-cell right-aligned">
+            Cocktail Hour
+        </div>
+    </div>
+    <div class="display-row">
+        <div class="display-cell left-aligned">
+            7:15 PM
+        </div>
+        <div class="display-cell right-aligned">
+            Reception
+        </div>
+    </div>
+</div>
 
-		<script type="text/javascript" src="js/global.js"></script>
-		<script type="text/javascript" src="js/main.js"></script>
-		<script type="text/javascript" src="js/navigationModule.js"></script>
-		<script type="text/javascript" src="js/modalModule.js"></script>
-		<script type="text/javascript" src="js/eventHandlers.js"></script>
-	</body>
+<h2>Sunday, September 18th</h2>
+<div class="display-table medium" style="padding-bottom:50px;">
+    <div class="display-row">
+        <div class="display-cell left-aligned">
+            11:00 AM
+        </div>
+        <div class="display-cell right-aligned">
+            Brunch
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="js/navigationModule.js"></script>
+<script type="text/javascript" src="js/modalModule.js"></script>
+<script type="text/javascript" src="js/eventHandlers.js"></script>
+</body>
 </html>
