@@ -8,23 +8,32 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
+ * A database repository that directly interacts with the database
+ * to manage exception entities.
  * @author jonfreer
  * @since 12/11/16
  */
 public class ExceptionRepository extends DatabaseRepository implements IExceptionRepository {
 
     /**
+     * Constructs a new instance provided an instance of a class that
+     * implements the IDatabaseUnitOfWork interface. It is recommended
+     * that instead of invoking this constructor, instead use the
+     * ExceptionRepositoryFactory class to create an instance.
      *
-     * @param unitOfWork
+     * @param unitOfWork An instance of a class that implements the
+     *                   IDatabaseUnitOfWork interface. All methods invoked
+     *                   on the ExceptionRepository instance being created will
+     *                   utilize this unit of work.
      */
     public ExceptionRepository(IDatabaseUnitOfWork unitOfWork) {
         super(unitOfWork);
     }
 
     /**
-     *
+     * Creates a new exception in the exception repository.
      * @param exception The exception to create in the exception repository.
-     * @return
+     * @return An identifier for the exception created.
      */
     @Override
     public int create(Exception exception) {
