@@ -9,6 +9,7 @@ import org.jvnet.hk2.annotations.Service;
 import javax.inject.Named;
 
 /**
+ * Factory that creates ExceptionRepository instances.
  * @author jonfreer
  * @since 12/11/16
  */
@@ -17,9 +18,12 @@ import javax.inject.Named;
 public class ExceptionRepositoryFactory implements IExceptionRepositoryFactory {
 
     /**
+     * Creates a new instance of ExceptionRepository, provided an instance of a class
+     * that implements the IDatabaseUnitOfWork interface.
      *
-     * @param unitOfWork
-     * @return
+     * @param unitOfWork The instance of IDatabaseUnitOfWork needed to create a new instance
+     *                   of a class implementing the IExceptionRepository interface.
+     * @return A new instance of ExceptionRepository.
      */
     @Override
     public IExceptionRepository create(IDatabaseUnitOfWork unitOfWork) {

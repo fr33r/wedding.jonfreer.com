@@ -38,6 +38,8 @@ public interface IGuestResource {
      *
      * @param desiredGuestState The desired state for the guest resource being created.
      * @return javax.ws.rs.Response with an HTTP status of 201 - Created on success.
+     * @throws ResourceNotFoundException Thrown when the newly created guest resource
+     * cannot be found.
      */
     @POST
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -49,6 +51,8 @@ public interface IGuestResource {
      *
      * @param id The id of the guest resource being retrieved.
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
+     * @throws ResourceNotFoundException Thrown when a guest resource with the
+     * provided id cannot be found.
      */
     @Path("{id : \\d+}")
     @GET
@@ -56,11 +60,13 @@ public interface IGuestResource {
     Response getGuest(@PathParam("id") int id) throws ResourceNotFoundException;
 
     /**
-     * Replaces the current state of the guest resource with the id provided.
+     Replaces the current state of the guest resource with the id provided.
      *
      * @param id                The id of the guest resource to be updated.
      * @param desiredGuestState The desired state for the guest resource being updated.
      * @return javax.ws.rs.core.Response with an HTTP status of 200 - OK on success.
+     * @throws ResourceNotFoundException Thrown when the guest whose state is being
+     * overwritten can not be found.
      */
     @Path("{id : \\d+}")
     @PUT
@@ -74,6 +80,8 @@ public interface IGuestResource {
      * @param id The id of the guest resource to be deleted.
      * @return javax.ws.rs.core.Response with an HTTP status code of 204 - No Content
      * on success.
+     * @throws ResourceNotFoundException Thrown when a guest with the provided identifier
+     * cannot be found.
      */
     @Path("{id : \\d+}")
     @DELETE
