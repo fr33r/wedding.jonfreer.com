@@ -5,10 +5,18 @@ import com.jonfreer.wedding.infrastructure.interfaces.factories.IGuestRepository
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 /**
- * Created by jonfreer on 11/13/16.
+ * A specific abstract binder implementation that binds the
+ * GuestRepositoryFactory class to the IGuestRepositoryFactory
+ * interface within the HK2 container.
+ * @author jonfreer
+ * @since 11/13/16
  */
 public class IGuestRepositoryFactoryBinder extends AbstractBinder {
 
+    /**
+     * Configures the binding between the GuestRepositoryFactory class
+     * and the IGuestRepositoryFactory interface.
+     */
     @Override
     protected void configure() {
         this.bind(GuestRepositoryFactory.class).to(IGuestRepositoryFactory.class);
