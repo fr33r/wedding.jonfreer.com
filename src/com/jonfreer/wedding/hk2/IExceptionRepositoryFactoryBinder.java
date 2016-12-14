@@ -8,6 +8,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
  * A specific abstract binder implementation that binds the
  * ExceptionRepositoryFactory class to the IExceptionRepositoryFactory
  * interface within the HK2 container.
+ *
  * @author jonfreer
  * @since 12/11/16
  */

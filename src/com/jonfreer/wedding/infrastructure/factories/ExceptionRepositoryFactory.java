@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 /**
  * Factory that creates ExceptionRepository instances.
+ *
  * @author jonfreer
  * @since 12/11/16
  */

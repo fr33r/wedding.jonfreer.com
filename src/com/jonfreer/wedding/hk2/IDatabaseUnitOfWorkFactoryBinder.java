@@ -9,6 +9,7 @@ import com.jonfreer.wedding.infrastructure.interfaces.factories.IDatabaseUnitOfW
  * A specific abstract binder implementation that binds the
  * DatabaseUnitOfWorkFactory class to the IDatabaseUnitOfWorkFactory
  * interface within the HK2 container.
+ *
  * @author jonfreer
  * @since 11/13/16
  */

@@ -8,11 +8,11 @@ import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 
 public class NotFoundExceptionMapper implements ExceptionMapper<ResourceNotFoundException> {
 
-	@Override
-	public Response toResponse(ResourceNotFoundException resourceNotFoundException) {
-		ErrorResponse errorResponse = new ErrorResponse();
-		errorResponse.setMessage(resourceNotFoundException.getLocalizedMessage());
-		return Response.status(Status.NOT_FOUND).entity(errorResponse).build();
-	}
+    @Override
+    public Response toResponse(ResourceNotFoundException resourceNotFoundException) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(resourceNotFoundException.getLocalizedMessage());
+        return Response.status(Status.NOT_FOUND).entity(errorResponse).build();
+    }
 
 }

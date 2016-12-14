@@ -7,6 +7,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 /**
  * A specific abstract binder implementation that binds the
  * GuestService class to the IGuestService interface within the HK2 container.
+ *
  * @author jonfreer
  * @since 11/13/16
  */

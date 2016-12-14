@@ -234,7 +234,7 @@ public class GuestService implements IGuestService {
         }
     }
 
-    private void logException(Exception exception){
+    private void logException(Exception exception) {
         IDatabaseUnitOfWork exceptionUnitOfWork =
                 this.databaseUnitOfWorkFactory.create();
         IExceptionRepository exceptionRepository =

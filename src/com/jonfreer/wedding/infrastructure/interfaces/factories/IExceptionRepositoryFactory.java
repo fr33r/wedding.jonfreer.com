@@ -7,6 +7,7 @@ import org.jvnet.hk2.annotations.Contract;
 /**
  * Represents the contract that is to be implemented by any class or interface that
  * wishes to serve as a factory for instances implementing IExceptionRepository.
+ *
  * @author jonfreer
  * @since 12/11/16
  */

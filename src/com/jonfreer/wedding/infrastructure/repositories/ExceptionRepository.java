@@ -10,6 +10,7 @@ import java.sql.SQLException;
 /**
  * A database repository that directly interacts with the database
  * to manage exception entities.
+ *
  * @author jonfreer
  * @since 12/11/16
  */
@@ -32,6 +33,7 @@ public class ExceptionRepository extends DatabaseRepository implements IExceptio
 
     /**
      * Creates a new exception in the exception repository.
+     *
      * @param exception The exception to create in the exception repository.
      * @return An identifier for the exception created.
      */
@@ -42,13 +44,13 @@ public class ExceptionRepository extends DatabaseRepository implements IExceptio
         ResultSet result = null;
         StringBuilder builder = new StringBuilder();
 
-        for(StackTraceElement stackTraceElement : exception.getStackTrace()){
-        	builder.append("at " + stackTraceElement.getClassName() + ".");
-        	builder.append(stackTraceElement.getMethodName());
-        	builder.append("(" + stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber() + ")");
-        	builder.append("\n");
+        for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
+            builder.append("at " + stackTraceElement.getClassName() + ".");
+            builder.append(stackTraceElement.getMethodName());
+            builder.append("(" + stackTraceElement.getFileName() + ":" + stackTraceElement.getLineNumber() + ")");
+            builder.append("\n");
         }
-        
+
         try {
             createStatement = this.getUnitOfWork().createPreparedStatement(
                     "INSERT INTO EXCEPTION (MESSAGE, STACKTRACE) VALUES (?,?);");
@@ -64,12 +66,17 @@ public class ExceptionRepository extends DatabaseRepository implements IExceptio
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
-        }
-        finally{
+        } finally {
             try {
-                if(result != null){ result.close(); }
-                if(createStatement != null){ createStatement.close(); }
-                if(getIdStatement != null){ getIdStatement.close(); }
+                if (result != null) {
+                    result.close();
+                }
+                if (createStatement != null) {
+                    createStatement.close();
+                }
+                if (getIdStatement != null) {
+                    getIdStatement.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

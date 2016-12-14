@@ -10,10 +10,10 @@ public class GeneralExceptionMapper implements ExceptionMapper<java.lang.Excepti
 
     @Override
     public Response toResponse(Exception exception) {
-    	
-    	//print the stack trace to the standard output stream.
+
+        //print the stack trace to the standard output stream.
         exception.printStackTrace();
-        
+
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage("Whoa, that wasn't supposed to happen. Don't worry we are on it.");
         return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorResponse).build();
