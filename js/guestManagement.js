@@ -1,6 +1,6 @@
 function Guest(firstName, lastName, inviteCode, description, dietaryRestrictions, reservation){
-  this.firstName = firstName;
-  this.lastName = lastName;
+  this.givenName = firstName;
+  this.surName = lastName;
   this.inviteCode = inviteCode;
   this.description = description;
   this.dietaryRestrictions = dietaryRestrictions;
@@ -108,7 +108,11 @@ function setupEventHandlers(){
     e.preventDefault();
     var guest = readFields();
     ajaxModule.post(
-      "php/saveGuest2.php",
+      "http://freer.ddns.net:8080/api/wedding/guests/",
+      [
+        { header: "Content-Type", value: "application/json" },
+        { header: "Accept", value: "application/json" },
+      ],
       guest,
       success,
       error
