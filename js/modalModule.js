@@ -33,7 +33,7 @@ var modalModule = (function(utility){
 			throw new ModalContainerNotFoundException("You must have exactly one modal container on the page.");
 		}
 
-		console.log("Found modal container.");
+		//console.log("Found modal container.");
 
 		modalContainer = container[0];
 	};
@@ -61,7 +61,7 @@ var modalModule = (function(utility){
 		//set the current modal content to the content that matches the content ID.
 		currentModalContent = desiredContent;
 
-		console.log("Found modal content.");
+		//console.log("Found modal content.");
 
 	};
 
