@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.jonfreer.wedding.infrastructure.interfaces.factories.IExceptionRepositoryFactory;
 import com.jonfreer.wedding.infrastructure.interfaces.repositories.IExceptionRepository;
+import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 import org.dozer.Mapper;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
@@ -206,17 +207,23 @@ public class GuestService implements IGuestService {
         }
     }
 
-    public ArrayList<com.jonfreer.wedding.servicemodel.Guest> getGuests() {
+    public ArrayList<com.jonfreer.wedding.servicemodel.Guest> getGuests(GuestSearchCriteria searchCriteria) {
 
         IDatabaseUnitOfWork unitOfWork =
-                this.databaseUnitOfWorkFactory.create();
+            this.databaseUnitOfWorkFactory.create();
         IGuestRepository guestRepository =
-                this.guestRepositoryFactory.create(unitOfWork);
+            this.guestRepositoryFactory.create(unitOfWork);
         IReservationRepository reservationRepository =
-                this.reservationRepositoryFactory.create(unitOfWork);
+            this.reservationRepositoryFactory.create(unitOfWork);
 
         try {
-            ArrayList<com.jonfreer.wedding.domain.Guest> guests = guestRepository.getGuests();
+            com.jonfreer.wedding.domain.GuestSearchCriteria searchCriteriaDomain = null;
+            if(searchCriteria != null){
+            	searchCriteriaDomain = 
+        			this.mapper.map(searchCriteria, com.jonfreer.wedding.domain.GuestSearchCriteria.class);
+            }
+            ArrayList<com.jonfreer.wedding.domain.Guest> guests =
+                guestRepository.getGuests(searchCriteriaDomain);
 
             for (com.jonfreer.wedding.domain.Guest guest : guests) {
                 if (guest.getReservation() != null) {

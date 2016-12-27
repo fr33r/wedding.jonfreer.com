@@ -4,10 +4,10 @@ import com.jonfreer.wedding.api.interfaces.resources.IGuestResource;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.servicemodel.Guest;
+import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.NotFoundException;
 import javax.inject.Inject;
 import java.net.URI;
 import java.util.ArrayList;
@@ -24,13 +24,27 @@ public class GuestResource implements IGuestResource {
     }
 
     /**
-     * Retrieves the collection of guest resources.
-     *
-     * @return The collection of guest resources.
+     * Retrieves the collection of guest resources. Optional filter
+     * criteria can be provided via query string parameters.
+     * @param givenName When provided, filters the collection guest resources
+     *                  that have a given name that matches.
+     * @param surname When provided, filters the collection guest resources
+     *                that have a surname (last name) that matches.
+     * @param inviteCode When provided, filters the collection guest resources
+     *                   that have an invite code that matches.
+     * @return A response that contains a collection of guests.
      */
     @Override
-    public Response getGuests() {
-        ArrayList<Guest> guests = this.guestService.getGuests();
+    public Response getGuests(
+            String givenName,
+            String surname,
+            String inviteCode){
+
+        GuestSearchCriteria searchCriteria = null;
+        if(givenName != null || surname != null || inviteCode != null){
+            searchCriteria = new GuestSearchCriteria(givenName, surname, inviteCode);
+        }
+        ArrayList<Guest> guests = this.guestService.getGuests(searchCriteria);
         return Response.ok(guests).build();
     }
 

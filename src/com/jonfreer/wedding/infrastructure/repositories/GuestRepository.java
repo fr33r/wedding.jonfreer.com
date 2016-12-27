@@ -1,6 +1,7 @@
 package com.jonfreer.wedding.infrastructure.repositories;
 
 import com.jonfreer.wedding.domain.Guest;
+import com.jonfreer.wedding.domain.GuestSearchCriteria;
 import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
@@ -280,28 +281,58 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
     }
 
     /**
-     * Retrieves all guests.
-     *
-     * @return All of the guests.
+     * Retrieves all of the guests matching the provided search criteria.
+     * The search criteria is optional, and when omitted, all guests are returned.
+     * @param searchCriteria The search criteria that is used to filter the guests
+     *                       in the repository.
+     * @return A collection of guests that match the search criteria if provided;
+     * otherwise, a collection of all the guests in the repository.
      */
-    public ArrayList<Guest> getGuests() {
+    public ArrayList<Guest> getGuests(GuestSearchCriteria searchCriteria) {
 
         ArrayList<Guest> guests = new ArrayList<Guest>();
         PreparedStatement pStatement = null;
         ResultSet result = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT ");
+        stringBuilder.append("G.GUEST_ID,");
+        stringBuilder.append("G.FIRST_NAME,");
+        stringBuilder.append("G.LAST_NAME,");
+        stringBuilder.append("G.GUEST_DESCRIPTION,");
+        stringBuilder.append("G.GUEST_DIETARY_RESTRICTIONS,");
+        stringBuilder.append("G.INVITE_CODE,");
+        stringBuilder.append("G.RESERVATION_ID");
+        stringBuilder.append(" FROM ");
+        stringBuilder.append("wedding_jonfreer_com.GUEST AS G");
+
+        if(searchCriteria != null){
+            stringBuilder.append(" WHERE ");
+            stringBuilder.append("(");
+            stringBuilder.append("? IS NULL OR G.INVITE_CODE = ?");
+            stringBuilder.append(")");
+            stringBuilder.append("AND");
+            stringBuilder.append("(");
+            stringBuilder.append("? IS NULL OR G.FIRST_NAME = ?");
+            stringBuilder.append(")");
+            stringBuilder.append("AND");
+            stringBuilder.append("(");
+            stringBuilder.append("? IS NULL OR G.LAST_NAME = ?");
+            stringBuilder.append(")");
+        }
+
+        stringBuilder.append(";");
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "SELECT "
-                            + "G.GUEST_ID,"
-                            + "G.FIRST_NAME,"
-                            + "G.LAST_NAME,"
-                            + "G.GUEST_DESCRIPTION,"
-                            + "G.GUEST_DIETARY_RESTRICTIONS,"
-                            + "G.INVITE_CODE,"
-                            + "G.RESERVATION_ID"
-                            + " FROM "
-                            + "wedding_jonfreer_com.GUEST AS G;");
+            pStatement = this.getUnitOfWork().createPreparedStatement(stringBuilder.toString());
+
+            if(searchCriteria != null){
+                pStatement.setString(1, searchCriteria.getInviteCode());
+                pStatement.setString(2, searchCriteria.getInviteCode());
+                pStatement.setString(3, searchCriteria.getGivenName());
+                pStatement.setString(4, searchCriteria.getGivenName());
+                pStatement.setString(5, searchCriteria.getSurname());
+                pStatement.setString(6, searchCriteria.getSurname());
+            }
 
             result = pStatement.executeQuery();
 
