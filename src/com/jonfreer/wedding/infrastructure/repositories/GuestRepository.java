@@ -7,10 +7,8 @@ import com.jonfreer.wedding.domain.interfaces.repositories.IGuestRepository;
 import com.jonfreer.wedding.infrastructure.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
 import javax.inject.Named;
 
 import org.jvnet.hk2.annotations.Service;
@@ -49,23 +47,12 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
     public Guest getGuest(int id) throws ResourceNotFoundException {
 
         Guest guest = null;
-        PreparedStatement pStatement = null;
+        CallableStatement pStatement = null;
         ResultSet result = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "SELECT "
-                            + "G.GUEST_ID,"
-                            + "G.FIRST_NAME,"
-                            + "G.LAST_NAME,"
-                            + "G.GUEST_DESCRIPTION,"
-                            + "G.GUEST_DIETARY_RESTRICTIONS,"
-                            + "G.INVITE_CODE,"
-                            + "G.RESERVATION_ID"
-                            + " FROM "
-                            + "wedding_jonfreer_com.GUEST AS G"
-                            + " WHERE "
-                            + "G.GUEST_ID = ?;");
+            pStatement =
+                this.getUnitOfWork().createCallableStatement("{CALL GetGuest(?)}");
 
             pStatement.setInt(1, id);
             result = pStatement.executeQuery();
@@ -89,7 +76,7 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
             if (guest == null) {
                 throw new ResourceNotFoundException(
-                        "A guest with an ID of '" + id + "' could not be found.", id);
+                    "A guest with an ID of '" + id + "' could not be found.", id);
             }
 
             return guest;
@@ -122,39 +109,31 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
      */
     public void updateGuest(Guest guest) throws ResourceNotFoundException {
 
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "UPDATE wedding_jonfreer_com.GUEST"
-                            + " SET "
-                            + "FIRST_NAME = ?,"
-                            + "LAST_NAME = ?,"
-                            + "GUEST_DESCRIPTION = ?,"
-                            + "GUEST_DIETARY_RESTRICTIONS = ?,"
-                            + "INVITE_CODE = ?,"
-                            + "RESERVATION_ID = ?"
-                            + " WHERE "
-                            + "GUEST_ID = ?;");
-            pStatement.setString(1, guest.getGivenName());
-            pStatement.setString(2, guest.getSurName());
-            pStatement.setString(3, guest.getDescription());
-            pStatement.setString(4, guest.getDietaryRestrictions());
-            pStatement.setString(5, guest.getInviteCode());
+            cStatement =
+                this.getUnitOfWork().createCallableStatement(
+                    "{CALL UpdateGuest(?, ?, ?, ?, ?, ?, ?)}"
+                );
+            cStatement.setInt(1, guest.getId());
+            cStatement.setString(2, guest.getGivenName());
+            cStatement.setString(3, guest.getSurName());
+            cStatement.setString(4, guest.getDescription());
+            cStatement.setString(5, guest.getDietaryRestrictions());
+            cStatement.setString(6, guest.getInviteCode());
 
             if (guest.getReservation() == null) {
-                pStatement.setNull(6, java.sql.Types.INTEGER);
+                cStatement.setNull(7, java.sql.Types.INTEGER);
             } else {
-                pStatement.setInt(6, guest.getReservation().getId());
+                cStatement.setInt(7, guest.getReservation().getId());
             }
-
-            pStatement.setInt(7, guest.getId());
-
-            int numOfRecords = pStatement.executeUpdate();
+            
+            int numOfRecords = cStatement.executeUpdate();
 
             if (numOfRecords < 1) {
                 throw new ResourceNotFoundException(
-                        "A guest with an ID of '" + guest.getId() + "' could not be found.", guest.getId());
+                    "A guest with an ID of '" + guest.getId() + "' could not be found.", guest.getId());
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -162,8 +141,8 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
             } catch (SQLException sqlEx) {
                 sqlEx.printStackTrace();
@@ -181,18 +160,17 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
      */
     public void deleteGuest(int id) throws ResourceNotFoundException {
 
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "DELETE FROM wedding_jonfreer_com.GUEST WHERE GUEST_ID = ?;");
-            pStatement.setInt(1, id);
+            cStatement = this.getUnitOfWork().createCallableStatement("{CALL DeleteGuest(?)}");
+            cStatement.setInt(1, id);
 
-            int numOfRecords = pStatement.executeUpdate();
+            int numOfRecords = cStatement.executeUpdate();
 
             if (numOfRecords < 1) {
                 throw new ResourceNotFoundException(
-                        "A guest with an ID of '" + id + "' could not be found.", id);
+                    "A guest with an ID of '" + id + "' could not be found.", id);
             }
 
         } catch (SQLException sqlEx) {
@@ -201,8 +179,8 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
             } catch (SQLException sqlEx) {
                 sqlEx.printStackTrace();
@@ -219,43 +197,31 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
      */
     public int insertGuest(Guest guest) {
 
-        PreparedStatement pStatementInsert = null;
-        PreparedStatement pStatementGetId = null;
+        CallableStatement cStatement = null;
         ResultSet result = null;
 
         try {
-            pStatementInsert = this.getUnitOfWork().createPreparedStatement(
-                    "INSERT INTO wedding_jonfreer_com.GUEST"
-                            + "("
-                            + "FIRST_NAME,"
-                            + "LAST_NAME,"
-                            + "GUEST_DESCRIPTION,"
-                            + "GUEST_DIETARY_RESTRICTIONS,"
-                            + "INVITE_CODE,"
-                            + "RESERVATION_ID"
-                            + ")"
-                            + "VALUES"
-                            + "(?,?,?,?,?,?);");
-            pStatementInsert.setString(1, guest.getGivenName());
-            pStatementInsert.setString(2, guest.getSurName());
-            pStatementInsert.setString(3, guest.getDescription());
-            pStatementInsert.setString(4, guest.getDietaryRestrictions());
-            pStatementInsert.setString(5, guest.getInviteCode());
+            cStatement =
+                this.getUnitOfWork().createCallableStatement(
+                    "{CALL CreateGuest(?, ?, ?, ?, ?, ?, ?)}"
+                );
+            cStatement.setString(1, guest.getGivenName());
+            cStatement.setString(2, guest.getSurName());
+            cStatement.setString(3, guest.getDescription());
+            cStatement.setString(4, guest.getDietaryRestrictions());
+            cStatement.setString(5, guest.getInviteCode());
 
             if (guest.getReservation() == null) {
-                pStatementInsert.setNull(6, java.sql.Types.INTEGER);
+                cStatement.setNull(6, java.sql.Types.INTEGER);
             } else {
-                pStatementInsert.setInt(6, guest.getReservation().getId());
+                cStatement.setInt(6, guest.getReservation().getId());
             }
 
-            pStatementInsert.executeUpdate();
+            cStatement.registerOutParameter("Id", Types.INTEGER);
 
-            pStatementGetId = this.getUnitOfWork().createPreparedStatement("SELECT LAST_INSERT_ID();");
+            cStatement.executeUpdate();
 
-            result = pStatementGetId.executeQuery();
-            result.next();
-
-            return result.getInt(1);
+            return cStatement.getInt("Id");
 
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -264,11 +230,8 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
 
             //release resources needed.
             try {
-                if (pStatementInsert != null) {
-                    pStatementInsert.close();
-                }
-                if (pStatementGetId != null) {
-                    pStatementGetId.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
                 if (result != null) {
                     result.close();
@@ -291,50 +254,23 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
     public ArrayList<Guest> getGuests(GuestSearchCriteria searchCriteria) {
 
         ArrayList<Guest> guests = new ArrayList<Guest>();
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
         ResultSet result = null;
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT ");
-        stringBuilder.append("G.GUEST_ID,");
-        stringBuilder.append("G.FIRST_NAME,");
-        stringBuilder.append("G.LAST_NAME,");
-        stringBuilder.append("G.GUEST_DESCRIPTION,");
-        stringBuilder.append("G.GUEST_DIETARY_RESTRICTIONS,");
-        stringBuilder.append("G.INVITE_CODE,");
-        stringBuilder.append("G.RESERVATION_ID");
-        stringBuilder.append(" FROM ");
-        stringBuilder.append("wedding_jonfreer_com.GUEST AS G");
-
-        if(searchCriteria != null){
-            stringBuilder.append(" WHERE ");
-            stringBuilder.append("(");
-            stringBuilder.append("? IS NULL OR G.INVITE_CODE = ?");
-            stringBuilder.append(")");
-            stringBuilder.append("AND");
-            stringBuilder.append("(");
-            stringBuilder.append("? IS NULL OR G.FIRST_NAME = ?");
-            stringBuilder.append(")");
-            stringBuilder.append("AND");
-            stringBuilder.append("(");
-            stringBuilder.append("? IS NULL OR G.LAST_NAME = ?");
-            stringBuilder.append(")");
-        }
-
-        stringBuilder.append(";");
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(stringBuilder.toString());
+            cStatement = this.getUnitOfWork().createCallableStatement("{CALL GetGuests(?, ?, ?)}");
 
             if(searchCriteria != null){
-                pStatement.setString(1, searchCriteria.getInviteCode());
-                pStatement.setString(2, searchCriteria.getInviteCode());
-                pStatement.setString(3, searchCriteria.getGivenName());
-                pStatement.setString(4, searchCriteria.getGivenName());
-                pStatement.setString(5, searchCriteria.getSurname());
-                pStatement.setString(6, searchCriteria.getSurname());
+                cStatement.setString(1, searchCriteria.getInviteCode());
+                cStatement.setString(2, searchCriteria.getGivenName());
+                cStatement.setString(3, searchCriteria.getSurname());
+            }else{
+                cStatement.setString(1, null);
+                cStatement.setString(2, null);
+                cStatement.setString(3, null);
             }
 
-            result = pStatement.executeQuery();
+            result = cStatement.executeQuery();
 
             while (result.next()) {
                 Guest guest = new Guest();
@@ -362,8 +298,8 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
                 if (result != null) {
                     result.close();

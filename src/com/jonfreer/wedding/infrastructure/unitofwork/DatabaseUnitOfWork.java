@@ -1,5 +1,6 @@
 package com.jonfreer.wedding.infrastructure.unitofwork;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -87,4 +88,22 @@ public class DatabaseUnitOfWork implements IDatabaseUnitOfWork {
         }
     }
 
+    /**
+     * Constructs an instance of CallableStatement in the context of
+     * this unit of work. Use this method to add changes to the unit of
+     * work when working with stored procedures.
+     *
+     * @param sql The JDBC escaped syntax SQL statement.
+     * @return An instance of CallableStatement representing a single JDBC
+     * escape syntax SQL statement to execute for this unit of work.
+     */
+    @Override
+    public CallableStatement createCallableStatement(String sql){
+        try{
+            return this.connection.prepareCall(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new java.lang.RuntimeException(e);
+        }
+    }
 }
