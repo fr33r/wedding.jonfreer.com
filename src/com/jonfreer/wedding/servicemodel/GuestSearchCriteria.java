@@ -104,6 +104,27 @@ public class GuestSearchCriteria implements Cloneable{
     }
 
     /**
+     * Creates a "deep" copy of the calling GuestSearchCriteria
+     * instance. All immutable reference type members will remain as shallow copies.
+     *
+     * @return The "deep" copy of the calling GuestSearchCriteria
+     * instance represented as an Object.
+     */
+    @Override
+    public Object clone(){
+
+        GuestSearchCriteria searchCriteria = null;
+
+        try {
+            searchCriteria =
+                    (GuestSearchCriteria) super.clone();
+            return searchCriteria;
+        }catch(CloneNotSupportedException cloneNotSupportedException){}
+
+        return searchCriteria;
+    }
+
+    /**
      * Provides a string representation of the GuestSearchCriteria instance.
      * @return The string representation of the GuestSearchCriteria instance.
      */
