@@ -41,7 +41,12 @@ public class GuestSearchCriteria implements Cloneable{
     public String getGivenName(){
         return this.givenName;
     }
-    
+
+    /**
+     * Alters the given name (first name) of the search criteria to match
+     * the given name provided.
+     * @param givenName The desired given name for the search criteria.
+     */
     public void setGivenName(String givenName){
         this.givenName = givenName;
     }
@@ -53,7 +58,12 @@ public class GuestSearchCriteria implements Cloneable{
     public String getSurname(){
         return this.surname;
     }
-    
+
+    /**
+     * Alters the surname (last name) of the search criteria to match
+     * the surname provided.
+     * @param surname The desired surname for the search criteria.
+     */
     public void setSurname(String surname){
         this.surname = surname;
     }
@@ -65,7 +75,12 @@ public class GuestSearchCriteria implements Cloneable{
     public String getInviteCode(){
         return this.inviteCode;
     }
-    
+
+    /**
+     * Alters the invite code of the search criteria to match the
+     * invite code provided.
+     * @param inviteCode The desired invite code for the search criteria.
+     */
     public void setInviteCode(String inviteCode){
         this.inviteCode = inviteCode;
     }
