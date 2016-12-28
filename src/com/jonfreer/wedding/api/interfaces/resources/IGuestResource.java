@@ -3,14 +3,7 @@ package com.jonfreer.wedding.api.interfaces.resources;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.servicemodel.Guest;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,13 +18,22 @@ import javax.ws.rs.core.Response;
 public interface IGuestResource {
 
     /**
-     * Retrieves the collection of guest resources.
-     *
-     * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
+     * Retrieves the collection of guest resources. Optional filter
+     * criteria can be provided via query string parameters.
+     * @param givenName When provided, filters the collection guest resources
+     *                  that have a given name that matches.
+     * @param surname When provided, filters the collection guest resources
+     *                that have a surname (last name) that matches.
+     * @param inviteCode When provided, filters the collection guest resources
+     *                   that have an invite code that matches.
+     * @return A response that contains a collection of guests.
      */
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getGuests();
+    Response getGuests(
+            @QueryParam("givenName") String givenName,
+            @QueryParam("surname") String surname,
+            @QueryParam("inviteCode") String inviteCode);
 
     /**
      * Creates a new guest resource and appends it to the /guests/ resource collection.

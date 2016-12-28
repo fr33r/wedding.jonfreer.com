@@ -5,12 +5,13 @@ import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 
 import java.util.ArrayList;
 
+import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 import org.jvnet.hk2.annotations.Contract;
 
 @Contract
 public interface IGuestService {
 
-    ArrayList<Guest> getGuests();
+    ArrayList<Guest> getGuests(GuestSearchCriteria searchCriteria);
 
     Guest getGuest(int id) throws ResourceNotFoundException;
 
