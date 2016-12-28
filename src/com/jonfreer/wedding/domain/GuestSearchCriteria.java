@@ -1,5 +1,7 @@
 package com.jonfreer.wedding.domain;
 
+import com.jonfreer.wedding.infrastructure.repositories.GuestRepository;
+
 /**
  * Represents criteria that is used when searching through
  * the Guest resources.
@@ -138,6 +140,27 @@ public class GuestSearchCriteria implements Cloneable{
         }
 
         return hashCode;
+    }
+
+    /**
+     * Creates a "deep" copy of the calling GuestSearchCriteria
+     * instance. All immutable reference type members will remain as shallow copies.
+     *
+     * @return The "deep" copy of the calling GuestSearchCriteria
+     * instance represented as an Object.
+     */
+    @Override
+    public Object clone(){
+
+        GuestSearchCriteria searchCriteria = null;
+
+        try {
+            searchCriteria =
+                (GuestSearchCriteria) super.clone();
+            return searchCriteria;
+        }catch(CloneNotSupportedException cloneNotSupportedException){}
+
+        return searchCriteria;
     }
 
     /**
