@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "guest")
 public class Guest implements Cloneable {
 
-    private int id;
+    private Integer id;
     private String givenName;
     private String surName;
     private String description;
@@ -20,7 +20,7 @@ public class Guest implements Cloneable {
      * Default constructor for the Guest class. Creates an empty Guest object.
      */
     public Guest() {
-        this.id = 0;
+        this.id = null;
         this.givenName = null;
         this.surName = null;
         this.description = null;
@@ -39,7 +39,7 @@ public class Guest implements Cloneable {
      * @param inviteCode          The invite code that the guest is associated with. Needed in order to RSVP.
      * @param dietaryRestrictions An explanation of what dietary restrictions the guest has.
      */
-    public Guest(int id, String givenName, String surName, String description,
+    public Guest(Integer id, String givenName, String surName, String description,
                  String inviteCode, String dietaryRestrictions) {
 
         this.id = id;
@@ -62,7 +62,7 @@ public class Guest implements Cloneable {
      * @param dietaryRestrictions An explanation of what dietary restrictions the guest has.
      * @param reservation         Represents the reservation information for the guest.
      */
-    public Guest(int id, String givenName, String surName, String description,
+    public Guest(Integer id, String givenName, String surName, String description,
                  String inviteCode, String dietaryRestrictions, Reservation reservation) {
 
         this.id = id;
@@ -106,14 +106,35 @@ public class Guest implements Cloneable {
 
         Guest guestObj = (Guest) obj;
         if (
-                this.id == guestObj.id &&
-                        this.givenName.equals(guestObj.givenName) &&
-                        this.surName.equals(guestObj.surName) &&
-                        this.description.equals(guestObj.description) &&
-                        this.inviteCode.equals(guestObj.inviteCode) &&
-                        this.dietaryRestrictions.equals(guestObj.dietaryRestrictions) &&
-                        this.reservation.equals(guestObj)
-                ) {
+        		(
+	        		(this.id == null && guestObj.id == null) || 
+	        		(this.id.intValue() == guestObj.id.intValue())
+        		) &&
+        		(	
+    				(this.givenName == null && guestObj.givenName == null) || 
+    				(this.givenName.equals(guestObj.givenName))
+				) &&
+        		(
+    				(this.surName == null && guestObj.surName == null) || 
+    				(this.surName.equals(guestObj.surName))
+				) &&
+        		(
+    				(this.description == null && guestObj.description == null) || 
+    				(this.description.equals(guestObj.description))
+				) &&
+        		(
+    				(this.inviteCode == null && guestObj.inviteCode == null) || 
+    				(this.inviteCode.equals(guestObj.inviteCode))
+				) &&
+        		(
+    				(this.dietaryRestrictions == null && guestObj.dietaryRestrictions == null) || 
+    				(this.dietaryRestrictions.equals(guestObj.dietaryRestrictions))
+				) &&
+        		(
+    				(this.reservation == null && guestObj.reservation == null) || 
+    				(this.reservation.equals(guestObj.reservation))
+				)
+            ) {
             return true;
         }
         return false;

@@ -1,5 +1,6 @@
 package com.jonfreer.wedding.domain.interfaces.unitofwork;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 
 /**
@@ -16,4 +17,12 @@ public interface IDatabaseUnitOfWork extends IUnitOfWork {
      * to the unit of work.
      */
     PreparedStatement createPreparedStatement(String sql);
+
+    /**
+     * Constructs a callable statement given an SQL string.
+     * @param sql The JDBC escaped syntax SQL statement.
+     * @return A callable statement that cab be used to contribute
+     * to the unit of work.
+     */
+    CallableStatement createCallableStatement(String sql);
 }
