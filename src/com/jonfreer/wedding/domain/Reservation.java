@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "reservation")
 public class Reservation implements Cloneable {
 
-    private int id;
+    private Integer id;
     private boolean isAttending;
     private java.util.Date submittedDateTime;
 
@@ -16,7 +16,7 @@ public class Reservation implements Cloneable {
      * Default constructor for the Reservation class. Creates an empty Reservation object.
      */
     public Reservation() {
-        this.id = 0;
+        this.id = null;
         this.isAttending = false;
         this.submittedDateTime = null;
     }
@@ -81,7 +81,7 @@ public class Reservation implements Cloneable {
      *
      * @return The identifier for the reservation.
      */
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -90,7 +90,7 @@ public class Reservation implements Cloneable {
      *
      * @param id The desired identifier for the reservation.
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
