@@ -191,11 +191,15 @@ public class GuestService implements IGuestService {
 
         try {
             com.jonfreer.wedding.domain.Guest guestDomain =
-                    this.mapper.map(guest, com.jonfreer.wedding.domain.Guest.class);
-            int guestId = guestRepository.insertGuest(guestDomain);
-            if (guest.getReservation() != null) {
-                reservationRepository.insertReservation(guestDomain.getReservation());
+                this.mapper.map(guest, com.jonfreer.wedding.domain.Guest.class);
+            
+            if (guest.getReservation() != null && guest.getReservation().getId() == null) {
+                int reservationId = 
+            		reservationRepository.insertReservation(guestDomain.getReservation());
+                guestDomain.getReservation().setId(reservationId);
             }
+            
+            int guestId = guestRepository.insertGuest(guestDomain);
 
             unitOfWork.Save();
 
