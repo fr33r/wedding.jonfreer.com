@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Reservation implements Cloneable {
 
     private Integer id;
-    private boolean isAttending;
+    private Boolean isAttending;
     private java.util.Date submittedDateTime;
 
     /**
@@ -28,7 +28,7 @@ public class Reservation implements Cloneable {
      * @param isAttending       The Boolean value indicating true when attending, false otherwise.
      * @param submittedDateTime The date and time that the reservation was submitted.
      */
-    public Reservation(int id, boolean isAttending, java.util.Date submittedDateTime) {
+    public Reservation(Integer id, Boolean isAttending, java.util.Date submittedDateTime) {
         this.id = id;
         this.isAttending = isAttending;
         this.submittedDateTime = (java.util.Date) submittedDateTime.clone();
@@ -49,10 +49,19 @@ public class Reservation implements Cloneable {
 
         Reservation reservationObj = (Reservation) obj;
         if (
-                this.id == reservationObj.id &&
-                        this.isAttending == reservationObj.isAttending &&
-                        this.submittedDateTime.equals(reservationObj.submittedDateTime)
-                ) {
+        		(
+	                (this.id == null && reservationObj.id == null) ||
+	                (this.id.intValue() == reservationObj.id.intValue())
+                ) &&
+        		(
+    				(this.isAttending == null && reservationObj.isAttending == null) ||
+        			(this.isAttending.booleanValue() == reservationObj.isAttending.booleanValue())	
+				) &&
+        		(
+    				(this.submittedDateTime == null && reservationObj.submittedDateTime == null) ||
+        			(this.submittedDateTime.equals(reservationObj.submittedDateTime))	
+				)
+            ) {
             return true;
         }
         return false;
