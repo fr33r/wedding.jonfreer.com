@@ -1,8 +1,6 @@
 package com.jonfreer.wedding.infrastructure.repositories;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IReservationRepository;
@@ -48,22 +46,15 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
     public Reservation getReservation(int id) throws ResourceNotFoundException {
 
         Reservation reservation = null;
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
         ResultSet result = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "SELECT "
-                            + "R.RESERVATION_ID,"
-                            + "R.DATETIME_SUBMITTED,"
-                            + "R.IS_ATTENDING"
-                            + " FROM "
-                            + "wedding_jonfreer_com.RESERVATION AS R"
-                            + " WHERE "
-                            + "R.RESERVATION_ID = ?;");
+            cStatement =
+                this.getUnitOfWork().createCallableStatement("{CALL GetReservation(?)}");
 
-            pStatement.setInt(1, id);
-            result = pStatement.executeQuery();
+            cStatement.setInt(1, id);
+            result = cStatement.executeQuery();
 
             if (result.next()) {
                 reservation = new Reservation();
@@ -74,7 +65,7 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
             if (reservation == null) {
                 throw new ResourceNotFoundException(
-                        "A guest with an ID of '" + id + "' could not be found.", id);
+                    "A guest with an ID of '" + id + "' could not be found.", id);
             }
 
             return reservation;
@@ -85,8 +76,8 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
                 if (result != null) {
                     result.close();
@@ -108,26 +99,21 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
     @Override
     public void updateReservation(Reservation desiredReservationState) throws ResourceNotFoundException {
 
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "UPDATE wedding_jonfreer_com.RESERVATION"
-                            + " SET "
-                            + "DATETIME_SUBMITTED = ?,"
-                            + "IS_ATTENDING = ?"
-                            + " WHERE "
-                            + "RESERVATION_ID = ?;");
-            pStatement.setDate(1, new java.sql.Date(desiredReservationState.getSubmittedDateTime().getTime()));
-            pStatement.setBoolean(2, desiredReservationState.getIsAttending());
-            pStatement.setInt(3, desiredReservationState.getId());
+            cStatement =
+                this.getUnitOfWork().createCallableStatement("{CALL UpdateReservation(?, ?, ?)}");
+            cStatement.setInt(1, desiredReservationState.getId());
+            cStatement.setDate(2, new java.sql.Date(desiredReservationState.getSubmittedDateTime().getTime()));
+            cStatement.setBoolean(3, desiredReservationState.getIsAttending());
 
-            int numOfRecords = pStatement.executeUpdate();
+            int numOfRecords = cStatement.executeUpdate();
 
             if (numOfRecords < 1) {
                 throw new ResourceNotFoundException(
-                        "A reservation with an ID of '" + desiredReservationState.getId() +
-                                "' could not be found.", desiredReservationState.getId());
+                    "A reservation with an ID of '" + desiredReservationState.getId() +
+                            "' could not be found.", desiredReservationState.getId());
             }
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -135,8 +121,8 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
             } catch (SQLException sqlEx) {
                 sqlEx.printStackTrace();
@@ -155,30 +141,18 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
     @Override
     public int insertReservation(Reservation desiredReservationState) {
 
-        PreparedStatement pStatementInsert = null;
-        PreparedStatement pStatementGetId = null;
+        CallableStatement cStatement = null;
         ResultSet result = null;
 
         try {
-            pStatementInsert = this.getUnitOfWork().createPreparedStatement(
-                    "INSERT INTO wedding_jonfreer_com.RESERVATION"
-                            + "("
-                            + "DATETIME_SUBMITTEDD,"
-                            + "IS_ATTENDING"
-                            + ")"
-                            + "VALUES"
-                            + "(?,?);");
-            pStatementInsert.setDate(1, new java.sql.Date(desiredReservationState.getSubmittedDateTime().getTime()));
-            pStatementInsert.setBoolean(2, desiredReservationState.getIsAttending());
+            cStatement =
+                this.getUnitOfWork().createCallableStatement("{CALL CreateReservation(?, ?)}");
+            cStatement.setBoolean(1, desiredReservationState.getIsAttending());
+            cStatement.registerOutParameter("Id", Types.INTEGER);
 
-            pStatementInsert.executeUpdate();
+            cStatement.executeUpdate();
 
-            pStatementGetId = this.getUnitOfWork().createPreparedStatement("SELECT LAST_INSERT_ID();");
-
-            result = pStatementGetId.executeQuery();
-            result.next();
-
-            return result.getInt(1);
+            return cStatement.getInt("Id");
 
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
@@ -187,11 +161,8 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
 
             //release resources needed.
             try {
-                if (pStatementInsert != null) {
-                    pStatementInsert.close();
-                }
-                if (pStatementGetId != null) {
-                    pStatementGetId.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
                 if (result != null) {
                     result.close();
@@ -213,18 +184,18 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
     @Override
     public void deleteReservation(int id) throws ResourceNotFoundException {
 
-        PreparedStatement pStatement = null;
+        CallableStatement cStatement = null;
 
         try {
-            pStatement = this.getUnitOfWork().createPreparedStatement(
-                    "DELETE FROM wedding_jonfreer_com.RESERVATION WHERE G.RESERVATION_ID = ?;");
-            pStatement.setInt(0, id);
+            cStatement =
+                this.getUnitOfWork().createCallableStatement("{CALL DeleteReservation(?)}");
+            cStatement.setInt(1, id);
 
-            int numOfRecords = pStatement.executeUpdate();
+            int numOfRecords = cStatement.executeUpdate();
 
             if (numOfRecords < 1) {
                 throw new ResourceNotFoundException(
-                        "A reservation with an ID of '" + id + "' could not be found.", id);
+                    "A reservation with an ID of '" + id + "' could not be found.", id);
             }
 
         } catch (SQLException sqlEx) {
@@ -233,8 +204,8 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null) {
+                    cStatement.close();
                 }
             } catch (SQLException sqlEx) {
                 sqlEx.printStackTrace();
