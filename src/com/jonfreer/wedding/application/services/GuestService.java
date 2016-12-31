@@ -114,7 +114,7 @@ public class GuestService implements IGuestService {
                 if (guestCurrentState.getReservation() != null) {
                     reservationRepository.deleteReservation(guestCurrentState.getReservation().getId());
                 }
-            } else if (guest.getReservation().getId() > 0) {
+            } else if (guest.getReservation().getId() != null) {
                 if (guestCurrentState.getReservation() == null ||
                         guestCurrentState.getReservation().getId() != guest.getReservation().getId()) {
                     //throw.
