@@ -101,8 +101,8 @@ var ajaxModule = (function(){
 
     if(typeof successCallback === "function"){
       internalXHR.addEventListener("load", function(){
-        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
-          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+      logResponse(internalXHR.statusText, uri, internalXHR.getAllResponseHeaders(), internalXHR.responseText);
+        if(internalXHR.getResponseHeader("Content-Type") === "application/json"){
           successCallback(JSON.parse(internalXHR.responseText));
         }
       });
@@ -110,12 +110,14 @@ var ajaxModule = (function(){
 
     if(typeof errorCallback === "function"){
       internalXHR.addEventListener("error", function(){
-        if(internalSettings.accept === "application/json"){ //TODO: check for actual response content type instead.
-          internalLog("HTTP Response\nBody:\n" + internalXHR.responseText);
+      logResponse(internalXHR.statusText, uri, internalXHR.getAllResponseHeaders(), internalXHR.responseText);
+        if(internalXHR.getResponseHeader("Content-Type") === "application/json"){
           errorCallback(JSON.parse(internalXHR.responseText));
         }
       });
     }
+
+    internalXHR.open("GET", uri);
 
     var contentType = "application/json";
 
@@ -126,7 +128,6 @@ var ajaxModule = (function(){
         }
     }
 
-    internalXHR.open("GET", uri);
     logRequest("GET", uri, headers, null);
     internalXHR.send();
   };
@@ -365,33 +366,33 @@ var ajaxModule = (function(){
     },
 
     //performs an HTTP POST.
-    post: function(uri, data, successCallback, errorCallback){
-      internalPost(uri, data, successCallback, errorCallback);
+    post: function(uri, headers, data, successCallback, errorCallback){
+      internalPost(uri, headers, data, successCallback, errorCallback);
     },
 
     //performs an HTTP GET.
-    get:  function(uri, successCallback, errorCallback){
-      internalGet(uri, successCallback, errorCallback);
+    get:  function(uri, headers, successCallback, errorCallback){
+      internalGet(uri, headers, successCallback, errorCallback);
     },
 
     //performs an HTTP PUT.
-    put: function(uri, data, successCallback, errorCallback){
-      internalPut(uri, data, successCallback, errorCallback);
+    put: function(uri, headers, data, successCallback, errorCallback){
+      internalPut(uri, headers, data, successCallback, errorCallback);
     },
 
     //performs an HTTP DELETE.
-    delete: function(uri, data, successCallback, errorCallback){
-      internalDelete(uri, data, successCallback, errorCallback);
+    delete: function(uri, headers, data, successCallback, errorCallback){
+      internalDelete(uri, headers, data, successCallback, errorCallback);
     },
 
     //performs an HTTP OPTION.
-    option: function(uri, successCallback, errorCallback){
-      internalOption(uri, successCallback, errorCallback);
+    option: function(uri, headers, successCallback, errorCallback){
+      internalOption(uri, headers, successCallback, errorCallback);
     },
 
     //performs an HTTP HEAD.
-    head: function(uri, successCallback, errorCallback){
-      internalHead(uri, successCallback, errorCallback);
+    head: function(uri, headers, successCallback, errorCallback){
+      internalHead(uri, headers, successCallback, errorCallback);
     }
 
   };
