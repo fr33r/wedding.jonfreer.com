@@ -30,15 +30,18 @@ function setUpSideNavEventHandlers(){
 
 function setUpRsvpSubmitButtonHandler(){
 	var submitButton = window.document.getElementById("form-enter-code");
-	submitButton.addEventListener("submit", function(e){
+	submitButton.addEventListener("click", function(e){
 		e.preventDefault();
-		ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
-		ajaxModule.post(
-			"php/enterCode2.php",
-			"rsvp-code=" + window.document.getElementById("rsvp-code-input").value,
-			submitRsvpCodeSuccess,
-			submitRsvpErrorHandler
-		);
+		ajaxModule.get(
+            "http://freer.ddns.net:8080/api/wedding/guests/?inviteCode=" +
+                window.document.getElementById("rsvp-code-input").value,
+            [
+                { header: "Content-Type", value: "application/json" },
+                { header: "Accept", value: "application/json" },
+            ],
+            submitRsvpCodeSuccess,
+            submitRsvpErrorHandler
+        );
 	});
 }
 
@@ -52,7 +55,7 @@ function setUpCanMakeItButtonHandlerRevised(){
 	var detailForm = window.document.getElementById("form-rsvp-detail");
 
 	//suppress the submit button.
-	detailForm.addEventListener("submit", function(e){
+	detailForm.addEventListener("click", function(e){
 		e.preventDefault();
 	});
 
@@ -60,13 +63,24 @@ function setUpCanMakeItButtonHandlerRevised(){
 	var canMakeItButton = window.document.getElementById("rsvp-submit-yes");
 	canMakeItButton.addEventListener("click", function(e){
 		ajaxModule.configure({contentType: "application/x-www-form-urlencoded"})
-		ajaxModule.post(
+		ajaxModule.put(
 			"php/enterRsvp2.php",
 			"guestId=" + window.document.getElementById("guest-id").value +
 			"&guestDietaryRestrictions=" + window.document.getElementById("guest-dietary-restrictions").value +
 			"&isAttending=1",
 			submitRsvpSuccessHandler,
 			submitRsvpErrorHandler);
+
+			ajaxModule.put(
+                "http://freer.ddns.net:8080/api/wedding/guests/" +
+                    window.document.getElementById("guest-id").value + "/",
+                [
+                    { header: "Content-Type", value: "application/json" },
+                    { header: "Accept", value: "application/json" },
+                ],
+                submitRsvpSuccessHandler,
+                submitRsvpErrorHandler
+            );
 	});
 }
 
@@ -129,14 +143,14 @@ function showRsvpDetail(guest){
 
 */
 function submitRsvpCodeSuccess(response){
-	if(response.data.length === 0){
+	if(response.length === 0){
 		submitRsvpCodeError(response);
 	}else{
 		var guestsWithoutReservations = [];
 
-		for(var i =0; i < response.data.length; i++){
-			if(response.data[i].reservation == null){
-				guestsWithoutReservations.push(response.data[i]);
+		for(var i =0; i < response.length; i++){
+			if(response[i].reservation == null){
+				guestsWithoutReservations.push(response[i]);
 			}
 		}
 

@@ -17,34 +17,40 @@ function Reservation(isAttending){
   and then perform an AJAX request.
 */
 
-function overwriteFields(response){
+function overwriteFields(guests){
 
-  if(response.data !== undefined && response.data !== null){
-    var firstNameInput = window.document.getElementsByName("guest-first-name")[0];
-    var lastNameInput = window.document.getElementsByName("guest-last-name")[0];
-    var inviteCodeInput = window.document.getElementsByName("guest-invite-code")[0];
-    var description = window.document.getElementsByName("guest-description")[0];
-    var dietaryRestrictions = window.document.getElementsByName("guest-dietary-restrictions")[0];
-    var reservationStatus = window.document.getElementsByName("guest-reservation-status")[0];
-    var reservationStatusOptions = reservationStatus.options;
+  if(guests !== undefined && guests !== null){
 
-    firstNameInput.value = response.data.first_name;
-    lastNameInput.value = response.data.last_name;
-    inviteCodeInput.value = response.data.invite_code;
-    description.value = response.data.description;
-    dietaryRestrictions.value = response.data.dietary_restrictions;
+    if(guests.length > 0){
+        var guest = guests[0];
 
-    if(response.data.reservation !== undefined && response.data.reservation !== null){
-      if(response.data.reservation.is_attending){
-        reservationStatus.options[2].selected = true;
-      }else{
-        reservationStatus.options[1].selected = true;
-      }
+        var firstNameInput = window.document.getElementsByName("guest-first-name")[0];
+        var lastNameInput = window.document.getElementsByName("guest-last-name")[0];
+        var inviteCodeInput = window.document.getElementsByName("guest-invite-code")[0];
+        var description = window.document.getElementsByName("guest-description")[0];
+        var dietaryRestrictions = window.document.getElementsByName("guest-dietary-restrictions")[0];
+        var reservationStatus = window.document.getElementsByName("guest-reservation-status")[0];
+        var reservationStatusOptions = reservationStatus.options;
+
+        firstNameInput.value = guest.givenName;
+        lastNameInput.value = guest.surName;
+        inviteCodeInput.value = guest.inviteCode;
+        description.value = guest.description;
+        dietaryRestrictions.value = guest.dietaryRestrictions;
+
+        if(guest.reservation !== undefined && guest.reservation !== null){
+          if(guest.reservation.isAttending){
+            reservationStatus.options[2].selected = true;
+          }else{
+            reservationStatus.options[1].selected = true;
+          }
+        }else{
+          reservationStatus.options[0].selected = true;
+        }
     }else{
-      reservationStatus.options[0].selected = true;
+        window.alert("no guests were found.");
     }
   }
-
 }
 
 function readFields(){
@@ -76,7 +82,7 @@ function readFields(){
 }
 
 function success(response){
-  window.alert(response.message);
+  window.alert("success!");
 }
 
 function error(response){
@@ -95,7 +101,12 @@ function setupEventHandlers(){
   lastNameInput.addEventListener("blur", function blurEvent(e){
     if(firstNameInput.value !== "" && lastNameInput.value !== ""){
       ajaxModule.get(
-        "php/lookupGuest2.php?firstName=" + firstNameInput.value + "&lastName=" + lastNameInput.value,
+        "http://freer.ddns.net:8080/api/wedding/guests/?givenName=" +
+            firstNameInput.value + "&surname=" + lastNameInput.value,
+        [
+            { header: "Content-Type", value: "application/json" },
+            { header: "Accept", value: "application/json" },
+        ],
         overwriteFields,
         null
       );
