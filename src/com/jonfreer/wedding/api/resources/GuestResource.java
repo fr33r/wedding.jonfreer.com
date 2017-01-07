@@ -1,16 +1,24 @@
 package com.jonfreer.wedding.api.resources;
 
+import com.jonfreer.wedding.api.EntityTagGenerator;
 import com.jonfreer.wedding.api.interfaces.resources.IGuestResource;
 import com.jonfreer.wedding.application.interfaces.services.IGuestService;
 import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
+import com.jonfreer.wedding.application.interfaces.services.IResourceMetadataService;
+import com.jonfreer.wedding.servicemodel.metadata.ResourceMetadata;
 import com.jonfreer.wedding.servicemodel.Guest;
 import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.UriInfo;
 import javax.inject.Inject;
-import java.net.URI;
+
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * JAX-RS resource class representing a wedding guest resource.
@@ -19,6 +27,9 @@ public class GuestResource implements IGuestResource {
 
     @Inject
     private IGuestService guestService;
+
+    @Inject
+    private IResourceMetadataService resourceMetadataService;
 
     public GuestResource() {
     }
@@ -36,6 +47,8 @@ public class GuestResource implements IGuestResource {
      */
     @Override
     public Response getGuests(
+    		Request request,
+    		UriInfo uriInfo,
             String givenName,
             String surname,
             String inviteCode){
@@ -55,10 +68,26 @@ public class GuestResource implements IGuestResource {
      * @return javax.ws.rs.Response with an HTTP status of 201 - Created on success.
      */
     @Override
-    public Response createGuest(Guest desiredGuestState) throws ResourceNotFoundException {
+    public Response createGuest(
+    		UriInfo uriInfo, 
+    		Guest desiredGuestState) throws ResourceNotFoundException {
+    	
         int guestId = this.guestService.insertGuest(desiredGuestState);
         Guest guest = this.guestService.getGuest(guestId);
-        return Response.created(URI.create("/guests/" + guestId + "/")).entity(guest).build();
+        
+        Date lastModified = new Date();
+        String entityTag = 
+        		EntityTagGenerator.generate(guest.toString().getBytes(), true);
+        this.resourceMetadataService.insertResourceMetadata(
+        		new ResourceMetadata(uriInfo.getRequestUri(), lastModified, entityTag)
+		);
+        
+        return Response
+        		.created(uriInfo.getRequestUri())
+        		.entity(guest)
+        		.header("Last-Modified", lastModified)
+        		.header("ETag", entityTag)
+        		.build();
     }
 
     /**
@@ -68,9 +97,37 @@ public class GuestResource implements IGuestResource {
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
      */
     @Override
-    public Response getGuest(int id) throws ResourceNotFoundException {
+    public Response getGuest(
+    		Request request, 
+    		UriInfo uriInfo, 
+    		int id) throws ResourceNotFoundException {
+    	
+    	ResourceMetadata resourceMetadata = 
+    			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+        
+    	if(resourceMetadata != null){
+    		
+    		//check for conditional GET.
+            EntityTag entityTag = new EntityTag(resourceMetadata.getEntityTag());
+            ResponseBuilder responseBuilder = 
+            		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
+            if(responseBuilder != null){
+            	return responseBuilder.build();
+            }
+    	}
+    	
         Guest guest = this.guestService.getGuest(id);
-        return Response.ok(guest).build();
+             
+        ResponseBuilder responseBuilder = Response.ok(guest);
+        
+        if(resourceMetadata != null){
+        	 		
+    		responseBuilder
+    			.header("Last-Modified", resourceMetadata.getLastModified())
+    			.header("ETag", resourceMetadata.getEntityTag());
+        }
+
+        return responseBuilder.build();
     }
 
     /**
@@ -79,12 +136,49 @@ public class GuestResource implements IGuestResource {
      * @param id                The id of the guest resource to be updated.
      * @param desiredGuestState The desired state for the guest resource being updated.
      * @return javax.ws.rs.core.Response with an HTTP status of 200 - OK on success.
+     * @throws NoSuchAlgorithmException 
      */
     @Override
-    public Response updateGuest(int id, Guest desiredGuestState) throws ResourceNotFoundException {
+    public Response updateGuest(
+    		Request request, 
+    		UriInfo uriInfo, 
+    		int id, Guest desiredGuestState) throws ResourceNotFoundException{
+    	
+    	ResourceMetadata resourceMetadata = 
+    			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+        
+    	if(resourceMetadata != null){
+    		
+    		//check for conditional PUT.
+            EntityTag entityTag = new EntityTag(resourceMetadata.getEntityTag());
+            ResponseBuilder responseBuilder = 
+            		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
+            if(responseBuilder != null){
+            	return responseBuilder.build();
+            }
+    	}
+        
         this.guestService.updateGuest(desiredGuestState);
         Guest guest = guestService.getGuest(id);
-        return Response.ok(guest).build();
+        
+        ResponseBuilder responseBuilder = Response.ok(guest);
+        		   
+        if(resourceMetadata != null){
+        	
+        	//update resource metadata.
+        	Date lastModified = new Date();
+    		String entityTagStringUrlEncoded = 
+    				EntityTagGenerator.generate(guest.toString().getBytes(), true);
+    		this.resourceMetadataService.updateResourceMetaData(
+    				new ResourceMetadata(uriInfo.getRequestUri(), lastModified, entityTagStringUrlEncoded)
+    		);
+    		
+    		responseBuilder
+    			.header("Last-Modified", lastModified)
+    			.header("ETag", entityTagStringUrlEncoded);
+        }
+              
+        return responseBuilder.build();
     }
 
     /**
@@ -95,8 +189,12 @@ public class GuestResource implements IGuestResource {
      * on success.
      */
     @Override
-    public Response deleteGuest(int id) throws ResourceNotFoundException {
+    public Response deleteGuest(
+    		UriInfo uriInfo, 
+    		int id) throws ResourceNotFoundException {
+    	
         this.guestService.deleteGuest(id);
+        this.resourceMetadataService.deleteResourceMetaData(uriInfo.getRequestUri());
         return Response.noContent().build();
     }
 }

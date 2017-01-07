@@ -4,8 +4,11 @@ import com.jonfreer.wedding.application.exceptions.ResourceNotFoundException;
 import com.jonfreer.wedding.servicemodel.Guest;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * Defines the interface for resources that wish to interact
@@ -31,6 +34,8 @@ public interface IGuestResource {
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     Response getGuests(
+    		@Context Request request,
+    		@Context UriInfo uriInfo,
             @QueryParam("givenName") String givenName,
             @QueryParam("surname") String surname,
             @QueryParam("inviteCode") String inviteCode);
@@ -46,7 +51,9 @@ public interface IGuestResource {
     @POST
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response createGuest(Guest desiredGuestState) throws ResourceNotFoundException;
+    Response createGuest(
+    		@Context UriInfo uriInfo, 
+    		Guest desiredGuestState) throws ResourceNotFoundException;
 
     /**
      * Retrieves the current state of the guest resources with the id provided.
@@ -59,7 +66,10 @@ public interface IGuestResource {
     @Path("{id : \\d+}")
     @GET
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response getGuest(@PathParam("id") int id) throws ResourceNotFoundException;
+    Response getGuest(
+    		@Context Request request,
+    		@Context UriInfo uriInfo, 
+    		@PathParam("id") int id) throws ResourceNotFoundException;
 
     /**
      * Replaces the current state of the guest resource with the id provided.
@@ -74,7 +84,11 @@ public interface IGuestResource {
     @PUT
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    Response updateGuest(@PathParam("id") int id, Guest desiredGuestState) throws ResourceNotFoundException;
+    Response updateGuest(
+    		@Context Request request, 
+    		@Context UriInfo uriInfo, 
+    		@PathParam("id") int id, 
+    		Guest desiredGuestState) throws ResourceNotFoundException;
 
     /**
      * Deletes the guest resource with the id provided.
@@ -87,5 +101,7 @@ public interface IGuestResource {
      */
     @Path("{id : \\d+}")
     @DELETE
-    Response deleteGuest(@PathParam("id") int id) throws ResourceNotFoundException;
+    Response deleteGuest(
+    		@Context UriInfo uriInfo, 
+    		@PathParam("id") int id) throws ResourceNotFoundException;
 }
