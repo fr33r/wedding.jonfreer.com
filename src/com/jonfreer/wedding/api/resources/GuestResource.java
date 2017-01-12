@@ -63,21 +63,6 @@ public class GuestResource implements IGuestResource {
         }
         ArrayList<Guest> guests = this.guestService.getGuests(searchCriteria);
         
-        for(Guest guest : guests){
-        	String location = 
-            		uriInfo.getRequestUri().toString() + guest.getId() + "/";
-        	ResourceMetadata resourceMetadata = 
-        			this.resourceMetadataService.getResourceMetadata(URI.create(location));
-        	if(resourceMetadata == null){
-        		Date lastModified = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
-                String entityTag = 
-                		EntityTagGenerator.generate(guest.toString().getBytes(), true);
-                this.resourceMetadataService.insertResourceMetadata(
-                		new ResourceMetadata(location, lastModified, entityTag)
-        		);
-        	}
-        }
-        
         return Response.ok(guests).build();
     }
 
@@ -140,19 +125,27 @@ public class GuestResource implements IGuestResource {
     	
         Guest guest = this.guestService.getGuest(id);
              
+        if(resourceMetadata == null){
+        	
+        	Date lastModified = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
+            String entityTag = 
+            		EntityTagGenerator.generate(guest.toString().getBytes(), true);
+            this.resourceMetadataService.insertResourceMetadata(
+            		new ResourceMetadata(uriInfo.getRequestUri().toString(), lastModified, entityTag)
+    		);
+            resourceMetadata = 
+            		this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+        }
+        
         CacheControl cacheControl = new CacheControl();
         cacheControl.setMaxAge(300);
         cacheControl.setPrivate(true);
-        ResponseBuilder responseBuilder = Response.ok(guest).cacheControl(cacheControl);
-        
-        if(resourceMetadata != null){
-        	 		
-    		responseBuilder
-    			.header("Last-Modified", resourceMetadata.getLastModified())
-    			.header("ETag", resourceMetadata.getEntityTag());
-        }
-
-        return responseBuilder.build();
+        return Response
+        			.ok(guest)
+    				.cacheControl(cacheControl)
+    				.header("Last-Modified", resourceMetadata.getLastModified())
+					.header("ETag", resourceMetadata.getEntityTag())
+					.build();
     }
 
     /**
