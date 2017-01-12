@@ -5,11 +5,12 @@ import com.jonfreer.wedding.domain.interfaces.unitofwork.IDatabaseUnitOfWork;
 import com.jonfreer.wedding.domain.metadata.ResourceMetadata;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * @author jonfreer
@@ -47,8 +48,8 @@ public class ResourceMetadataRepository extends DatabaseRepository implements IR
             if(results.next()){
                 ResourceMetadata resourceMetadata;
                 resourceMetadata = new ResourceMetadata(
-                        new URI(results.getString(1)),
-                        results.getDate(2),
+                        results.getString(1),
+                        results.getTimestamp(2, Calendar.getInstance(TimeZone.getTimeZone("UTC"))),
                         results.getString(3)
                 );
                 return resourceMetadata;
@@ -56,8 +57,6 @@ public class ResourceMetadataRepository extends DatabaseRepository implements IR
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
 
-        } catch (URISyntaxException uriSyntaxException) {
-            uriSyntaxException.printStackTrace();
         }
         finally{
             try{
@@ -87,7 +86,11 @@ public class ResourceMetadataRepository extends DatabaseRepository implements IR
             this.getUnitOfWork().createCallableStatement("{ CALL CreateResourceMetadata(?, ?, ?) }");
         try {
             cStatement.setString(1, resourceMetadata.getUri().toString());
-            cStatement.setDate(2, new Date(resourceMetadata.getLastModified().getTime()));
+            cStatement.setTimestamp(
+            		2, 
+            		new Timestamp(resourceMetadata.getLastModified().getTime()), 
+            		Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    		);
             cStatement.setString(3, resourceMetadata.getEntityTag());
             cStatement.executeUpdate();
         } catch (SQLException sqlException) {
@@ -113,10 +116,14 @@ public class ResourceMetadataRepository extends DatabaseRepository implements IR
     @Override
     public void updateResourceMetaData(ResourceMetadata resourceMetadata) {
         CallableStatement cStatement =
-            this.getUnitOfWork().createCallableStatement("{ CALL UpdateResourceData(?, ?, ?) }");
+            this.getUnitOfWork().createCallableStatement("{ CALL UpdateResourceMetadata(?, ?, ?) }");
         try {
             cStatement.setString(1, resourceMetadata.getUri().toString());
-            cStatement.setDate(2, new Date(resourceMetadata.getLastModified().getTime()));
+            cStatement.setTimestamp(
+            		2, 
+            		new Timestamp(resourceMetadata.getLastModified().getTime()), 
+            		Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    		);
             cStatement.setString(3, resourceMetadata.getEntityTag());
             cStatement.executeUpdate();
         } catch (SQLException sqlException) {

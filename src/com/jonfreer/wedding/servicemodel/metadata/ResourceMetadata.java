@@ -1,6 +1,5 @@
 package com.jonfreer.wedding.servicemodel.metadata;
 
-import java.net.URI;
 import java.util.Date;
 
 /**
@@ -10,10 +9,19 @@ import java.util.Date;
  */
 public class ResourceMetadata {
 
-    private URI uri;
+	private String uri;
     private Date lastModified;
     private String entityTag;
 
+    /**
+     * Constructs an empty instance of ResourceMetadata.
+     */
+    public ResourceMetadata(){
+    	this.uri = null;
+    	this.lastModified = null;
+    	this.entityTag = null;
+    }
+    
     /**
      * Constructs a ResourceMetadata instance, provided a URI,
      * last modified date and time, and an entity tag (also referred to as an ETag).
@@ -22,7 +30,7 @@ public class ResourceMetadata {
      *                     was modified.
      * @param entityTag The entity tag of the resource identified by the URI.
      */
-    public ResourceMetadata(URI uri, Date lastModified, String entityTag){
+    public ResourceMetadata(String uri, Date lastModified, String entityTag){
 
         if(uri == null) {
             throw new IllegalArgumentException("The constructor argument 'uri' cannot be null.");
@@ -36,17 +44,44 @@ public class ResourceMetadata {
             throw new IllegalArgumentException("The constructor argument 'entityTag' cannot be null.");
         }
 
-        this.uri = URI.create(uri.toString());
+        this.uri = uri;
         this.lastModified = (Date)lastModified.clone();
         this.entityTag = entityTag;
     }
 
     /**
+     * Alters the URI that identifies the resource to
+     * the URI provided.
+     * @param uri The desired URI to identify the resource.
+     */
+    public void setUri(String uri) {
+		this.uri = uri;
+	}
+
+    /**
+     * Alters the date the time that indicates when the resource
+     * was last modified to the date and time provided.
+     * @param lastModified The desired date and time indicating
+     * when the resource was last modified.
+     */
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
+
+	/**
+	 * Alters the entity tag of the resource to the entity tag provided.
+	 * @param entityTag The desired entity tag for the resource.
+	 */
+	public void setEntityTag(String entityTag) {
+		this.entityTag = entityTag;
+	}
+
+	/**
      * Retrieves the URI identifying the resource.
      * @return The URI identifying the resource.
      */
-    public URI getUri(){
-        return URI.create(this.uri.toString());
+    public String getUri(){
+    	return uri;
     }
 
     /**
@@ -56,7 +91,7 @@ public class ResourceMetadata {
      * last modified.
      */
     public Date getLastModified(){
-        return (Date)this.lastModified.clone();
+        return this.lastModified == null ? null : (Date)this.lastModified.clone();
     }
 
     /**
@@ -83,9 +118,19 @@ public class ResourceMetadata {
 
         ResourceMetadata resourceMetadata = (ResourceMetadata)object;
         if(
-            this.uri.equals(resourceMetadata.uri) &&
-                    this.lastModified.equals(resourceMetadata.lastModified) &&
-                    this.entityTag.equals(resourceMetadata.entityTag)
+        		(
+        				(this.uri == null && resourceMetadata.uri == null) ||
+        				this.uri.equals(resourceMetadata.uri)
+				) &&
+        		(
+        				(this.lastModified == null && resourceMetadata.lastModified == null) ||
+        				this.lastModified.equals(resourceMetadata.lastModified)
+				) &&
+        		(
+        				(this.entityTag == null && resourceMetadata.entityTag == null) ||
+        				this.entityTag.equals(resourceMetadata.entityTag)
+				)
+            
         ){
             return true;
         }
@@ -102,10 +147,18 @@ public class ResourceMetadata {
         int hashCode = 1;
         final int prime = 17;
 
-        hashCode = hashCode * prime + this.uri.hashCode();
-        hashCode = hashCode * prime + this.lastModified.hashCode();
-        hashCode = hashCode * prime + this.entityTag.hashCode();
-
+        if(this.uri != null){
+        	hashCode = hashCode * prime + this.uri.hashCode();
+        }
+        
+        if(this.lastModified != null){
+        	hashCode = hashCode * prime + this.lastModified.hashCode();
+        }
+        
+        if(this.entityTag != null){
+        	hashCode = hashCode * prime + this.entityTag.hashCode();
+        }
+        
         return hashCode;
     }
 
@@ -117,9 +170,9 @@ public class ResourceMetadata {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(this.getClass().getName() + "\n");
-        builder.append("URI\t\t\t\t-->" + this.uri.toString() + "\n");
-        builder.append("Last Modified\t\t-->" + this.lastModified.toString() + "\n");
-        builder.append("Entity Tag\t\t-->" + this.entityTag + "\n");
+        builder.append("URI\t\t\t\t-->" + this.uri == null ? "null" : this.uri.toString() + "\n");
+        builder.append("Last Modified\t\t-->" + this.lastModified == null ? "null" : this.lastModified.toString() + "\n");
+        builder.append("Entity Tag\t\t-->" + this.entityTag == null ? "null" : this.entityTag + "\n");
         return builder.toString();
     }
 }

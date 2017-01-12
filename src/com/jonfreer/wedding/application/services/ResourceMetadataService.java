@@ -50,18 +50,25 @@ public class ResourceMetadataService implements IResourceMetadataService {
      */
     @Override
     public ResourceMetadata getResourceMetadata(URI uri) {
-        try{
-            IDatabaseUnitOfWork databaseUnitOfWork =
+    	IDatabaseUnitOfWork databaseUnitOfWork =
                 this.databaseUnitOfWorkFactory.create();
+        try{
             IResourceMetadataRepository resourceMetadataRepository =
                 this.resourceMetadataRepositoryFactory.create(databaseUnitOfWork);
 
             com.jonfreer.wedding.domain.metadata.ResourceMetadata resourceMetadata =
                 resourceMetadataRepository.getResourceMetadata(uri);
 
+            databaseUnitOfWork.Save();
+            
+            if(resourceMetadata == null){
+            	return null;
+            }
+            
             return this.mapper.map(resourceMetadata, ResourceMetadata.class);
         }catch(Exception exception){
             exception.printStackTrace();
+            databaseUnitOfWork.Undo();
         }
         return null;
     }
@@ -74,19 +81,24 @@ public class ResourceMetadataService implements IResourceMetadataService {
      */
     @Override
     public void insertResourceMetadata(ResourceMetadata resourceMetadata) {
-        try{
-            IDatabaseUnitOfWork databaseUnitOfWork =
-                this.databaseUnitOfWorkFactory.create();
+    	IDatabaseUnitOfWork databaseUnitOfWork =
+                this.databaseUnitOfWorkFactory.create();	
+    	try{
+            
             IResourceMetadataRepository resourceMetadataRepository =
                 this.resourceMetadataRepositoryFactory.create(databaseUnitOfWork);
 
-            com.jonfreer.wedding.domain.metadata.ResourceMetadata resourceMetadataDomain =
+            com.jonfreer.wedding.domain.metadata.ResourceMetadata resourceMetadataDomain = 
+            		new com.jonfreer.wedding.domain.metadata.ResourceMetadata();
                 this.mapper.map(
-                    resourceMetadata, com.jonfreer.wedding.domain.metadata.ResourceMetadata.class);
+                    resourceMetadata, resourceMetadataDomain);
 
             resourceMetadataRepository.insertResourceMetadata(resourceMetadataDomain);
+            
+            databaseUnitOfWork.Save();
         }catch(Exception exception){
             exception.printStackTrace();
+            databaseUnitOfWork.Undo();
         }
     }
 
@@ -98,9 +110,10 @@ public class ResourceMetadataService implements IResourceMetadataService {
      */
     @Override
     public void updateResourceMetaData(ResourceMetadata resourceMetadata) {
-        try{
-            IDatabaseUnitOfWork databaseUnitOfWork =
-                this.databaseUnitOfWorkFactory.create();
+    	IDatabaseUnitOfWork databaseUnitOfWork =
+                this.databaseUnitOfWorkFactory.create(); 	
+    	try{
+            
             IResourceMetadataRepository resourceMetadataRepository =
                 this.resourceMetadataRepositoryFactory.create(databaseUnitOfWork);
 
@@ -109,8 +122,10 @@ public class ResourceMetadataService implements IResourceMetadataService {
                     resourceMetadata, com.jonfreer.wedding.domain.metadata.ResourceMetadata.class);
 
             resourceMetadataRepository.updateResourceMetaData(resourceMetadataDomain);
+            databaseUnitOfWork.Save();
         }catch(Exception exception){
             exception.printStackTrace();
+            databaseUnitOfWork.Undo();
         }
     }
 
@@ -120,15 +135,17 @@ public class ResourceMetadataService implements IResourceMetadataService {
      * @param uri The URI of the resource to delete metadata for.
      */
     @Override
-    public void deleteResourceMetaData(URI uri) {
-        try{
-            IDatabaseUnitOfWork databaseUnitOfWork =
+    public void deleteResourceMetaData(URI uri) {      
+    	IDatabaseUnitOfWork databaseUnitOfWork =
                 this.databaseUnitOfWorkFactory.create();
+    	try{         
             IResourceMetadataRepository resourceMetadataRepository =
                 this.resourceMetadataRepositoryFactory.create(databaseUnitOfWork);
             resourceMetadataRepository.deleteResourceMetaData(uri);
+            databaseUnitOfWork.Save();
         }catch(Exception exception){
             exception.printStackTrace();
+            databaseUnitOfWork.Undo();
         }
     }
 }

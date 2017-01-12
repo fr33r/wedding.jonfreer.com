@@ -9,6 +9,7 @@ import com.jonfreer.wedding.servicemodel.metadata.ResourceMetadata;
 import com.jonfreer.wedding.servicemodel.Guest;
 import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
@@ -16,9 +17,12 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.inject.Inject;
 
+import java.net.URI;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * JAX-RS resource class representing a wedding guest resource.
@@ -58,6 +62,22 @@ public class GuestResource implements IGuestResource {
             searchCriteria = new GuestSearchCriteria(givenName, surname, inviteCode);
         }
         ArrayList<Guest> guests = this.guestService.getGuests(searchCriteria);
+        
+        for(Guest guest : guests){
+        	String location = 
+            		uriInfo.getRequestUri().toString() + guest.getId() + "/";
+        	ResourceMetadata resourceMetadata = 
+        			this.resourceMetadataService.getResourceMetadata(URI.create(location));
+        	if(resourceMetadata == null){
+        		Date lastModified = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
+                String entityTag = 
+                		EntityTagGenerator.generate(guest.toString().getBytes(), true);
+                this.resourceMetadataService.insertResourceMetadata(
+                		new ResourceMetadata(location, lastModified, entityTag)
+        		);
+        	}
+        }
+        
         return Response.ok(guests).build();
     }
 
@@ -78,12 +98,14 @@ public class GuestResource implements IGuestResource {
         Date lastModified = new Date();
         String entityTag = 
         		EntityTagGenerator.generate(guest.toString().getBytes(), true);
+        String location = 
+        		uriInfo.getRequestUri().toString() + guestId + "/";
         this.resourceMetadataService.insertResourceMetadata(
-        		new ResourceMetadata(uriInfo.getRequestUri(), lastModified, entityTag)
+        		new ResourceMetadata(location, lastModified, entityTag)
 		);
         
         return Response
-        		.created(uriInfo.getRequestUri())
+        		.created(URI.create(location))
         		.entity(guest)
         		.header("Last-Modified", lastModified)
         		.header("ETag", entityTag)
@@ -118,7 +140,10 @@ public class GuestResource implements IGuestResource {
     	
         Guest guest = this.guestService.getGuest(id);
              
-        ResponseBuilder responseBuilder = Response.ok(guest);
+        CacheControl cacheControl = new CacheControl();
+        cacheControl.setMaxAge(300);
+        cacheControl.setPrivate(true);
+        ResponseBuilder responseBuilder = Response.ok(guest).cacheControl(cacheControl);
         
         if(resourceMetadata != null){
         	 		
@@ -170,7 +195,7 @@ public class GuestResource implements IGuestResource {
     		String entityTagStringUrlEncoded = 
     				EntityTagGenerator.generate(guest.toString().getBytes(), true);
     		this.resourceMetadataService.updateResourceMetaData(
-    				new ResourceMetadata(uriInfo.getRequestUri(), lastModified, entityTagStringUrlEncoded)
+    				new ResourceMetadata(uriInfo.getRequestUri().toString(), lastModified, entityTagStringUrlEncoded)
     		);
     		
     		responseBuilder

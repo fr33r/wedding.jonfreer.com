@@ -1,7 +1,5 @@
 package com.jonfreer.wedding.domain;
 
-import com.jonfreer.wedding.infrastructure.repositories.GuestRepository;
-
 /**
  * Represents criteria that is used when searching through
  * the Guest resources.

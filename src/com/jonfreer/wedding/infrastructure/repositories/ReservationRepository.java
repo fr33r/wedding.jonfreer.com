@@ -1,6 +1,13 @@
 package com.jonfreer.wedding.infrastructure.repositories;
 
-import java.sql.*;
+import java.sql.Timestamp;
+import java.sql.CallableStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import com.jonfreer.wedding.domain.Reservation;
 import com.jonfreer.wedding.domain.interfaces.repositories.IReservationRepository;
@@ -59,7 +66,12 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
             if (result.next()) {
                 reservation = new Reservation();
                 reservation.setId(result.getInt("RESERVATION_ID"));
-                reservation.setSubmittedDateTime(result.getDate("DATETIME_SUBMITTED"));
+                reservation.setSubmittedDateTime(
+                		result.getTimestamp(
+                				"DATETIME_SUBMITTED", 
+                				Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        				)
+        		);
                 reservation.setIsAttending(result.getBoolean("IS_ATTENDING"));
             }
 
@@ -105,7 +117,11 @@ public class ReservationRepository extends DatabaseRepository implements IReserv
             cStatement =
                 this.getUnitOfWork().createCallableStatement("{CALL UpdateReservation(?, ?, ?)}");
             cStatement.setInt(1, desiredReservationState.getId());
-            cStatement.setDate(2, new java.sql.Date(desiredReservationState.getSubmittedDateTime().getTime()));
+            cStatement.setTimestamp(
+            		2, 
+            		new Timestamp(desiredReservationState.getSubmittedDateTime().getTime()), 
+            		Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+    		);
             cStatement.setBoolean(3, desiredReservationState.getIsAttending());
 
             int numOfRecords = cStatement.executeUpdate();

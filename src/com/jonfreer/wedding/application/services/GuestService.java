@@ -71,13 +71,13 @@ public class GuestService implements IGuestService {
 
         } catch (ResourceNotFoundException resourceNotFoundEx) {
             unitOfWork.Undo();
-            this.logException(resourceNotFoundEx);
+            //this.logException(resourceNotFoundEx);
             throw new com.jonfreer.wedding.application.exceptions.ResourceNotFoundException(
                     resourceNotFoundEx.getMessage(),
                     resourceNotFoundEx, resourceNotFoundEx.getResourceId());
         } catch (Exception ex) {
             unitOfWork.Undo();
-            this.logException(ex);
+            //this.logException(ex);
             throw new RuntimeException(ex);
         }
     }
@@ -206,7 +206,8 @@ public class GuestService implements IGuestService {
             return guestId;
         } catch (Exception ex) {
             unitOfWork.Undo();
-            this.logException(ex);
+            //this.logException(ex);
+            ex.printStackTrace();
             throw new RuntimeException(ex);
         }
     }
@@ -237,7 +238,13 @@ public class GuestService implements IGuestService {
 
             unitOfWork.Save();
 
-            return this.mapper.map(guests, ArrayList.class);
+            ArrayList<com.jonfreer.wedding.servicemodel.Guest> guestsServiceModel = 
+            		new ArrayList<com.jonfreer.wedding.servicemodel.Guest>();
+            for(com.jonfreer.wedding.domain.Guest guest : guests){
+            	guestsServiceModel.add(this.mapper.map(guest, com.jonfreer.wedding.servicemodel.Guest.class));
+            }
+            
+            return guestsServiceModel;
         } catch (Exception ex) {
             unitOfWork.Undo();
             this.logException(ex);

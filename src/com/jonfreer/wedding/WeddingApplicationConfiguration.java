@@ -32,6 +32,7 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
         this.register(new IExceptionRepositoryFactoryBinder());
         this.register(new IDatabaseUnitOfWorkFactoryBinder());
         this.register(new IResourceMetadataRepositoryFactoryBinder());
+        this.register(new IResourceMetadataServiceBinder());
         this.register(new MapperBinder());
     }
 }

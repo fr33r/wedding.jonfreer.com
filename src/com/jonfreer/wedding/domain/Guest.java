@@ -191,7 +191,7 @@ public class Guest implements Cloneable {
      *
      * @return The identifier of the guest.
      */
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
@@ -200,7 +200,7 @@ public class Guest implements Cloneable {
      *
      * @param id The desired identifier of the guest.
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
