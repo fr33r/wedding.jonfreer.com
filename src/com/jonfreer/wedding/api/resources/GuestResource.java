@@ -93,12 +93,26 @@ public class GuestResource implements IGuestResource {
         		.created(URI.create(location))
         		.entity(guest)
         		.header("Last-Modified", lastModified)
-        		.header("ETag", entityTag)
+        		.tag(new EntityTag(entityTag))
         		.build();
     }
 
     /**
      * Retrieves the current state of the guest resources with the id provided.
+     * 
+     * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
+     * Note that the server generating a 304 response MUST generate any of the 
+     * following header fields that would have been sent in a 200 (OK) response 
+     * to the same request: Cache-Control, Content-Location, Date, ETag, Expires, and Vary.
+     * 
+     * https://tools.ietf.org/html/draft-ietf-httpbis-p4-conditional-18#section-4.1
+     * A 304 response MUST include a Date header field (Section 9.2 of
+     * [Part2]) unless the origin server does not have a clock that can
+     * provide a reasonable approximation of the current time.  If a 200
+     * response to the same request would have included any of the header
+     * fields Cache-Control, Content-Location, ETag, Expires, Last-Modified,
+     * or Vary, then those same header fields MUST be sent in a 304
+     * response.
      *
      * @param id The id of the guest resource being retrieved.
      * @return javax.ws.rs.Response with an HTTP status of 200 - OK on success.
@@ -119,7 +133,9 @@ public class GuestResource implements IGuestResource {
             ResponseBuilder responseBuilder = 
             		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
             if(responseBuilder != null){
-            	return responseBuilder.build();
+            	return responseBuilder
+            			.header("Last-Modified", resourceMetadata.getLastModified())
+            			.build();
             }
     	}
     	
@@ -144,7 +160,7 @@ public class GuestResource implements IGuestResource {
         			.ok(guest)
     				.cacheControl(cacheControl)
     				.header("Last-Modified", resourceMetadata.getLastModified())
-					.header("ETag", resourceMetadata.getEntityTag())
+					.tag(new EntityTag(resourceMetadata.getEntityTag()))
 					.build();
     }
 
@@ -191,9 +207,12 @@ public class GuestResource implements IGuestResource {
     				new ResourceMetadata(uriInfo.getRequestUri().toString(), lastModified, entityTagStringUrlEncoded)
     		);
     		
+    		resourceMetadata = 
+    				this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+    		
     		responseBuilder
-    			.header("Last-Modified", lastModified)
-    			.header("ETag", entityTagStringUrlEncoded);
+    			.header("Last-Modified", resourceMetadata.getLastModified())
+    			.tag(new EntityTag(resourceMetadata.getEntityTag()));
         }
               
         return responseBuilder.build();
