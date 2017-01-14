@@ -19,6 +19,7 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
             e.printStackTrace();
         }
 
+        //JAX-RS Components.
         this.register(GuestResource.class);
         this.register(new GeneralExceptionMapper());
         this.register(new NotFoundExceptionMapper());
@@ -30,6 +31,8 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
         this.register(new IReservationRepositoryFactoryBinder());
         this.register(new IExceptionRepositoryFactoryBinder());
         this.register(new IDatabaseUnitOfWorkFactoryBinder());
+        this.register(new IResourceMetadataRepositoryFactoryBinder());
+        this.register(new IResourceMetadataServiceBinder());
         this.register(new MapperBinder());
     }
 }
