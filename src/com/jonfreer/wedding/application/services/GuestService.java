@@ -123,7 +123,8 @@ public class GuestService implements IGuestService {
                 }
             } else {
                 if (guestCurrentState.getReservation() == null) {
-                    reservationRepository.insertReservation(guestDomain.getReservation());
+                    int id = reservationRepository.insertReservation(guestDomain.getReservation());
+                    guestDomain.getReservation().setId(id);
                 } else {
                     reservationRepository.updateReservation(guestDomain.getReservation());
                 }
