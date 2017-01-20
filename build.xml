@@ -17,6 +17,7 @@
         <delete>
             <fileset dir="${build.dir}">
                 <include name="**/*.class"/>
+            	<include name="**/*.properties"/>
             </fileset>
         </delete>
     </target>
