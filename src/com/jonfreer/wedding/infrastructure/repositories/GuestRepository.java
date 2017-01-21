@@ -47,15 +47,15 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
     public Guest getGuest(int id) throws ResourceNotFoundException {
 
         Guest guest = null;
-        CallableStatement pStatement = null;
+        CallableStatement cStatement = null;
         ResultSet result = null;
 
         try {
-            pStatement =
+            cStatement =
                 this.getUnitOfWork().createCallableStatement("{CALL GetGuest(?)}");
 
-            pStatement.setInt(1, id);
-            result = pStatement.executeQuery();
+            cStatement.setInt(1, id);
+            result = cStatement.executeQuery();
 
             if (result.next()) {
                 guest = new Guest();
@@ -87,10 +87,10 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         } finally {
             //release resources needed.
             try {
-                if (pStatement != null) {
-                    pStatement.close();
+                if (cStatement != null && !cStatement.isClosed()) {
+                    cStatement.close();
                 }
-                if (result != null) {
+                if (result != null && !result.isClosed()) {
                     result.close();
                 }
             } catch (SQLException sqlEx) {
@@ -298,10 +298,10 @@ public class GuestRepository extends DatabaseRepository implements IGuestReposit
         } finally {
             //release resources needed.
             try {
-                if (cStatement != null) {
+                if (cStatement != null && !cStatement.isClosed()) {
                     cStatement.close();
                 }
-                if (result != null) {
+                if (result != null && !result.isClosed()) {
                     result.close();
                 }
             } catch (SQLException sqlEx) {

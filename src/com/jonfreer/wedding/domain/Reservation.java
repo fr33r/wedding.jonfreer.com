@@ -1,16 +1,15 @@
 package com.jonfreer.wedding.domain;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 /**
  * Represents a reservation made for the wedding.
  */
-@XmlRootElement(name = "reservation")
 public class Reservation implements Cloneable {
 
     private Integer id;
     private Boolean isAttending;
-    private java.util.Date submittedDateTime;
+    private Date submittedDateTime;
 
     /**
      * Default constructor for the Reservation class. Creates an empty Reservation object.
@@ -28,10 +27,10 @@ public class Reservation implements Cloneable {
      * @param isAttending       The Boolean value indicating true when attending, false otherwise.
      * @param submittedDateTime The date and time that the reservation was submitted.
      */
-    public Reservation(Integer id, Boolean isAttending, java.util.Date submittedDateTime) {
+    public Reservation(Integer id, Boolean isAttending, Date submittedDateTime) {
         this.id = id;
         this.isAttending = isAttending;
-        this.submittedDateTime = (java.util.Date) submittedDateTime.clone();
+        this.submittedDateTime = (Date) submittedDateTime.clone();
     }
 
     /**
@@ -78,8 +77,12 @@ public class Reservation implements Cloneable {
         Reservation reservationObj = null;
         try {
             reservationObj = (Reservation) super.clone();
-            reservationObj.submittedDateTime =
-                    (java.util.Date) reservationObj.submittedDateTime.clone();
+            
+            if(reservationObj.submittedDateTime != null){
+            	reservationObj.submittedDateTime =
+                    (Date) reservationObj.submittedDateTime.clone();
+            }
+            
         } catch (CloneNotSupportedException e) { /* not possible. */ }
 
         return reservationObj;
@@ -129,7 +132,7 @@ public class Reservation implements Cloneable {
      *
      * @return The date and time that the reservation was submitted.
      */
-    public java.util.Date getSubmittedDateTime() {
+    public Date getSubmittedDateTime() {
         return this.submittedDateTime;
     }
 
@@ -138,7 +141,7 @@ public class Reservation implements Cloneable {
      *
      * @param submittedDateTime The desired date and time that the reservation was submitted.
      */
-    public void setSubmittedDateTime(java.util.Date submittedDateTime) {
+    public void setSubmittedDateTime(Date submittedDateTime) {
         this.submittedDateTime = submittedDateTime;
     }
 }
