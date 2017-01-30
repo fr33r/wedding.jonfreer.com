@@ -7,9 +7,9 @@ var guestModule = (function(){
     return {
 
         //sets the current guest.
-        setCurrentGuest: function(var guest){
+        setCurrentGuest: function(guest){
 
-            if( typeof !== "object" ||
+            if( typeof guest !== "object" ||
                 guest.id === undefined ||
                 guest.givenName === undefined ||
                 guest.surname === undefined ||
@@ -26,23 +26,23 @@ var guestModule = (function(){
         //retrieves the current guest.
         getCurrentGuest: function(){
             return currentGuest;
-        }
+        },
 
         //retrieves guests that have the invite code provided.
-        getGuests: function(var inviteCode, var success, var error){
-
+        getGuests: function(inviteCode, success, error){
+        	
         },
 
         //retrieves a single guest by id.
-        getGuest: function(var id, var success, var error){
+        getGuest: function(id, success, error){
 
         },
 
         //replaces the current state of a guest with the
         //guest state provided.
-        updateGuest: function(var guest, var success, var error){
+        updateGuest: function(guest, success, error){
 
-            if( typeof !== "object" ||
+            if(typeof guest !== "object" ||
                 guest.id === undefined ||
                 guest.givenName === undefined ||
                 guest.surname === undefined ||
@@ -53,11 +53,11 @@ var guestModule = (function(){
                 throw "The guest object provided is invalid.";
             }
 
-            if(success !== undefined && typeof success === "function"){
+            if(success !== undefined && typeof success !== "function"){
                 throw "The value of the 'success' parameter must be a function.";
             }
 
-            if(error !== undefined && typeof error === "function"){
+            if(error !== undefined && typeof error !== "function"){
                 throw "The value of the 'error' parameter must be a function.";
             }
 
@@ -74,4 +74,4 @@ var guestModule = (function(){
             );
         }
     };
-})(ajaxModule);
+})(ajaxModule, cacheModule);
