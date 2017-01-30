@@ -1,21 +1,75 @@
-function Guest(firstName, lastName, inviteCode, description, dietaryRestrictions, reservation){
-  this.givenName = firstName;
-  this.surName = lastName;
-  this.inviteCode = inviteCode;
-  this.description = description;
-  this.dietaryRestrictions = dietaryRestrictions;
-  this.reservation = reservation;
-}
+var saveButton = window.document.getElementById("guest-info-save-button");
+var firstNameInput = window.document.getElementsByName("guest-first-name")[0];
+var lastNameInput = window.document.getElementsByName("guest-last-name")[0];
 
-function Reservation(isAttending){
-  this.isAttending = isAttending;
-}
+//register all elements that will raise events.
+eventModule.add("saveButton", saveButton);
+eventModule.add("lastName", lastNameInput);
 
-/*
-  Once focus is lost on the 'last name' field,
-  check to see if the 'first-name' field is filled out
-  and then perform an AJAX request.
-*/
+//register all listeners for events.
+eventModule.attach("saveButton", "click", function(e){
+	e.preventDefault();
+
+	var headers = {};
+	headers["Accept"] = "application/json";
+
+	ajaxModule.get(
+			"http://freer.ddns.net:8080/api/wedding/guests/?givenName=" +
+			firstNameInput.value + "&surname=" + lastNameInput.value,
+			headers,
+			function createOrUpdate(guests){
+				var headers = {};
+				headers["Accept"] = "application/json";
+				headers["Content-Type"] = "application/json";	
+
+				if(guests === null || guests.length === 0){						
+					ajaxModule.post(
+							"http://freer.ddns.net:8080/api/wedding/guests/", 
+							headers, readFields(), function(){}, error);
+				}else{
+					var guestReceived = guests[0];
+					var guestFromInput = readFields();
+					
+					if(guestReceived.reservation !== null){
+						
+					}
+					
+					//overlay field values.
+					guestReceived.givenName = guestFromInput.givenName;
+					guestReceived.surName = guestFromInput.surName;
+					guestReceived.description = guestFromInput.description;
+					guestReceived.inviteCode = guestFromInput.inviteCode;
+					guestReceived.dietaryRestrictions = guestFromInput.dietaryRestrictions;
+					
+					if(guestReceived.reservation !== null && guestFromInput.reservation !== null){
+						guestReceived.reservation.isAttending = guestFromInput.reservation.isAttending;
+					}else{
+						guestReceived.reservation = guestFromInput.reservation;
+					}
+					
+					ajaxModule.put(
+							"http://freer.ddns.net:8080/api/wedding/guests/" + guestReceived.id + "/", 
+							headers, guestReceived, function(){}, error);
+				}
+			},
+			error
+	);
+});
+
+eventModule.attach("lastName", "blur", function(e){
+	if(firstNameInput.value !== "" && lastNameInput.value !== ""){
+		var headers = {};
+		headers["Accept"] = "application/json";
+
+		ajaxModule.get(
+				"http://freer.ddns.net:8080/api/wedding/guests/?givenName=" +
+				firstNameInput.value + "&surname=" + lastNameInput.value,
+				headers,
+				overwriteFields,
+				error
+		);
+	}
+});
 
 function overwriteFields(guests){
 
@@ -64,9 +118,9 @@ function readFields(){
   var reservation = null;
 
   if(reservationStatus.selectedIndex === 1){
-    reservation = new Reservation(false);
+    reservation = new Reservation(null, false, null);
   }else if(reservationStatus.selectedIndex === 2){
-    reservation = new Reservation(true);
+    reservation = new Reservation(null, true, null);
   }
 
   var guest = new Guest(
@@ -81,61 +135,6 @@ function readFields(){
   return guest;
 }
 
-function success(response){
-  window.alert("success!");
-}
-
 function error(response){
-  window.alert(response.message);
-}
-
-function setupEventHandlers(){
-
-  //grab the 'first-name' field.
-  var firstNameInput = window.document.getElementsByName("guest-first-name")[0];
-
-  //grab the 'last-name' field.
-  var lastNameInput = window.document.getElementsByName("guest-last-name")[0];
-
-  //set up event handlers.
-  lastNameInput.addEventListener("blur", function blurEvent(e){
-    if(firstNameInput.value !== "" && lastNameInput.value !== ""){
-      ajaxModule.get(
-        "http://freer.ddns.net:8080/api/wedding/guests/?givenName=" +
-            firstNameInput.value + "&surname=" + lastNameInput.value,
-        [
-            { header: "Content-Type", value: "application/json" },
-            { header: "Accept", value: "application/json" },
-        ],
-        overwriteFields,
-        null
-      );
-    }
-  });
-
-  var saveButton = window.document.getElementById("guest-info-save-button");
-
-  saveButton.addEventListener("click", function(e){
-    e.preventDefault();
-    var guest = readFields();
-    ajaxModule.post(
-      "http://freer.ddns.net:8080/api/wedding/guests/",
-      [
-        { header: "Content-Type", value: "application/json" },
-        { header: "Accept", value: "application/json" },
-      ],
-      guest,
-      success,
-      error
-    );
-  });
-}
-
-var globalUtility = new Utility();
-
-window.onload = function(){
-	setupEventHandlers();
-
-  var guestDescription = window.document.getElementsByName("guest-description")[0];
-  guestDescription.value = 'Guest';
+  window.alert(response);
 }
