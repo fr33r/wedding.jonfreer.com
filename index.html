@@ -80,21 +80,26 @@
     </div>
 
     <!-- Modal Content: RSVP Code -->
-    <div id="rsvp-modal-content-code" class="modal-content">
-        <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
-        <input type="button" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
-        <span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
-    </div>
+	<div id="rsvp-modal-content-code" class="modal-content">
+		<form id="form-enter-code">
+			<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." /> 
+			<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline" /> 
+			<span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
+		</form>
+	</div>
 
-    <!-- Modal Content: RSVP Form -->
+		<!-- Modal Content: RSVP Form -->
     <div id="rsvp-modal-content-code-detail" class="modal-content">
-        <h1>jon freer</h1>
-        <h3>groom</h3>
-        <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
-                  placeholder="dietary restrictions"></textarea>
-        <input id="rsvp-submit-no" type="button" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-        <input id="rsvp-submit-yes" type="button" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-        <div>we ask that you respect our decision to have an adult only wedding.</div>
+    	<form id="form-rsvp-detail">
+	        <h1>jon freer</h1>
+	        <h3>groom</h3>
+	        <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
+	                  placeholder="dietary restrictions"></textarea>
+	        <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+	        <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+	        <div>we ask that you respect our decision to have an adult only wedding.</div>
+	        <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
+        </form>
     </div>
 
     <!-- Modal Content: Registry -->
@@ -208,11 +213,16 @@
 </footer>
 
 <script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/constructors/request.js"></script>
+<script type="text/javascript" src="js/constructors/response.js"></script>
+<script type="text/javascript" src="js/constructors/reservation.js"></script>
+<script type="text/javascript" src="js/modules/navigationModule.js"></script>
+<script type="text/javascript" src="js/modules/modalModule.js"></script>
+<script type="text/javascript" src="js/modules/cacheModule.js"></script>
+<script type="text/javascript" src="js/modules/logModule.js"></script>
+<script type="text/javascript" src="js/modules/ajaxModule.js"></script>
+<script type="text/javascript" src="js/modules/eventModule.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/navigationModule.js"></script>
-<script type="text/javascript" src="js/modalModule.js"></script>
-<script type="text/javascript" src="js/ajaxModule.js"></script>
-<script type="text/javascript" src="js/eventHandlers.js"></script>
 <script type="text/javascript" src="js/google-maps.js"></script>
 </body>
 </html>

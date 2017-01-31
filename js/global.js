@@ -99,3 +99,5 @@ function Utility(){
 		}
 	}
 }
+
+var globalUtility = new Utility();
