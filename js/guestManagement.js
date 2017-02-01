@@ -25,7 +25,7 @@ eventModule.attach("saveButton", "click", function(e){
 				if(guests === null || guests.length === 0){						
 					ajaxModule.post(
 							"http://freer.ddns.net:8080/api/wedding/guests/", 
-							headers, readFields(), function(){}, error);
+							headers, readFields(), function(){window.alert("successfully created new guest.");}, error);
 				}else{
 					var guestReceived = guests[0];
 					var guestFromInput = readFields();
@@ -49,7 +49,7 @@ eventModule.attach("saveButton", "click", function(e){
 					
 					ajaxModule.put(
 							"http://freer.ddns.net:8080/api/wedding/guests/" + guestReceived.id + "/", 
-							headers, guestReceived, function(){}, error);
+							headers, guestReceived, function(){window.alert("successfully updated guest.");}, error);
 				}
 			},
 			error
