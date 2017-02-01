@@ -1,5 +1,69 @@
 var ajaxModule = (function(){
 
+	//consider putting this in the cacheModule?
+	var isExpired = function(cachedResponse){
+		
+		//perform logic here on cache duration.
+		var ccHeader = cachedResponse.headers["Cache-Control"];
+		var dateHeader = cachedResponse.headers["Date"];
+
+		//if no cache control information can be found, always invalidate.
+		if(ccHeader === null || ccHeader === undefined || dateHeader === null || dateHeader === undefined){
+			return true;
+		}
+		
+		var ccHeaderValues = ccHeader.split(",");
+		
+		for(var i = 0; i < ccHeaderValues.length; i++){
+			
+			if(ccHeaderValues[i].trim().startsWith("max-age")){
+				
+				var maxAge = ccHeaderValues[i].split("=")[1];
+				var expiration = new Date(dateHeader).getTime() + (maxAge * 1000);
+				
+				logModule.log("Cached Response Expiration: " + new Date(expiration).toLocaleString());
+				
+				if(expiration >= new Date().getTime()){				
+					return false;			
+				}	
+			}
+		}
+		
+		return true;
+	};
+	
+	var isCachable = function(response){
+		
+		if(
+			response.headers["Cache-Control"] === undefined ||
+			response.headers["Cache-Control"] === null
+		){
+			return false;
+		}
+		
+		if(
+			response.headers["Date"] === undefined ||
+			response.headers["Date"] === null
+		){
+			return false;
+		}
+		
+		if(
+			response.headers["ETag"] === undefined ||
+			response.headers["ETag"] === null
+		){
+			return false;
+		}
+		
+		if(
+			response.headers["Last-Modified"] === undefined ||
+			response.headers["Last-Modified"] === null
+		){
+			return false;
+		}
+		
+		return true;
+	}
 	/**
 	 *  Sends an HTTP GET request.
 	 *  @param {String} The URI of the HTTP request.
@@ -18,33 +82,18 @@ var ajaxModule = (function(){
 			throw "The 'errorCallback' parameter must be a function.";
 		}
 
-		//first check the cache to see if we already have this resource.
-		if(cacheModule.get(request.uri) !== null){
-			var cachedResponse = cacheModule.get(request.uri);
-
-			//perform logic here on cache duration.
-			//var ccHeader = cachedResponse.headers["Cache-Control"];
-			//var dateHeader = cachedResponse.headers["Date"];
-
-			//var ccHeaderValues = ccHeader.split(",");
-			//for(var i = 0; i < ccHeaderValues.length; i++){
-			//if(ccHeaderValues[i].trim().startsWith("max-age")){
-			//var maxAge = ccHeaderValues[i].split("=")[1];
-			//var expiration = new Date(dateHeader) + maxAge;
-			//if(expiration > new Date()){
-			// return cached response.
-			//}else{
-			// perform conditional request.
-			//}
-			//}
-			//}
-
-			logModule.log("Using cached resource " + request.uri);
-			successCallback(cachedResponse.body);
-
-			return;
+		var cachedResponse = cacheModule.get(request.uri);
+		
+		if(cachedResponse !== null){
+			if(isExpired(cachedResponse)){
+				request.headers["If-None-Match"] = cachedResponse.headers["ETag"];
+				request.headers["If-Modified-Since"] = cachedResponse.headers["Last-Modified"];
+			}else{
+				successCallback(cachedResponse.body);
+				return;
+			}
 		}
-
+		
 		var internalXHR = new XMLHttpRequest();
 
 		internalXHR.addEventListener("load", function(){
@@ -58,8 +107,15 @@ var ajaxModule = (function(){
 
 			logModule.logResponse(response);
 
-			if(response.statusCode >= 200 && response.statusCode < 300){
-				cacheModule.add(response.uri, response);
+			if(response.statusCode === 304){
+				cacheModule.get(response.uri).headers["Date"] = response.headers["Date"];
+				cacheModule.get(response.uri).headers["ETag"] = response.headers["ETag"];
+				cacheModule.get(response.uri).headers["Last-Modified"] = response.headers["Last-Modified"];
+				successCallback(cacheModule.get(response.uri));
+			}else if(response.statusCode >= 200 && response.statusCode < 300){
+				if(isCachable(response)){
+					cacheModule.add(response.uri, response);
+				}
 				successCallback(response.body);
 			}else{
 				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
