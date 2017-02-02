@@ -51,12 +51,8 @@ eventModule.attach("coming-button", "click", function(e){
 	
 	getGuest(guestId, function(guest){
 		guest.reservation = new Reservation(null, true, null);
-		updateGuest(guest, submitRsvpSuccessHandler, function(){
-			window.alert("you break it, you buy it! don't worry, we are on it.");
-		});
-	}, function(){
-		window.alert("you break it, you buy it! don't worry, we are on it.");
-	});
+		updateGuest(guest, submitRsvpSuccessHandler, submitRsvpErrorHandler);
+	}, submitRsvpErrorHandler);
 });
 
 eventModule.attach("not-coming-button", "click", function(e){
@@ -66,12 +62,8 @@ eventModule.attach("not-coming-button", "click", function(e){
 	getGuest(guestId, function(guest){
 		guest.reservation = new Reservation(null, false, null);
 		guest.dietaryRestrictions = window.document.getElementById("guest-dietary-restrictions").value;
-		updateGuest(guest, submitRsvpSuccessHandler, function(){
-			window.alert("you break it, you buy it! don't worry, we are on it.");
-		});
-	}, function(){
-		window.alert("you break it, you buy it! don't worry, we are on it.");
-	});
+		updateGuest(guest, submitRsvpSuccessHandler, submitRsvpErrorHandler);
+	}, submitRsvpErrorHandler);
 });
 
 function updateGuest(guest, success, fail){
@@ -182,14 +174,16 @@ function submitRsvpSuccessHandler(){
 	modalModule.show();
 }
 
-function submitRsvpErrorHandler(){
+function submitRsvpErrorHandler(message){
 	var rsvpError = window.document.getElementById("rsvp-modal-error");
 	var paragraph = rsvpError.getElementsByTagName("p")[0];
-	paragraph.innerText = "whoa! something happened there. give it another go.";
+	paragraph.innerText = message;
 
 	modalModule.configure({
 		modalContentID: "rsvp-modal-error"
 	});
+	
+	modalModule.show();
 }
 
 /*

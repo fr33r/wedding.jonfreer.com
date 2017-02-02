@@ -43,52 +43,51 @@
 
     <!-- Modal Content: RSVP Error -->
     <div id="rsvp-modal-error" class="modal-content">
-        <form method="POST">
-            <h1>oops...</h1>
-            <p>there was an issue when attempting to submit your RSVP.</p>
-        </form>
+    	<div class="vert-horiz-centered">
+	        <h1>oops...</h1>
+	        <p>there was an issue when attempting to submit your rsvp.</p>
+        </div>
     </div>
 
     <!-- Modal Content: RSVP Success -->
     <div id="rsvp-modal-success" class="modal-content">
-        <form method="POST">
-            <h1>we got it!</h1>
-            <p>thanks for submitting our rsvp.</p>
-        </form>
+    	<div class="vert-horiz-centered">
+	        <h1>we got it!</h1>
+	        <p>thanks for submitting our rsvp.</p>
+        </div>
+    </div>
+
+    <!-- Model Content: RSVP List -->
+    <div id="rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;"></div>
+
+    <!-- Modal Content: All RSVPs Received -->
+    <div id="rsvp-all-guests-have-reservation" class="modal-content">
+        <div class="vert-horiz-centered">
+            <h1>you're all set!</h1>
+            <p>kick back and we'll see you on the big day.</p>
+        </div>
     </div>
 
     <!-- Modal Content: RSVP Code -->
-    <div id="rsvp-modal-content-code" class="modal-content">
-        <form id="form-enter-code" method="POST">
-            <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
-            <input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
-            <span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
-        </form>
-    </div>
+	<div id="rsvp-modal-content-code" class="modal-content">
+		<form id="form-enter-code">
+			<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." /> 
+			<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline" /> 
+			<span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
+		</form>
+	</div>
 
-    <!-- Modal Content: RSVP Form -->
+		<!-- Modal Content: RSVP Form -->
     <div id="rsvp-modal-content-code-detail" class="modal-content">
-        <form id="form-rsvp-detail" method="POST">
-
-            <h1>jon freer</h1>
-            <!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
-            <h3>groom</h3>
-
-            <!--<div id = "guest-info" class="show-guest-info">
-
-                <!-- Guest info when applicable
-                <input type="text" name="guest-first-name" placeholder="guest first name" />
-                <input type="text" name="guest-last-name" placeholder="guest last name" />
-
-            </div>-->
-
-            <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
-                      placeholder="dietary restrictions"></textarea>
-
-            <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-            <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-            <div>we ask that you respect our decision to have an adult only wedding.</div>
-            <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
+    	<form id="form-rsvp-detail">
+	        <h1>jon freer</h1>
+	        <h3>groom</h3>
+	        <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
+	                  placeholder="dietary restrictions"></textarea>
+	        <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+	        <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+	        <div>we ask that you respect our decision to have an adult only wedding.</div>
+	        <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
         </form>
     </div>
 
@@ -218,35 +217,6 @@
         </div>
     </div>
 </a>
-<!--
-<a href="http://www.americanlegacytours.com/ultimate-underground/" class="tile-link">
-    <div class="tile-button">
-        <div class="vert-horiz-centered">
-            <img src="img/icon/marker-64.png" />
-            <h2>OTR Tour</h2>
-            <h3>Tour</h3>
-        </div>
-    </div>
-</a>
-<a href="http://www.cincinnatibrewerytours.com/" class="tile-link">
-    <div class="tile-button">
-        <div class="vert-horiz-centered">
-            <img src="img/icon/marker-64.png" />
-            <h2>Cincinnati Brewery Tours</h2>
-            <h3>Brewery/Tour</h3>
-        </div>
-    </div>
-</a>
-<a href="http://www.cincyredbike.org/locations/" class="tile-link">
-    <div class="tile-button">
-        <div class="vert-horiz-centered">
-            <img src="img/icon/marker-64.png" />
-            <h2>Cincinnati Red Bike Locations</h2>
-            <h3>Biking</h3>
-        </div>
-    </div>
-</a>
--->
 <a href="http://cincinnatiusa.com/things-to-do/attractions/smale-riverfront-park" class="tile-link">
     <div class="tile-button">
         <div class="vert-horiz-centered">
