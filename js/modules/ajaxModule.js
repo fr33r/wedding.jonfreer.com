@@ -118,21 +118,26 @@ var ajaxModule = (function(){
 				}
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
 
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
@@ -157,6 +162,7 @@ var ajaxModule = (function(){
 	 *  @param {Function} The callback that is invoked upon error.
 	 */
 	var internalPost = function(request, successCallback, errorCallback){
+		
 		if(typeof successCallback !== "function"){
 			throw "The 'successCallback' parameter must be a function.";
 		}
@@ -181,20 +187,26 @@ var ajaxModule = (function(){
 				cacheModule.add(response.uri, response);
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+			
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
@@ -246,21 +258,26 @@ var ajaxModule = (function(){
 				cacheModule.remove(response.uri);
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
 
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+			
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
@@ -310,20 +327,26 @@ var ajaxModule = (function(){
 				cacheModule.add(response.uri, response);
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+			
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
@@ -380,21 +403,26 @@ var ajaxModule = (function(){
 			if(response.statusCode >= 200 && response.statusCode < 300){
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
 
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+			
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
@@ -442,21 +470,26 @@ var ajaxModule = (function(){
 			if(response.statusCode >= 200 && response.statusCode < 300){
 				successCallback(response.body);
 			}else{
-				errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 			}
 		});
 
 		internalXHR.addEventListener("error", function(){
 
-			var response = new Response(
-					internalXHR.status, 
-					internalXHR.statusText, 
-					request.uri, 
-					internalXHR.getAllResponseHeaders(), 
-					internalXHR.responseText);
+			if(internalXHR.status !== 0){
+				var response = new Response(
+						internalXHR.status, 
+						internalXHR.statusText, 
+						request.uri, 
+						internalXHR.getAllResponseHeaders(), 
+						internalXHR.responseText);
 
-			logModule.logResponse(response);
-			errorCallback("An error occurred: " + response.statusCode + " " + response.statusText);
+				logModule.logResponse(response);
+			}else{
+				logModule.log("Could not connect to server.");
+			}
+			
+			errorCallback("you break it, you buy it! not really, but now we have to fix something.");
 		});
 
 		internalXHR.open(request.method, request.uri);
