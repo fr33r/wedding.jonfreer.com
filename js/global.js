@@ -19,7 +19,7 @@ function Utility(){
 					element.className += (" " + classToAdd);
 				}
 
-				console.log("Successfully added the '" + classToAdd + "'.");
+				//console.log("Successfully added the '" + classToAdd + "'.");
 
 			}else{
 				throw new ArguementException("You did not specify the class to add or the element to add the class to.");
@@ -99,3 +99,5 @@ function Utility(){
 		}
 	}
 }
+
+var globalUtility = new Utility();

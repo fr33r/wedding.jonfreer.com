@@ -12,8 +12,7 @@
     <meta name="keywords" content="Enter some keywords here."/>
     <meta name="googlebot" content="index; follow"/>
     <meta name="robots" content="index; follow"/>
-    <meta name-
-    "slurp" content="index; follow"/>
+    <meta name="slurp" content="index; follow"/>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css" type="text/css"/>
@@ -59,51 +58,22 @@
 
     <!-- Modal Content: RSVP Error -->
     <div id="rsvp-modal-error" class="modal-content">
-        <form method="POST">
-            <h1>oops...</h1>
-            <p>there was an issue when attempting to submit your rsvp.</p>
-        </form>
+    	<div class="vert-horiz-centered">
+	        <h1>oops...</h1>
+	        <p>there was an issue when attempting to submit your rsvp.</p>
+        </div>
     </div>
 
     <!-- Modal Content: RSVP Success -->
     <div id="rsvp-modal-success" class="modal-content">
-        <form method="POST">
-            <h1>we got it!</h1>
-            <p>thanks for submitting our rsvp.</p>
-        </form>
+    	<div class="vert-horiz-centered">
+	        <h1>we got it!</h1>
+	        <p>thanks for submitting our rsvp.</p>
+        </div>
     </div>
 
     <!-- Model Content: RSVP List -->
-    <div id="rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;">
-        <!-- Dynamically add matching guests for invite code here...
-        <div class="vert-horiz-centered">
-            <div class="matching-guest-card">
-                <h2>Jon Freer</h2>
-                <h4>Groom</h4>
-            </div>
-            <hr class = "section-header-bar spaced" />
-            <div class="matching-guest-card">
-                <h2>Emma Paas</h2>
-                <h4>Bride</h4>
-            </div>
-            <hr class = "section-header-bar spaced" />
-            <div class="matching-guest-card">
-                <h2>Sandy Freer</h2>
-                <h4>Mother of the Groom</h4>
-            </div>
-            <hr class = "section-header-bar spaced" />
-            <div class="matching-guest-card">
-                <h2>Dustin Freer</h2>
-                <h4>Best Man</h4>
-            </div>
-            <hr class = "section-header-bar spaced" />
-            <div class="matching-guest-card">
-                <h2>Alex Lord</h2>
-                <h4>Groomsman</h4>
-            </div>
-        </div>-->
-
-    </div>
+    <div id="rsvp-model-matching-guest-list" class="modal-content" style="text-align:center;"></div>
 
     <!-- Modal Content: All RSVPs Received -->
     <div id="rsvp-all-guests-have-reservation" class="modal-content">
@@ -114,29 +84,25 @@
     </div>
 
     <!-- Modal Content: RSVP Code -->
-    <div id="rsvp-modal-content-code" class="modal-content">
-        <form id="form-enter-code" method="POST">
-            <input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..."/>
-            <input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline"/>
-            <span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
-        </form>
-    </div>
+	<div id="rsvp-modal-content-code" class="modal-content">
+		<form id="form-enter-code">
+			<input id="rsvp-code-input" type="text" name="rsvp-code" placeholder="enter code..." /> 
+			<input type="submit" id="rsvp-code-submit-button" name="rsvp-submit" value="enter" class="inline" /> 
+			<span id="rsvp-modal-content-code-error-message">the code you have entered is invalid.</span>
+		</form>
+	</div>
 
-    <!-- Modal Content: RSVP Form -->
+		<!-- Modal Content: RSVP Form -->
     <div id="rsvp-modal-content-code-detail" class="modal-content">
-        <form id="form-rsvp-detail" method="POST">
-
-            <h1>jon freer</h1>
-            <!--<img class = "section-icon" src = "img/clothing2.svg"/>-->
-            <h3>groom</h3>
-
-            <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
-                      placeholder="dietary restrictions"></textarea>
-
-            <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
-            <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
-            <div>we ask that you respect our decision to have an adult only wedding.</div>
-            <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
+    	<form id="form-rsvp-detail">
+	        <h1>jon freer</h1>
+	        <h3>groom</h3>
+	        <textarea id="guest-dietary-restrictions" name="guest-dietary-restrictions"
+	                  placeholder="dietary restrictions"></textarea>
+	        <input id="rsvp-submit-no" type="submit" name="rsvp-submit-no" value="i can't make it" class="inline"/>
+	        <input id="rsvp-submit-yes" type="submit" name="rsvp-submit-yes" value="i'll be there" class="inline"/>
+	        <div>we ask that you respect our decision to have an adult only wedding.</div>
+	        <input id="guest-id" type="hidden" name="guest-id-hidden-input"/>
         </form>
     </div>
 
@@ -251,11 +217,16 @@
 </footer>
 
 <script type="text/javascript" src="js/global.js"></script>
+<script type="text/javascript" src="js/constructors/request.js"></script>
+<script type="text/javascript" src="js/constructors/response.js"></script>
+<script type="text/javascript" src="js/constructors/reservation.js"></script>
+<script type="text/javascript" src="js/modules/navigationModule.js"></script>
+<script type="text/javascript" src="js/modules/modalModule.js"></script>
+<script type="text/javascript" src="js/modules/cacheModule.js"></script>
+<script type="text/javascript" src="js/modules/logModule.js"></script>
+<script type="text/javascript" src="js/modules/ajaxModule.js"></script>
+<script type="text/javascript" src="js/modules/eventModule.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript" src="js/navigationModule.js"></script>
-<script type="text/javascript" src="js/modalModule.js"></script>
-<script type="text/javascript" src="js/ajaxModule.js"></script>
-<script type="text/javascript" src="js/eventHandlers.js"></script>
 <script type="text/javascript" src="js/google-maps.js"></script>
 </body>
 </html>
