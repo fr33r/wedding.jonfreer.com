@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cheers to the Freer: Guest List</title>
+		<link rel="stylesheet" type="text/css" href="css/global-font.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="css/guestList.css">
+	</head>
+	<body>
+		
+		<!-- Page Header -->
+		<div id = "page-header" class ="quarter-section">
+			<div class="vert-horiz-centered">
+				<h1>guest list</h1>
+				<hr class = "section-header-bar"/>
+			</div>
+		</div>
+
+		<!-- Guest List (Not Coming) -->
+		<h2>can't make it.</h2>
+		<table id="not-coming">
+			<thead>
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>RSVP Date/Time</td>
+				</tr>
+			</thead>
+		</table>
+
+		<!-- Guest List (Coming) -->
+		<h2>coming.</h2>
+		<table id = "coming">
+			<thead>
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Dietary Restrictions</td>
+					<td>RSVP Date/Time</td>
+				</tr>
+			</thead>
+		</table>
+
+		<!-- Guest List (No RSVP) -->
+		<h2>haven't heard yet.</h2>
+		<table id ="no-rsvp">
+			<thead>
+				<tr>
+					<td>First Name</td>
+					<td>Last Name</td>
+					<td>Invite Code</td>
+				</tr>
+			</thead>
+		</table>
+		
+		<script type="text/javascript" src="js/constructors/response.js"></script>
+		<script type="text/javascript" src="js/constructors/request.js"></script>
+		<script type="text/javascript" src="js/modules/logModule.js"></script>
+		<script type="text/javascript" src="js/modules/cacheModule.js"></script>
+		<script type="text/javascript" src="js/modules/ajaxModule.js"></script>
+		<script type="text/javascript" src="js/guestList.js"></script>
+	</body>
+</html>
