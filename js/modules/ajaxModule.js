@@ -1,4 +1,4 @@
-var ajaxModule = (function(){
+var ajaxModule = (function(cacheMoule, logModule){
 
 	//consider putting this in the cacheModule?
 	var isExpired = function(cachedResponse){
