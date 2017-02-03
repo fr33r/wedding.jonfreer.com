@@ -1,4 +1,4 @@
-function initializeMap(){
+(function initializeMap(){
     var googleMap = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 39.14,  lng: -84.5187659
@@ -356,4 +356,4 @@ function initializeMap(){
         moerleinInfoWindow.open(googleMap, moerleinMarker);
     });
 
-}
+})();

@@ -1,4 +1,4 @@
-function initializeMap(){
+(function initializeMap(){
     var googleMap = new google.maps.Map(document.getElementById('map'), {
         center: {
             lat: 39.106,  lng: -84.5187659
@@ -256,5 +256,4 @@ function initializeMap(){
     theMilleniumMarker.addListener('click', function() {
         theMilleniumInfoWindow.open(googleMap, theMilleniumMarker);
     });
-
-}
+})();
