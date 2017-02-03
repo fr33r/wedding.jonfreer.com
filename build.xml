@@ -35,6 +35,10 @@
             </fileset>
         </copy>
     </target>
+	
+	<target name="test">
+	
+	</target>
 
     <target name="war" description="Constructing ${war.name}." depends="build">
         <war destfile="${war.name}" webxml="${web.dir}/WEB-INF/web.xml">
