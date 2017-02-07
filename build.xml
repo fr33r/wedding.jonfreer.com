@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <project name="wedding.jonfreer.com" basedir="." default="build">
     <property name="src.dir" value="src"/>
+	<property name="test.dir" value="test"/>
     <property name="web.dir" value="WebContent"/>
     <property name="build.dir" value="${web.dir}/WEB-INF/classes"/>
     <property name="lib.dir" value="${web.dir}/WEB-INF/lib"/>
     <property name="war.name" value="api.war" />
+	<property name="testresults.dir" value="testresults"/>
 
     <path id="master-classpath">
         <fileset dir="${web.dir}/WEB-INF/lib">
@@ -19,6 +21,12 @@
             <fileset dir="${build.dir}">
                 <include name="**/*.class"/>
             	<include name="**/*.properties"/>
+            </fileset>
+        </delete>
+    	<mkdir dir="${testresults.dir}"/>
+    	<delete>
+            <fileset dir="${testresults.dir}">
+                <include name="**/*.txt"/>
             </fileset>
         </delete>
     </target>
@@ -36,9 +44,28 @@
             </fileset>
         </copy>
     </target>
-	
-	<target name="test" description="Running tests." depends="build">
-		
+
+	<target name="build-test"
+            description="Compiling Java source files in the ${test.dir} directory." depends="build,clean">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}" srcdir="${test.dir}" source="1.8" target="1.8">
+            <include name="**/*.java"/>
+            <classpath refid="master-classpath"/>
+        </javac>
+    </target>
+
+	<target name="test" description="Running tests." depends="build-test">
+		<junit printsummary="on" logfailedtests="true" showoutput="true">
+			<classpath refid="master-classpath"/>
+			<formatter type="plain" usefile="false"/>
+			<formatter type="plain"/>
+			
+			<batchtest todir="${testresults.dir}">
+				<fileset dir="${test.dir}">
+					<include name="**/*TestSuite.java"/>
+				</fileset>
+			</batchtest>
+		</junit>
 	</target>
 
     <target name="war" description="Constructing ${war.name}." depends="test">
