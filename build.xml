@@ -14,6 +14,7 @@
     </path>
 
     <target name="clean" description="Cleaning the ${build.dir} directory.">
+    	<mkdir dir="${build.dir}"/>
         <delete>
             <fileset dir="${build.dir}">
                 <include name="**/*.class"/>
@@ -35,8 +36,12 @@
             </fileset>
         </copy>
     </target>
+	
+	<target name="test" description="Running tests." depends="build">
+		
+	</target>
 
-    <target name="war" description="Constructing ${war.name}." depends="build">
+    <target name="war" description="Constructing ${war.name}." depends="test">
         <war destfile="${war.name}" webxml="${web.dir}/WEB-INF/web.xml">
             <fileset dir="${web.dir}">
                 <include name="**/*.*"/>
