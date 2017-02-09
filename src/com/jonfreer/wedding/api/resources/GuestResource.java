@@ -126,6 +126,10 @@ public class GuestResource implements IGuestResource {
     	ResourceMetadata resourceMetadata = 
     			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
         
+    	CacheControl cacheControl = new CacheControl();
+        cacheControl.setMaxAge(300);
+        cacheControl.setPrivate(true);
+    	
     	if(resourceMetadata != null){
     		
     		//check for conditional GET.
@@ -134,6 +138,7 @@ public class GuestResource implements IGuestResource {
             		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
             if(responseBuilder != null){
             	return responseBuilder
+            			.cacheControl(cacheControl)
             			.header("Last-Modified", resourceMetadata.getLastModified())
             			.build();
             }
@@ -153,9 +158,6 @@ public class GuestResource implements IGuestResource {
             		this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
         }
         
-        CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(300);
-        cacheControl.setPrivate(true);
         return Response
         			.ok(guest)
     				.cacheControl(cacheControl)
