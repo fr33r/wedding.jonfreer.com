@@ -9,7 +9,6 @@ import com.jonfreer.wedding.servicemodel.metadata.ResourceMetadata;
 import com.jonfreer.wedding.servicemodel.Guest;
 import com.jonfreer.wedding.servicemodel.GuestSearchCriteria;
 
-import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
@@ -35,8 +34,7 @@ public class GuestResource implements IGuestResource {
     @Inject
     private IResourceMetadataService resourceMetadataService;
 
-    public GuestResource() {
-    }
+    public GuestResource() {}
 
     /**
      * Retrieves the collection of guest resources. Optional filter
@@ -92,8 +90,6 @@ public class GuestResource implements IGuestResource {
         return Response
         		.created(URI.create(location))
         		.entity(guest)
-        		.header("Last-Modified", lastModified)
-        		.tag(new EntityTag(entityTag))
         		.build();
     }
 
@@ -122,30 +118,12 @@ public class GuestResource implements IGuestResource {
     		Request request, 
     		UriInfo uriInfo, 
     		int id) throws ResourceNotFoundException {
-    	
-    	ResourceMetadata resourceMetadata = 
-    			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
-        
-    	CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(300);
-        cacheControl.setPrivate(true);
-    	
-    	if(resourceMetadata != null){
-    		
-    		//check for conditional GET.
-            EntityTag entityTag = new EntityTag(resourceMetadata.getEntityTag());
-            ResponseBuilder responseBuilder = 
-            		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
-            if(responseBuilder != null){
-            	return responseBuilder
-            			.cacheControl(cacheControl)
-            			.header("Last-Modified", resourceMetadata.getLastModified())
-            			.build();
-            }
-    	}
-    	
+
         Guest guest = this.guestService.getGuest(id);
              
+    	ResourceMetadata resourceMetadata = 
+		this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+        
         if(resourceMetadata == null){
         	
         	Date lastModified = Calendar.getInstance(TimeZone.getTimeZone("UTC")).getTime();
@@ -160,7 +138,6 @@ public class GuestResource implements IGuestResource {
         
         return Response
         			.ok(guest)
-    				.cacheControl(cacheControl)
     				.header("Last-Modified", resourceMetadata.getLastModified())
 					.tag(new EntityTag(resourceMetadata.getEntityTag()))
 					.build();
@@ -179,26 +156,15 @@ public class GuestResource implements IGuestResource {
     		Request request, 
     		UriInfo uriInfo, 
     		int id, Guest desiredGuestState) throws ResourceNotFoundException{
-    	
-    	ResourceMetadata resourceMetadata = 
-    			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
-        
-    	if(resourceMetadata != null){
-    		
-    		//check for conditional PUT.
-            EntityTag entityTag = new EntityTag(resourceMetadata.getEntityTag());
-            ResponseBuilder responseBuilder = 
-            		request.evaluatePreconditions(resourceMetadata.getLastModified(), entityTag);
-            if(responseBuilder != null){
-            	return responseBuilder.build();
-            }
-    	}
-        
+ 
         this.guestService.updateGuest(desiredGuestState);
         Guest guest = guestService.getGuest(id);
         
         ResponseBuilder responseBuilder = Response.ok(guest);
-        		   
+        		
+    	ResourceMetadata resourceMetadata = 
+			this.resourceMetadataService.getResourceMetadata(uriInfo.getRequestUri());
+        
         if(resourceMetadata != null){
         	
         	//update resource metadata.
