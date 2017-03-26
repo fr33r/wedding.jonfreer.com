@@ -1,18 +1,15 @@
-package com.jonfreer.wedding.application.interfaces.services;
-
-import com.jonfreer.wedding.servicemodel.metadata.ResourceMetadata;
-import org.jvnet.hk2.annotations.Contract;
+package com.jonfreer.wedding.infrastructure.interfaces.services;
 
 import java.net.URI;
 
-/**
- * @author jonfreer
- * @since 1/5/17
- */
-@Contract
-public interface IResourceMetadataService {
+import org.jvnet.hk2.annotations.Contract;
 
-    /**
+import com.jonfreer.wedding.infrastructure.metadata.ResourceMetadata;
+
+@Contract
+public interface ResourceMetadataService {
+
+	/**
      * Retrieves resource metadata for a resource identified by
      * the provided URI.
      * @param uri The URI of the resource to retrieve metadata for.

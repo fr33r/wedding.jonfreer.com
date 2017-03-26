@@ -8,12 +8,12 @@ import com.jonfreer.wedding.api.filters.CacheControlFilter;
 import com.jonfreer.wedding.api.filters.ConditionalGetFilter;
 import com.jonfreer.wedding.api.filters.ConditionalPutFilter;
 import com.jonfreer.wedding.hk2.IGuestServiceBinder;
+import com.jonfreer.wedding.hk2.EntityTagServiceBinder;
 import com.jonfreer.wedding.hk2.IDatabaseUnitOfWorkFactoryBinder;
 import com.jonfreer.wedding.hk2.IExceptionRepositoryFactoryBinder;
 import com.jonfreer.wedding.hk2.IReservationRepositoryFactoryBinder;
 import com.jonfreer.wedding.hk2.IGuestRepositoryFactoryBinder;
-import com.jonfreer.wedding.hk2.IResourceMetadataRepositoryFactoryBinder;
-import com.jonfreer.wedding.hk2.IResourceMetadataServiceBinder;
+import com.jonfreer.wedding.hk2.ResourceMetadataServiceBinder;
 import com.jonfreer.wedding.hk2.MapperBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -44,8 +44,8 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
         this.register(new IReservationRepositoryFactoryBinder());
         this.register(new IExceptionRepositoryFactoryBinder());
         this.register(new IDatabaseUnitOfWorkFactoryBinder());
-        this.register(new IResourceMetadataRepositoryFactoryBinder());
-        this.register(new IResourceMetadataServiceBinder());
+        this.register(new ResourceMetadataServiceBinder());
         this.register(new MapperBinder());
+        this.register(new EntityTagServiceBinder());
     }
 }
