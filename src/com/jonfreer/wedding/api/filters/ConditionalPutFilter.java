@@ -5,22 +5,21 @@ import java.io.IOException;
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 
-import com.jonfreer.wedding.application.interfaces.services.IResourceMetadataService;
-import com.jonfreer.wedding.servicemodel.metadata.ResourceMetadata;
+import com.jonfreer.wedding.infrastructure.interfaces.services.ResourceMetadataService;
+import com.jonfreer.wedding.infrastructure.metadata.ResourceMetadata;
 
 @Provider
 public class ConditionalPutFilter implements ContainerRequestFilter {
 
-	private IResourceMetadataService resourceMetadataService;
+	private ResourceMetadataService resourceMetadataService;
 	
 	@Inject
-	public ConditionalPutFilter(IResourceMetadataService resourceMetadataService){
+	public ConditionalPutFilter(ResourceMetadataService resourceMetadataService){
 		this.resourceMetadataService = resourceMetadataService;
 	}
 	
@@ -40,7 +39,7 @@ public class ConditionalPutFilter implements ContainerRequestFilter {
 				ResponseBuilder responseBuilder = 
 					request.evaluatePreconditions(
 						resourceMetadata.getLastModified(), 
-						new EntityTag(resourceMetadata.getEntityTag()));
+						resourceMetadata.getEntityTag());
 				
 				if(responseBuilder != null){
 					requestContext.abortWith(responseBuilder.build());
