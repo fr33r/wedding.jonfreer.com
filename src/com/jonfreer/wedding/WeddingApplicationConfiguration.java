@@ -10,8 +10,8 @@ import com.jonfreer.wedding.api.filters.ConditionalPutFilter;
 import com.jonfreer.wedding.hk2.IGuestServiceBinder;
 import com.jonfreer.wedding.hk2.EntityTagServiceBinder;
 import com.jonfreer.wedding.hk2.IDatabaseUnitOfWorkFactoryBinder;
-import com.jonfreer.wedding.hk2.IExceptionRepositoryFactoryBinder;
 import com.jonfreer.wedding.hk2.IReservationRepositoryFactoryBinder;
+import com.jonfreer.wedding.hk2.LogServiceBinder;
 import com.jonfreer.wedding.hk2.IGuestRepositoryFactoryBinder;
 import com.jonfreer.wedding.hk2.ResourceMetadataServiceBinder;
 import com.jonfreer.wedding.hk2.MapperBinder;
@@ -42,10 +42,10 @@ public class WeddingApplicationConfiguration extends ResourceConfig {
         this.register(new IGuestServiceBinder());
         this.register(new IGuestRepositoryFactoryBinder());
         this.register(new IReservationRepositoryFactoryBinder());
-        this.register(new IExceptionRepositoryFactoryBinder());
         this.register(new IDatabaseUnitOfWorkFactoryBinder());
         this.register(new ResourceMetadataServiceBinder());
         this.register(new MapperBinder());
         this.register(new EntityTagServiceBinder());
+        this.register(new LogServiceBinder());
     }
 }
