@@ -30,7 +30,6 @@ eventModule.attach("nav-button", "click", function(){
 eventModule.attach("enter-code-button", "click", function(e){
 	e.preventDefault();
 	var headers = {};
-	headers["Content-Type"] = "application/json";
 	headers["Accept"] = "application/json";
 	
 	ajaxModule.get(
